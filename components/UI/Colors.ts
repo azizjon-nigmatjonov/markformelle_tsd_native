@@ -1,0 +1,28 @@
+export const globalColors = {
+  white: "#fff",
+  black: "#18191f",
+  black20: "#1E1E1E",
+  black30: "#1B1B1D",
+  background: "#111015",
+  primary: "#3559c7",
+  primary20: "#8ebcee",
+  primary30: "#8ebcee55",
+  primary40: "#BBD7EC",
+  primary50: "#3559C733",
+  grey: "#9092a3",
+  grey20: "#eceff2",
+  grey30: "#f9f9f9",
+  lightGrey: "#ebf0fa",
+  hover: "#9092a322",
+  border: "#E0E3EB",
+  main: "#ab077e",
+  main10: "#a63afd10",
+  main20: "#9b1c78",
+  main50: "#a63afd55",
+  orange: "#ff7f00",
+  error: "red",
+  success: "#0fc44c",
+  yellow: "rgb(255, 168, 0)",
+} as const;
+
+export type GlobalColors = typeof globalColors;

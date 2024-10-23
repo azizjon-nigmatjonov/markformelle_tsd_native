@@ -1,9 +1,10 @@
-import { Tabs } from 'expo-router';
-import React from 'react';
-
-import { TabBarIcon } from '@/components/navigation/TabBarIcon';
-import { Colors } from '@/constants/Colors';
-import { useColorScheme } from '@/hooks/useColorScheme';
+import { Tabs } from "expo-router";
+import React from "react";
+import { Text, StyleSheet } from "react-native";
+import { Colors } from "@/constants/Colors";
+import { useColorScheme } from "@/hooks/useColorScheme";
+import { HomeIcon, InstructionIcon, SettingIcon } from "@/components/UI/Icons";
+import { globalColors } from "@/components/UI/Colors";
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
@@ -11,27 +12,80 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
+        tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
         headerShown: false,
-      }}>
+      }}
+    >
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Home',
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'home' : 'home-outline'} color={color} />
+          title: "Главная",
+          tabBarIcon: ({ focused }) => (
+            <HomeIcon
+              color={focused ? globalColors.black : globalColors.grey}
+            />
+          ),
+          tabBarLabel: ({ focused }) => (
+            <Text
+              style={[
+                styles.tabBarLabel,
+                { color: focused ? globalColors.black : globalColors.grey },
+              ]}
+            >
+              Главная
+            </Text>
           ),
         }}
       />
       <Tabs.Screen
-        name="explore"
+        name="instruction"
         options={{
-          title: 'Explore',
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'code-slash' : 'code-slash-outline'} color={color} />
+          title: "Инструкция",
+          tabBarIcon: ({ focused }) => (
+            <InstructionIcon
+              color={focused ? globalColors.black : globalColors.grey}
+            />
+          ),
+          tabBarLabel: ({ focused }) => (
+            <Text
+              style={[
+                styles.tabBarLabel,
+                { color: focused ? globalColors.black : globalColors.grey },
+              ]}
+            >
+              Инструкция
+            </Text>
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="settings"
+        options={{
+          title: "Настройки",
+          tabBarIcon: ({ focused }) => (
+            <SettingIcon
+              color={focused ? globalColors.black : globalColors.grey}
+            />
+          ),
+          tabBarLabel: ({ focused }) => (
+            <Text
+              style={[
+                styles.tabBarLabel,
+                { color: focused ? globalColors.black : globalColors.grey },
+              ]}
+            >
+              Настройки
+            </Text>
           ),
         }}
       />
     </Tabs>
   );
 }
+
+const styles = StyleSheet.create({
+  tabBarLabel: {
+    fontSize: 12,
+    fontWeight: "bold",
+  },
+});
