@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text } from "react-native";
 import { ReactNode } from "react";
-import { useAuthStore } from "../../store/auth"; // Adjust path as necessary
+import { useAuthStore } from "../../store/auth";
 import { StyleSheet, ViewStyle, TextStyle } from "react-native";
 import { globalColors } from "./Colors";
 
@@ -33,7 +33,7 @@ const HeaderUI = ({ place = "", extra }: Props) => {
 
 const styles = StyleSheet.create({
   headerWrapper: {
-    paddingBottom: 70,
+    paddingBottom: 75,
   } as ViewStyle,
   header: {
     backgroundColor: globalColors.main,
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     color: "white",
   } as TextStyle,
   greyText: {
-    color: "grey",
+    color: globalColors.grey,
   } as TextStyle,
 });
 

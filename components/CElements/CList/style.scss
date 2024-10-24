@@ -1,0 +1,44 @@
+.list {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    .header {
+        display: flex;
+        // justify-content: space-between;
+
+        .cell {
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 11px;
+        }
+    }
+
+    .body {
+        .row {
+            display: flex;
+            // justify-content: space-between;
+            border-top: 1px solid var(--border);
+        }
+    }
+}
+
+.cell {
+    padding: 8px 6px;
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 12px;
+    &:first-child {
+        width: 40%;
+    }
+    width: 15%;
+
+    &:nth-child(3) {
+        width: 23%;
+    }
+
+    &:last-child {
+        border-right: none;
+        width: 8%;
+    }
+}

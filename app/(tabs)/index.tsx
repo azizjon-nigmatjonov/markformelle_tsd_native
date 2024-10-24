@@ -1,15 +1,12 @@
-import { StyleSheet } from "react-native";
-
 import { ThemedView } from "@/components/ThemedView";
-import { globalStyles } from "@/components/UI/GlobalStyles";
 import HeaderUI from "@/components/UI/Header";
+import Categories from "../../components/Pages/Home/Categories";
 
 export default function HomeScreen() {
   return (
     <ThemedView>
       <HeaderUI />
+      <Categories />
     </ThemedView>
   );
 }
-
-const styles = StyleSheet.create({});

@@ -12,12 +12,12 @@ import {
 import { useForm, Controller } from "react-hook-form";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useAuthStore } from "../../store/auth";
-// import { Validation } from "./Validation";
 import { ThemedView } from "@/components/ThemedView";
 import { Button } from "react-native-paper";
 import { buttonStyle } from "@/components/UI/GlobalStyles";
 import CModal from "@/components/CElements/CModal";
 import SupportList from "./SupportList";
+import { useRouter } from "expo-router";
 
 interface LoginData {
   login: string;
@@ -27,12 +27,11 @@ const Login: React.FC = () => {
   const { height: SCREEN_HEIGHT } = Dimensions.get("window");
   const [openModal, setOpenModal] = useState(false);
   const [errors, setErrors]: any = useState({});
-
-  // const schema = Validation();
   const { control, handleSubmit } = useForm<LoginData>({
     mode: "onSubmit",
   });
   const { setUserInfo } = useAuthStore();
+  const router: any = useRouter();
 
   const authdata = [
     { id: 1, login: "112233", name: "Azizjon", token: "12345" },
@@ -45,7 +44,7 @@ const Login: React.FC = () => {
     if (user?.token) {
       setUserInfo(user);
       await AsyncStorage.setItem("user_info", JSON.stringify(user));
-      Alert.alert("Login Successful", `Welcome, ${user.name}`);
+      router.push("(tabs)");
     } else {
       setErrors({
         login: {

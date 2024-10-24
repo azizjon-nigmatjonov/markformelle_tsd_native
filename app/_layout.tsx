@@ -1,17 +1,16 @@
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import "react-native-reanimated";
 import { PaperProvider } from "react-native-paper";
+import { useAuthStore } from "@/store/auth";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-import { useColorScheme } from "@/hooks/useColorScheme";
-
-// Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
+  const [userInfo, setUserInfo]: any = useState({});
   const [loaded] = useFonts({
     "Poppins-Black": require("../assets/fonts/Poppins-Black.ttf"),
     "Poppins-BlackItalic": require("../assets/fonts/Poppins-BlackItalic.ttf"),
@@ -35,6 +34,19 @@ export default function RootLayout() {
   });
 
   useEffect(() => {
+    const fetchUserInfo = async () => {
+      try {
+        const storedUserInfo = await AsyncStorage.getItem("user_info");
+        if (storedUserInfo) {
+          setUserInfo(JSON.parse(storedUserInfo)); // Parse the stored JSON string
+        }
+      } catch (error) {
+        console.error("Error fetching user info from AsyncStorage", error);
+      }
+    };
+
+    fetchUserInfo();
+
     if (loaded) {
       SplashScreen.hideAsync();
     }
@@ -47,7 +59,10 @@ export default function RootLayout() {
   return (
     <PaperProvider>
       <Stack>
-        <Stack.Screen name="(login)" options={{ headerShown: false }} />
+        <Stack.Screen
+          name={`${userInfo?.token ? "(tabs)" : "(login)"}`}
+          options={{ headerShown: false }}
+        />
         <Stack.Screen name="+not-found" />
       </Stack>
     </PaperProvider>
