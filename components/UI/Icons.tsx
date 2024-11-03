@@ -27,14 +27,14 @@ export const SettingIcon: React.FC<SvgProps> = (props) => (
       stroke={props.color}
       strokeWidth="1.69"
       strokeLinecap="round"
-      stroke-linejoin="round"
+      strokeLinejoin="round"
     />
     <Path
       d="M12 14.25C13.2426 14.25 14.25 13.2426 14.25 12C14.25 10.7574 13.2426 9.75 12 9.75C10.7574 9.75 9.75 10.7574 9.75 12C9.75 13.2426 10.7574 14.25 12 14.25Z"
       stroke={props.color}
       strokeWidth="1.69"
       strokeLinecap="round"
-      stroke-linejoin="round"
+      strokeLinejoin="round"
     />
   </Svg>
 );
@@ -53,21 +53,21 @@ export const InstructionIcon: React.FC<SvgProps> = (props) => (
       stroke={props.color}
       strokeWidth="1.5"
       strokeLinecap="round"
-      stroke-linejoin="round"
+      strokeLinejoin="round"
     />
     <Path
       d="M12.5 13.99H9.5"
       stroke={props.color}
       strokeWidth="1.5"
       strokeLinecap="round"
-      stroke-linejoin="round"
+      strokeLinejoin="round"
     />
     <Path
       d="M14.5 7.98999H9.5"
       stroke={props.color}
       strokeWidth="1.5"
       strokeLinecap="round"
-      stroke-linejoin="round"
+      strokeLinejoin="round"
     />
   </Svg>
 );

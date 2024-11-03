@@ -6,6 +6,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   Linking,
+  Alert,
 } from "react-native";
 import { support_list } from "./Logic";
 import { PhoneIcon, TelegramIcon } from "@/components/UI/Icons";
@@ -13,7 +14,12 @@ import { globalColors } from "@/components/UI/Colors";
 
 export const SupportList = () => {
   const openPhone = (phone: string) => {
-    Linking.openURL(`tel:${phone}`);
+    Linking.openURL(`tel:${phone}`).catch((err) =>
+      Alert.alert(
+        "Error",
+        "Unable to make a call. Please check your device settings."
+      )
+    );
   };
 
   const openTelegram = (telegram: string) => {

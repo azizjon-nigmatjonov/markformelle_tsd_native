@@ -11,6 +11,7 @@ export const ListTemplate = ({ list, hanldeClick = () => {} }: Props) => {
     <View style={styles.container}>
       {list.map((item: any, index: number) => (
         <TouchableOpacity
+          key={index}
           style={styles.itemContainer}
           onPress={() => {
             if (item?.link) {
@@ -37,8 +38,8 @@ export const ListTemplate = ({ list, hanldeClick = () => {} }: Props) => {
 // React Native Stylesheet
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    marginTop: 20,
+    // flex: 1,
+    // marginTop: 20,
     gap: 3,
   },
   itemContainer: {

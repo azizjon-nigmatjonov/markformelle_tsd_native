@@ -60,6 +60,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 5,
     display: "flex",
     justifyContent: "center",
+    width: 34,
+    alignItems: "center",
   },
   buttonContainer: {
     display: "flex",
@@ -68,10 +70,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderWidth: 1,
     borderColor: "#d3d3d3",
-    borderRadius: 10,
+    borderRadius: 8,
     overflow: "hidden",
     height: 30,
-    width: 70,
+    // width: 70,
   },
 
   toggleIndicator: {
@@ -79,9 +81,9 @@ const styles = StyleSheet.create({
     top: 0,
     bottom: 0,
     width: "50%",
-    backgroundColor: "#d3d3d3",
+    backgroundColor: globalColors.grey20,
     zIndex: -1,
-    borderRadius: 8,
+    borderRadius: 4,
   },
   leftToggle: {
     left: 0,

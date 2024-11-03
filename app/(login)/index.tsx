@@ -28,6 +28,7 @@ const Login: React.FC = () => {
   const { height: SCREEN_HEIGHT } = Dimensions.get("window");
   const [openModal, setOpenModal] = useState(false);
   const [errors, setErrors]: any = useState({});
+  const [isFocused, setIsFocused] = useState(false);
   const { control, handleSubmit } = useForm<LoginData>({
     mode: "onSubmit",
   });
@@ -46,7 +47,8 @@ const Login: React.FC = () => {
     if (user?.token) {
       setUserInfo(user);
       await AsyncStorage.setItem("user_info", JSON.stringify(user));
-      router.push("(tabs)");
+      localStorage.setItem("user_info", JSON.stringify(user));
+      router.push("/home");
       setPage("home");
     } else {
       setErrors({
@@ -77,12 +79,18 @@ const Login: React.FC = () => {
           render={({ field: { onChange, value } }) => (
             <>
               <TextInput
-                style={[styles.input, errors?.login && styles.errorInput]}
+                style={[
+                  styles.input,
+                  errors?.login && styles.errorInput,
+                  isFocused && styles.focusOutline,
+                ]}
                 placeholder="Введите штрих-код"
                 keyboardType="numeric"
                 value={value}
                 onChangeText={onChange}
                 autoFocus
+                onFocus={() => setIsFocused(true)}
+                onBlur={() => setIsFocused(false)}
               />
               {errors?.login && (
                 <Text style={styles.errorText}>{errors.login?.message}</Text>
@@ -118,6 +126,11 @@ const Login: React.FC = () => {
 export default Login;
 
 const styles = StyleSheet.create({
+  gradient: {
+    backgroundColor: globalColors.main,
+    width: "100%",
+    height: 80,
+  },
   container: {
     justifyContent: "center",
     alignItems: "center",
@@ -153,11 +166,14 @@ const styles = StyleSheet.create({
   input: {
     width: "100%",
     height: 50,
-    borderColor: "#ccc",
+    borderColor: globalColors.border,
     borderWidth: 1,
-    borderRadius: 8,
+    borderRadius: 12,
     paddingHorizontal: 10,
     marginBottom: 10,
+  },
+  focusOutline: {
+    borderColor: globalColors.primary,
   },
   errorInput: {
     borderColor: "red",

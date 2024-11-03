@@ -1,16 +1,16 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { globalStyles } from "@/components/UI/GlobalStyles";
-import { Text, View, Button, StyleSheet } from "react-native";
+import { buttonStyle, globalStyles } from "@/components/UI/GlobalStyles";
+import { Text, View, StyleSheet } from "react-native";
 import { useRoute } from "@react-navigation/native";
 import { useAuthStore } from "@/store/auth";
 import HFTextField from "@/components/FormElements/TextField";
 import { useMobileStore } from "@/store/mobile";
+import { Button } from "react-native-paper";
 
 const DocumentCreateForm = () => {
-  const { setPage } = useMobileStore();
+  const { setPage, pageData } = useMobileStore();
   const route: any = useRoute();
-  const { id } = route.params;
   const { user_info } = useAuthStore();
   const { control, handleSubmit } = useForm({
     mode: "onSubmit",
@@ -19,7 +19,10 @@ const DocumentCreateForm = () => {
   const onSubmit = (data: any) => {
     console.log(data);
     setPage("scanning");
+    // setPageData({ ...pageData });
   };
+
+  console.log(pageData);
 
   return (
     <View style={globalStyles.container}>
@@ -27,26 +30,22 @@ const DocumentCreateForm = () => {
         <Text style={{ color: "blue" }}>Заполните информацию о документе!</Text>
       </View>
       <Text style={{ fontSize: 24, fontWeight: "bold", marginBottom: 10 }}>
-        Форма документа {id}
+        Форма документа {pageData.doc_number}
       </Text>
-      <View style={[cls.form]}>
+      <View>
         <HFTextField name="number_document" control={control} />
 
         <Button
-          title=" Создать документ"
-          // mode="contained"
           onPress={handleSubmit(onSubmit)}
-          // style={{ marginTop: 16 }}
-        ></Button>
+          style={[buttonStyle.submit, { marginTop: 12 }]}
+        >
+          <Text style={{ color: "#fff" }}>Создать документ</Text>
+        </Button>
       </View>
     </View>
   );
 };
 
-const cls = StyleSheet.create({
-  form: {
-    minHeight: 500,
-  },
-});
+const cls = StyleSheet.create({});
 
 export default DocumentCreateForm;

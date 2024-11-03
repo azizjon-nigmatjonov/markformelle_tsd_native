@@ -28,6 +28,10 @@ const globalStyles = StyleSheet.create({
 
 const buttonStyle = StyleSheet.create({
   submit: {
+    backgroundColor: "#3559c7",
+    borderRadius: 12,
+    // paddingVertical: 6,
+    color: "#fff",
     // width: "100%",
     // backgroundColor: "#3559c7",
     // borderRadius: 12,
@@ -35,6 +39,12 @@ const buttonStyle = StyleSheet.create({
     // display: "flex",
     // alignItems: "center",
     // justifyContent: "center",
+  },
+  cancel: {
+    backgroundColor: "#9092a3",
+    borderRadius: 12,
+    // paddingVertical: 6,
+    color: "#fff",
   },
 });
 

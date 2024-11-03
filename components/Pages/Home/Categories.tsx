@@ -43,9 +43,9 @@ export const Categories = ({ setScreen }: Props) => {
     setPage(val);
     switch (val) {
       case "document_create_kniting":
-        setScreen({ type: val, doc_number: docs.length, doc_type: 1 });
-      case "doc_2":
-        setScreen({ type: val, doc_number: docs.length, doc_type: 2 });
+        setScreen({ type: val, doc_number: docs.length + 1, doc_type: 1 });
+      case "document_create_transfer":
+        setScreen({ type: val, doc_number: docs.length + 1, doc_type: 2 });
         break;
       default:
         setScreen({ type: val });
@@ -63,7 +63,7 @@ export const Categories = ({ setScreen }: Props) => {
         {type === "list" ? (
           <ListTemplate list={CategoriesList} hanldeClick={hanldeClick} />
         ) : (
-          <GridTemplate list={CategoriesList} />
+          <GridTemplate list={CategoriesList} hanldeClick={hanldeClick} />
         )}
       </View>
     </>

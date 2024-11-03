@@ -1,6 +1,7 @@
 import { Controller } from "react-hook-form";
-import { View, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import { TextInput } from "react-native-paper";
+import { globalColors } from "../UI/Colors";
 
 interface Props {
   control: any;
@@ -15,23 +16,26 @@ const HFTextField = ({ control, name = "", defaultValue = "" }: Props) => {
       name={name}
       defaultValue={defaultValue}
       render={({ field: { onChange, value } }) => (
-        <View style={{ marginBottom: 10 }}>
+        <>
           <TextInput
             label="Номер документа"
             mode="outlined"
             value={value}
             onChangeText={onChange}
-            style={cls.input}
+            style={{ borderColor: "red" }}
+            activeOutlineColor={globalColors.primary}
+            textColor={globalColors.black}
+            cursorColor={globalColors.main}
           />
-        </View>
+        </>
       )}
     />
   );
 };
 
 const cls = StyleSheet.create({
-  input: {
-    borderRadius: 12,
+  hfinput: {
+    borderRadius: 22,
   },
 });
 

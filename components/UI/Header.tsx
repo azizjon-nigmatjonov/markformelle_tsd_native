@@ -4,6 +4,7 @@ import { ReactNode } from "react";
 import { useAuthStore } from "../../store/auth";
 import { StyleSheet, ViewStyle, TextStyle } from "react-native";
 import { globalColors } from "./Colors";
+import { LinearGradient } from "expo-linear-gradient";
 
 interface Props {
   place?: string;
@@ -15,7 +16,12 @@ const HeaderUI = ({ place = "", extra }: Props) => {
 
   return (
     <View style={styles.headerWrapper}>
-      <View style={styles.header}>
+      <LinearGradient
+        colors={["rgba(171, 7, 126, 1)", "rgba(142, 188, 238, 1)"]} // Set the gradient colors
+        start={{ x: 0, y: 0 }} // Starting point
+        end={{ x: 1, y: 1 }} // Ending point
+        style={styles.header} // Apply gradient as a style
+      >
         <View style={styles.container}>
           <View style={styles.userInfo}>
             <Text style={styles.userName}>{user_info.name}</Text>
@@ -26,7 +32,7 @@ const HeaderUI = ({ place = "", extra }: Props) => {
           </View>
           {extra}
         </View>
-      </View>
+      </LinearGradient>
     </View>
   );
 };
@@ -34,12 +40,12 @@ const HeaderUI = ({ place = "", extra }: Props) => {
 const styles = StyleSheet.create({
   headerWrapper: {
     // paddingBottom: 75,
-    paddingTop: 30,
+    // paddingTop: 20,
   } as ViewStyle,
   header: {
     backgroundColor: globalColors.main,
     width: "100%",
-    height: 90,
+    height: 80,
     justifyContent: "center",
   } as ViewStyle,
   container: {
@@ -67,7 +73,7 @@ const styles = StyleSheet.create({
     color: "white",
   } as TextStyle,
   greyText: {
-    color: globalColors.grey,
+    color: globalColors.grey20,
   } as TextStyle,
 });
 

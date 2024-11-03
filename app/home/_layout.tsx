@@ -15,6 +15,7 @@ export default function TabLayout() {
         name="index"
         options={{
           title: "Главная",
+          headerShown: false,
           tabBarIcon: ({ focused }) => (
             <HomeIcon
               color={focused ? globalColors.black : globalColors.grey}

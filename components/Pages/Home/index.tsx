@@ -1,14 +1,16 @@
-import { View } from "react-native";
+import { View, StyleSheet } from "react-native";
 import Categories from "./Categories";
-import { useState } from "react";
 import DocumentList from "../Documents";
 import DocumentCreateScreen from "../Documents/document/Create";
 import { useMobileStore } from "@/store/mobile";
 import { RollCreateScreen } from "../Rolls/Create";
+import { Dimensions } from "react-native";
 
 const HomeScreenWrapper = () => {
-  const [screen, setScreen] = useState({ type: "category" });
-  const { page } = useMobileStore();
+  const { page, setPageData } = useMobileStore();
+  const windowHeight = Dimensions.get("window").height;
+
+  const hanldeScreenData = (data: any) => setPageData(data);
 
   const DrawUI = (type: string) => {
     switch (type) {
@@ -19,13 +21,19 @@ const HomeScreenWrapper = () => {
       case "documents":
         return <DocumentList />;
       case "home":
-        return <Categories setScreen={setScreen} />;
+        return <Categories setScreen={hanldeScreenData} />;
       default:
-        return "";
+        return <Categories setScreen={hanldeScreenData} />;
     }
   };
 
-  return <View>{DrawUI(page)}</View>;
+  return (
+    <View style={[cls.wrapper, { height: windowHeight }]}>{DrawUI(page)}</View>
+  );
 };
+
+const cls = StyleSheet.create({
+  wrapper: {},
+});
 
 export default HomeScreenWrapper;

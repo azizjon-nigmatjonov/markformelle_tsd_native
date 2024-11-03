@@ -1,6 +1,7 @@
 import React, { FC, ReactNode } from "react";
 import { Modal, Portal, Card, Button, IconButton } from "react-native-paper";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Text } from "react-native";
+import { buttonStyle } from "../UI/GlobalStyles";
 // import { useTranslation } from "react-i18next";
 
 interface Props {
@@ -23,12 +24,12 @@ interface Props {
 
 const CModal: FC<Props> = ({
   title = "",
-  textSaveBtn = "yes",
-  textDeleteBtn = "no",
-  minWidth = "280px",
+  textSaveBtn = "Да",
+  textDeleteBtn = "Нет",
+  minWidth = "120px",
   maxWidth = 700,
   minHeight = "",
-  padding = "20px",
+  padding = "10px",
   children,
   footerActive = true,
   open = false,
@@ -69,13 +70,21 @@ const CModal: FC<Props> = ({
           {footerActive && (
             <View style={styles.footer}>
               {textDeleteBtn && (
-                <Button mode="text" onPress={handleClose}>
-                  {textDeleteBtn}
+                <Button
+                  mode="text"
+                  onPress={handleClose}
+                  style={buttonStyle.cancel}
+                >
+                  <Text style={{ color: "white" }}>{textDeleteBtn}</Text>
                 </Button>
               )}
               {textSaveBtn && (
-                <Button mode="contained" onPress={handleSave}>
-                  {textSaveBtn}
+                <Button
+                  mode="contained"
+                  onPress={handleSave}
+                  style={[buttonStyle.submit, { marginLeft: 12 }]}
+                >
+                  <Text style={{ color: "white" }}>{textSaveBtn}</Text>
                 </Button>
               )}
             </View>
@@ -92,7 +101,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   card: {
-    width: "90%", // You can adjust according to the screen size
+    width: "90%",
     maxWidth: 700,
     borderRadius: 8,
   },
@@ -102,17 +111,16 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   cardTitle: {
-    flex: 1,
     alignItems: "center",
     justifyContent: "center",
   },
   body: {
-    padding: 20,
+    padding: 12,
   },
   footer: {
     flexDirection: "row",
-    justifyContent: "space-between",
     paddingTop: 20,
+    marginLeft: "auto",
   },
   closeButton: {
     alignSelf: "flex-end",

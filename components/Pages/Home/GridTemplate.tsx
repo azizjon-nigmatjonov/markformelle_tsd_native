@@ -3,11 +3,10 @@ import React from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 interface Props {
   list: any;
+  hanldeClick: (val: any) => void;
 }
 
-export const GridTemplate = ({ list }: Props) => {
-  const router = useRouter(); // Adapt this for React Native navigation (e.g., React Navigation)
-
+export const GridTemplate = ({ list, hanldeClick }: Props) => {
   return (
     <View style={styles.gridContainer}>
       {list.map((item: any, index: number) => (
@@ -17,7 +16,7 @@ export const GridTemplate = ({ list }: Props) => {
           onPress={() => {
             if (item?.link) {
               // Adapt router.push for React Native navigation
-              router.push(item.link);
+              hanldeClick(item.link);
             }
           }}
         >
@@ -38,8 +37,7 @@ const styles = StyleSheet.create({
   gridContainer: {
     flexDirection: "row",
     flexWrap: "wrap",
-    gap: 3, // Adjust this for spacing between items (React Native does not support gap, so adjust using margin)
-    marginTop: 20,
+    gap: 3,
     justifyContent: "space-between",
   },
   itemContainer: {
@@ -53,11 +51,11 @@ const styles = StyleSheet.create({
     width: "30%", // Set width to handle 3 columns
     justifyContent: "space-between",
     alignItems: "center",
-    marginBottom: 10, // Adjust this for vertical spacing between rows
+    // marginBottom: 10, // Adjust this for vertical spacing between rows
   },
   imageContainer: {
     alignItems: "center",
-    marginBottom: 8,
+    // marginBottom: 8,
   },
   image: {
     width: 50,

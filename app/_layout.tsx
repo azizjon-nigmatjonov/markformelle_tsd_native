@@ -3,12 +3,15 @@ import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect, useState } from "react";
 import "react-native-reanimated";
-import { PaperProvider } from "react-native-paper";
+import { PaperProvider, DefaultTheme } from "react-native-paper";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useAuthStore } from "@/store/auth";
+import { globalColors } from "@/components/UI/Colors";
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const [userInfo, setUserInfo]: any = useState({});
+  const { user_info } = useAuthStore();
   const [loaded] = useFonts({
     "Poppins-Black": require("../assets/fonts/Poppins-Black.ttf"),
     "Poppins-BlackItalic": require("../assets/fonts/Poppins-BlackItalic.ttf"),
@@ -31,6 +34,19 @@ export default function RootLayout() {
     "SpaceMono-Regular": require("../assets/fonts/SpaceMono-Regular.ttf"), // Extra font
   });
 
+  // Custom theme
+  const theme = {
+    ...DefaultTheme,
+    colors: {
+      ...DefaultTheme.colors,
+      primary: globalColors.primary,
+      accent: "#03dac4",
+      background: "#ffffff",
+      text: "#fff",
+      placeholder: globalColors.grey,
+    },
+  };
+
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
@@ -50,17 +66,10 @@ export default function RootLayout() {
     }
   }, [loaded]);
 
-  if (!loaded) {
-    return null;
-  }
-
   return (
-    <PaperProvider>
-      <Stack>
-        <Stack.Screen
-          name={`${userInfo?.token ? "(tabs)" : "(login)"}`}
-          options={{ headerShown: false }}
-        />
+    <PaperProvider theme={theme}>
+      <Stack screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="(login)" options={{ headerShown: false }} />
         <Stack.Screen name="+not-found" />
       </Stack>
     </PaperProvider>
