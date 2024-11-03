@@ -1,6 +1,6 @@
 import { Controller } from "react-hook-form";
-import { View, StyleSheet } from "react-native";
 import { TextInput } from "react-native-paper";
+import { StyleSheet } from "react-native";
 
 interface Props {
   control: any;
@@ -8,22 +8,23 @@ interface Props {
   defaultValue?: any;
 }
 
-const HFTextField = ({ control, name = "", defaultValue = "" }: Props) => {
+export const HFInput = ({ control, name = "", defaultValue = "" }: Props) => {
   return (
     <Controller
+      name="login"
       control={control}
-      name={name}
-      defaultValue={defaultValue}
+      defaultValue=""
       render={({ field: { onChange, value } }) => (
-        <View style={{ marginBottom: 10 }}>
+        <>
           <TextInput
-            label="Номер документа"
-            mode="outlined"
+            style={cls.input}
+            placeholder="Введите штрих-код"
+            keyboardType="numeric"
             value={value}
             onChangeText={onChange}
-            style={cls.input}
+            autoFocus
           />
-        </View>
+        </>
       )}
     />
   );
@@ -34,5 +35,3 @@ const cls = StyleSheet.create({
     borderRadius: 12,
   },
 });
-
-export default HFTextField;

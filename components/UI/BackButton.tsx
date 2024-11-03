@@ -6,19 +6,19 @@ import { useMobileStore } from "@/store/mobile";
 
 interface BackButtonProps {
   label?: string; // Optional prop for custom label
-  link: string;
+  link?: string;
 }
 
 export const BackButton: React.FC<BackButtonProps> = ({
   label = "Назад",
-  link = "home",
+  link = "",
 }) => {
-  const { setPage } = useMobileStore();
+  const { setPage, before } = useMobileStore();
 
   return (
     <TouchableOpacity
       style={styles.button}
-      onPress={() => setPage(link)}
+      onPress={() => setPage(link || before)}
       accessibilityLabel={label} // Improves accessibility
       accessible
     >

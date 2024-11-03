@@ -18,6 +18,7 @@ import CModal from "@/components/CElements/CModal";
 import SupportList from "./SupportList";
 import { useRouter } from "expo-router";
 import { globalColors } from "@/components/UI/Colors";
+import { useMobileStore } from "@/store/mobile";
 
 interface LoginData {
   login: string;
@@ -31,6 +32,7 @@ const Login: React.FC = () => {
     mode: "onSubmit",
   });
   const { setUserInfo } = useAuthStore();
+  const { setPage } = useMobileStore();
   const router: any = useRouter();
 
   const authdata = [
@@ -45,6 +47,7 @@ const Login: React.FC = () => {
       setUserInfo(user);
       await AsyncStorage.setItem("user_info", JSON.stringify(user));
       router.push("(tabs)");
+      setPage("home");
     } else {
       setErrors({
         login: {

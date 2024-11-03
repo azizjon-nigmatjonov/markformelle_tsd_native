@@ -17,9 +17,12 @@ const SPACING = {
 
 const globalStyles = StyleSheet.create({
   container: {
-    flex: 1,
     paddingRight: SPACING.medium,
     paddingLeft: SPACING.medium,
+  },
+  sectionTitle: {
+    fontSize: 18,
+    fontWeight: "bold",
   },
 });
 

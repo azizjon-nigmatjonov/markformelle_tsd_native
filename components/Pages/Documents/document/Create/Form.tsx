@@ -1,15 +1,15 @@
 import React from "react";
-import { useForm, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { globalStyles } from "@/components/UI/GlobalStyles";
 import { Text, View, Button, StyleSheet } from "react-native";
 import { useRoute } from "@react-navigation/native";
 import { useAuthStore } from "@/store/auth";
-import { useRouter } from "expo-router";
 import HFTextField from "@/components/FormElements/TextField";
+import { useMobileStore } from "@/store/mobile";
 
 const DocumentCreateForm = () => {
+  const { setPage } = useMobileStore();
   const route: any = useRoute();
-  const router = useRouter();
   const { id } = route.params;
   const { user_info } = useAuthStore();
   const { control, handleSubmit } = useForm({
@@ -18,7 +18,7 @@ const DocumentCreateForm = () => {
 
   const onSubmit = (data: any) => {
     console.log(data);
-    router.push(`/product/create/${id}`);
+    setPage("scanning");
   };
 
   return (
