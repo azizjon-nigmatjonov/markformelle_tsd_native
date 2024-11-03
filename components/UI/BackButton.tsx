@@ -1,25 +1,24 @@
 import React from "react";
-import {
-  TouchableOpacity,
-  Text,
-  StyleSheet,
-  AccessibilityInfo,
-} from "react-native";
+import { TouchableOpacity, Text, StyleSheet } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
-import { useRouter } from "expo-router";
 import { globalColors } from "./Colors";
+import { useMobileStore } from "@/store/mobile";
 
 interface BackButtonProps {
   label?: string; // Optional prop for custom label
+  link: string;
 }
 
-export const BackButton: React.FC<BackButtonProps> = ({ label = "Назад" }) => {
-  const router = useRouter();
+export const BackButton: React.FC<BackButtonProps> = ({
+  label = "Назад",
+  link = "home",
+}) => {
+  const { setPage } = useMobileStore();
 
   return (
     <TouchableOpacity
       style={styles.button}
-      onPress={() => router.back()}
+      onPress={() => setPage(link)}
       accessibilityLabel={label} // Improves accessibility
       accessible
     >

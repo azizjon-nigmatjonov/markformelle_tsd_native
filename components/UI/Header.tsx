@@ -33,16 +33,13 @@ const HeaderUI = ({ place = "", extra }: Props) => {
 
 const styles = StyleSheet.create({
   headerWrapper: {
-    paddingBottom: 75,
+    // paddingBottom: 75,
+    paddingTop: 30,
   } as ViewStyle,
   header: {
     backgroundColor: globalColors.main,
-    position: "absolute",
-    top: 0,
-    left: 0,
     width: "100%",
-    zIndex: 99,
-    height: 70,
+    height: 90,
     justifyContent: "center",
   } as ViewStyle,
   container: {

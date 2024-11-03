@@ -1,30 +1,31 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
-import CSearchInput from "../../components/CElements/CSearchInput"; // Ensure this is compatible with React Native
-import CTable from "../../components/CElements/CTable";
-import { BackButton } from "../../components/UI/BackButton";
-import Header from "../../components/UI/Header";
-import { useDocsStore } from "../../store/docs";
+import CTable from "../../CElements/CTable";
+import { BackButton } from "../../UI/BackButton";
+import { useDocsStore } from "../../../store/docs";
 import { globalStyles } from "@/components/UI/GlobalStyles";
+import HeaderUI from "@/components/UI/Header";
+import { ThemedView } from "@/components/ThemedView";
 
 const DocumentList = () => {
   const { docs } = useDocsStore();
 
   return (
-    <>
-      <Header place="Список документов" extra={<BackButton />} />
+    <ThemedView>
+      <HeaderUI place="Список документов" extra={<BackButton link="home" />} />
+      {/* <Header place="Список документов" extra={<BackButton />} /> */}
 
       <View style={[globalStyles.container, styles.wrapper]}>
         {/* <CSearchInput handleChange={() => {}} /> */}
         <View>
           {docs.map((item: any) => (
-            <View key={item.id} style={styles.documentItem}>
+            <View style={styles.documentItem}>
               <CTable element={item} list={item.rolls} />{" "}
             </View>
           ))}
         </View>
       </View>
-    </>
+    </ThemedView>
   );
 };
 

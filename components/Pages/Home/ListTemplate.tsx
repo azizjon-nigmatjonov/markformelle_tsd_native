@@ -1,24 +1,20 @@
 import React from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
-import { useRouter } from "expo-router";
 
 interface Props {
   list: any;
+  hanldeClick: (val: any) => void;
 }
 
-export const ListTemplate = ({ list }: Props) => {
-  const router = useRouter(); // Adapt this for React Native navigation (e.g., using React Navigation)
-
+export const ListTemplate = ({ list, hanldeClick = () => {} }: Props) => {
   return (
     <View style={styles.container}>
       {list.map((item: any, index: number) => (
         <TouchableOpacity
-          key={index}
           style={styles.itemContainer}
           onPress={() => {
             if (item?.link) {
-              // Adapt router.push for React Native navigation
-              router.push(item.link);
+              hanldeClick(item.link);
             }
           }}
         >
@@ -43,7 +39,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginTop: 20,
-    gap: 10, // Adjust this for spacing between items
+    gap: 3,
   },
   itemContainer: {
     backgroundColor: "#fff",

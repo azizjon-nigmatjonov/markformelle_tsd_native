@@ -6,43 +6,67 @@ import { ListHeader } from "./ListHeader";
 import { ListTemplate } from "./ListTemplate";
 import { GridTemplate } from "./GridTemplate";
 import { globalStyles } from "@/components/UI/GlobalStyles";
+import HeaderUI from "@/components/UI/Header";
+import { useMobileStore } from "@/store/mobile";
 
-export const Categories = () => {
+interface Props {
+  setScreen: (val: any) => void;
+}
+
+export const Categories = ({ setScreen }: Props) => {
   const { type, setType } = useListStore();
   const { docs } = useDocsStore();
+  const { setPage } = useMobileStore();
 
   const CategoriesList = [
     {
       title: "Список документов",
       image: require("../../../assets/trash/list.png"),
       description: "Список всех документов",
-      link: "/documents",
+      link: "documents",
     },
     {
       title: "Вязания",
       image: require("../../../assets/trash/knitting-machine.png"),
       description: "Создание документ Вязания",
-      link: `/document/create/${docs.length + 1}?docType=1`,
+      link: `document_create_kniting`,
     },
     {
       title: "Внутренний перемещение",
       image: require("../../../assets/trash/transfer.png"),
       description: "Создать документ внутреннего перемещения",
-      link: `/document/create/${docs.length + 1}?docType=2`,
+      link: `document_create_transfer`,
     },
   ];
 
+  const hanldeClick = (val: string) => {
+    setPage(val);
+    switch (val) {
+      case "document_create_kniting":
+        setScreen({ type: val, doc_number: docs.length, doc_type: 1 });
+      case "doc_2":
+        setScreen({ type: val, doc_number: docs.length, doc_type: 2 });
+        break;
+      default:
+        setScreen({ type: val });
+        break;
+    }
+  };
+
   return (
-    <View style={globalStyles.container}>
-      <View style={styles.header}>
-        <ListHeader type={type} setType={setType} />
+    <>
+      <HeaderUI />
+      <View style={globalStyles.container}>
+        <View style={styles.header}>
+          <ListHeader type={type} setType={setType} />
+        </View>
+        {type === "list" ? (
+          <ListTemplate list={CategoriesList} hanldeClick={hanldeClick} />
+        ) : (
+          <GridTemplate list={CategoriesList} />
+        )}
       </View>
-      {type === "list" ? (
-        <ListTemplate list={CategoriesList} />
-      ) : (
-        <GridTemplate list={CategoriesList} />
-      )}
-    </View>
+    </>
   );
 };
 

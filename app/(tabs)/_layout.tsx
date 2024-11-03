@@ -1,7 +1,6 @@
 import { Tabs } from "expo-router";
 import React from "react";
 import { Text, StyleSheet } from "react-native";
-import { Colors } from "@/constants/Colors";
 import { HomeIcon, InstructionIcon, SettingIcon } from "@/components/UI/Icons";
 import { globalColors } from "@/components/UI/Colors";
 

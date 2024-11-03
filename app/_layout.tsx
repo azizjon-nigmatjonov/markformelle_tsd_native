@@ -4,9 +4,7 @@ import * as SplashScreen from "expo-splash-screen";
 import { useEffect, useState } from "react";
 import "react-native-reanimated";
 import { PaperProvider } from "react-native-paper";
-import { useAuthStore } from "@/store/auth";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {

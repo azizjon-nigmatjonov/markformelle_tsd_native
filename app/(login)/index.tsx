@@ -5,7 +5,6 @@ import {
   TextInput,
   Image,
   StyleSheet,
-  Alert,
   TouchableOpacity,
   Dimensions,
 } from "react-native";
@@ -18,6 +17,7 @@ import { buttonStyle } from "@/components/UI/GlobalStyles";
 import CModal from "@/components/CElements/CModal";
 import SupportList from "./SupportList";
 import { useRouter } from "expo-router";
+import { globalColors } from "@/components/UI/Colors";
 
 interface LoginData {
   login: string;
@@ -142,6 +142,10 @@ const styles = StyleSheet.create({
   },
   button: {
     marginTop: 10,
+    width: "100%",
+    // paddingVertical: 6,
+    backgroundColor: globalColors.primary,
+    borderRadius: 12,
   },
   input: {
     width: "100%",

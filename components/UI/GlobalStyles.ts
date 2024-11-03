@@ -25,13 +25,13 @@ const globalStyles = StyleSheet.create({
 
 const buttonStyle = StyleSheet.create({
   submit: {
-    width: "100%",
-    backgroundColor: "#3559c7",
-    borderRadius: 12,
-    height: 50,
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
+    // width: "100%",
+    // backgroundColor: "#3559c7",
+    // borderRadius: 12,
+    // // height: 50,
+    // display: "flex",
+    // alignItems: "center",
+    // justifyContent: "center",
   },
 });
 

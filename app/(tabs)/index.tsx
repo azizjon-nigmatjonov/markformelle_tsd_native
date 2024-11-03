@@ -1,12 +1,10 @@
 import { ThemedView } from "@/components/ThemedView";
-import HeaderUI from "@/components/UI/Header";
-import Categories from "../../components/Pages/Home/Categories";
+import HomeScreenWrapper from "@/components/Pages/Home";
 
 export default function HomeScreen() {
   return (
     <ThemedView>
-      <HeaderUI />
-      <Categories />
+      <HomeScreenWrapper />
     </ThemedView>
   );
 }

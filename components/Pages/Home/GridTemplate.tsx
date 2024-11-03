@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
   gridContainer: {
     flexDirection: "row",
     flexWrap: "wrap",
-    gap: 8, // Adjust this for spacing between items (React Native does not support gap, so adjust using margin)
+    gap: 3, // Adjust this for spacing between items (React Native does not support gap, so adjust using margin)
     marginTop: 20,
     justifyContent: "space-between",
   },

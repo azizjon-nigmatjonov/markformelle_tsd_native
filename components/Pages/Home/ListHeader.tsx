@@ -1,8 +1,8 @@
 import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
-import { GridIcon, ListIcon } from "@/components/UI/Icons";
 import { globalColors } from "@/components/UI/Colors";
-
+import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+import Foundation from "@expo/vector-icons/Foundation";
 interface Props {
   type: string;
   setType: (val: string) => void;
@@ -18,13 +18,17 @@ export const ListHeader = ({ type = "list", setType = () => {} }: Props) => {
 
       <View style={styles.buttonContainer}>
         <View style={styles.icon}>
-          <GridIcon
+          <MaterialIcons
+            name="grid-view"
+            size={20}
             color={type === "grid" ? globalColors.grey : globalColors.black}
           />
         </View>
 
         <View style={styles.icon}>
-          <ListIcon
+          <Foundation
+            name="list"
+            size={20}
             color={type === "list" ? globalColors.grey : globalColors.black}
           />
         </View>
@@ -54,6 +58,8 @@ const styles = StyleSheet.create({
   },
   icon: {
     paddingHorizontal: 5,
+    display: "flex",
+    justifyContent: "center",
   },
   buttonContainer: {
     display: "flex",
@@ -65,7 +71,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     overflow: "hidden",
     height: 30,
-    width: 60,
+    width: 70,
   },
 
   toggleIndicator: {
