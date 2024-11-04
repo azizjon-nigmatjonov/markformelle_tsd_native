@@ -1,8 +1,9 @@
 import { useMemo } from "react";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Pressable } from "react-native";
 import { AllRolls } from "../CList/AllRolls";
 import mergeList from "../../../utils/mergeList";
-import { useRouter } from "expo-router";
+import { useMobileStore } from "@/store/mobile";
+import { globalColors } from "@/components/UI/Colors";
 
 interface Props {
   list: any;
@@ -10,7 +11,7 @@ interface Props {
 }
 
 const CTable = ({ list = [], element = {} }: Props) => {
-  const router = useRouter();
+  const { setPage, setPageData } = useMobileStore();
 
   const newList = useMemo(() => {
     const { allObj } = mergeList(list);
@@ -22,9 +23,12 @@ const CTable = ({ list = [], element = {} }: Props) => {
   }, [list]);
 
   return (
-    <TouchableOpacity
-      style={styles.container}
-      // onPress={() => router.push(`/product/create/${element.id}`)}
+    <Pressable
+      style={styles.wrapper}
+      onPress={() => {
+        setPage("scanning");
+        setPageData({ doc_number: element.id });
+      }}
     >
       <View style={styles.header}>
         <Text style={styles.headerText}>Документ {element.id}</Text>
@@ -33,21 +37,22 @@ const CTable = ({ list = [], element = {} }: Props) => {
       <View style={styles.body}>
         <AllRolls list={newList} />
       </View>
-    </TouchableOpacity>
+    </Pressable>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  wrapper: {
     borderWidth: 1,
-    borderColor: "var(--border)", // Adjust color as necessary
+    borderColor: globalColors.border, // Adjust color as necessary
     borderRadius: 8,
     overflow: "hidden",
-    marginBottom: 10,
+    // marginBottom: 10,
   },
   header: {
-    padding: 10,
-    backgroundColor: "var(--white)", // Adjust color as necessary
+    paddingHorizontal: 10,
+    paddingTop: 10,
+    backgroundColor: "white", // Adjust color as necessary
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",

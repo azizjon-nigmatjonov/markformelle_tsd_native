@@ -48,8 +48,11 @@ const Login: React.FC = () => {
       setUserInfo(user);
       await AsyncStorage.setItem("user_info", JSON.stringify(user));
       localStorage.setItem("user_info", JSON.stringify(user));
-      router.push("/home");
+
       setPage("home");
+      setTimeout(() => {
+        router.push("/home");
+      }, 0);
     } else {
       setErrors({
         login: {

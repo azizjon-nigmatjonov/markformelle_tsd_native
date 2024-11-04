@@ -8,7 +8,7 @@ import { Dimensions } from "react-native";
 
 const HomeScreenWrapper = () => {
   const { page, setPageData } = useMobileStore();
-  const windowHeight = Dimensions.get("window").height;
+  const { height: SCREEN_HEIGHT } = Dimensions.get("window");
 
   const hanldeScreenData = (data: any) => setPageData(data);
 
@@ -28,7 +28,7 @@ const HomeScreenWrapper = () => {
   };
 
   return (
-    <View style={[cls.wrapper, { height: windowHeight }]}>{DrawUI(page)}</View>
+    <View style={[cls.wrapper, { height: SCREEN_HEIGHT }]}>{DrawUI(page)}</View>
   );
 };
 

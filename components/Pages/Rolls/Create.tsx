@@ -112,7 +112,6 @@ export const RollCreateScreen = () => {
       }
     }
   };
-
   return (
     <View style={styles.wrapper}>
       <HeaderUI extra={<BackButton />} place="Рулонное сканирование" />

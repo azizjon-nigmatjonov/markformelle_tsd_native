@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, ScrollView } from "react-native";
 import CTable from "../../CElements/CTable";
 import { BackButton } from "../../UI/BackButton";
 import { useDocsStore } from "../../../store/docs";
@@ -17,13 +17,13 @@ const DocumentList = () => {
 
       <View style={[globalStyles.container, styles.wrapper]}>
         {/* <CSearchInput handleChange={() => {}} /> */}
-        <View>
+        <ScrollView showsHorizontalScrollIndicator={false}>
           {docs.map((item: any) => (
             <View style={styles.documentItem}>
               <CTable element={item} list={item.rolls} />{" "}
             </View>
           ))}
-        </View>
+        </ScrollView>
       </View>
     </ThemedView>
   );
@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
     paddingVertical: 16, // Adjust padding as necessary
   },
   documentItem: {
-    paddingBottom: 20, // Space between document items
+    paddingBottom: 16, // Space between document items
   },
 });
 
