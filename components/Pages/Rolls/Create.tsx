@@ -12,13 +12,13 @@ import { useDocsStore } from "@/store/docs";
 import { useMobileStore } from "@/store/mobile";
 import CModal from "@/components/CElements/CModal";
 import CInfo from "@/components/CElements/CInfo";
+import { AlertUI } from "@/components/UI/Alert";
 
 export const RollCreateScreen = () => {
   const inputRef: any = useRef(null);
   const [loading, setLoading] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const [open, setOpen] = useState(false);
-  // const [inputType, setInputType] = useState("text");
   const [customInputActions, setCustomInputActions] = useState([""]);
   const [alertInfo, setAlertInfo] = useState({
     type: "info",
@@ -27,6 +27,7 @@ export const RollCreateScreen = () => {
   const [rollObjects, setRollObjects]: any = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const { ScanRoll, DeleteRoll } = ScanLogic();
+  const [textValue, setTextValue] = useState("");
   const [rolls, setRolls] = useState([]);
   const { setDocs, docs } = useDocsStore();
   const { pageData, setPageData, setPage } = useMobileStore();
@@ -36,9 +37,14 @@ export const RollCreateScreen = () => {
     if (inputRef.current) inputRef.current.focus();
   };
 
+  useEffect(() => {
+    setOpenModal(false);
+  }, [customInputActions.length]);
+
   const clearFn = () => {
-    if (inputRef.current) inputRef.current.clear();
+    setTextValue("");
     setLoading(false);
+    if (inputRef.current) inputRef.current.clear();
   };
 
   const initializeRolls = () => {
@@ -81,8 +87,8 @@ export const RollCreateScreen = () => {
     setPageData({});
   };
 
-  const onSubmit = () => {
-    const value = inputRef.current.value;
+  const onSubmit = (text: string) => {
+    const value = text;
 
     if (value) {
       if (customInputActions.includes("delete")) {
@@ -125,15 +131,14 @@ export const RollCreateScreen = () => {
             setOpenModal={setOpenModal}
           />
         </View>
-        <View style={styles.alertContainer}>
-          <Text style={styles.alertText}>
-            {loading
-              ? "Идет загрузка, пожалуйста, подождите!"
-              : alertInfo.title}
-          </Text>
-        </View>
+        <AlertUI
+          title={
+            loading ? "Идет загрузка, пожалуйста, подождите!" : alertInfo.title
+          }
+          type={loading ? "info" : alertInfo.type}
+        ></AlertUI>
 
-        <View style={{ zIndex: -1 }}>
+        <View style={{ zIndex: -1, marginTop: 20 }}>
           <View
             style={[
               styles.inputContainer,
@@ -142,24 +147,12 @@ export const RollCreateScreen = () => {
           >
             <TextInput
               ref={inputRef}
-              // onChangeText={(text) => setInputType(text)}
-              keyboardType={
-                customInputActions.includes("open") ? "numeric" : "default"
-              }
               placeholder="Введите штрих-код"
-              style={[
-                styles.input,
-                {
-                  borderColor: customInputActions.includes("open")
-                    ? globalColors.border
-                    : "transparent",
-
-                  borderWidth: 1,
-                },
-              ]}
-              onSubmitEditing={onSubmit} // Trigger on submit
-              returnKeyType="done"
+              style={styles.input}
+              onChangeText={(text) => onSubmit(text)} // Calls `onSubmit` with the current text value as the user types
               autoFocus
+              value={textValue}
+              showSoftInputOnFocus={customInputActions.includes("open")}
             />
             {customInputActions.includes("open") && (
               <Text style={styles.label}>KNA</Text>
@@ -212,14 +205,18 @@ export const RollCreateScreen = () => {
         }}
         footerActive={false}
       >
-        <CInfo title="Завершено успешно" />
-        <Button
-          mode="contained"
-          style={[buttonStyle.submit, { marginTop: 12 }]}
-          onPress={() => FinishScanning()}
-        >
-          Понятно, спасибо!
-        </Button>
+        {open && (
+          <>
+            <CInfo title="Завершено успешно" />
+            <Button
+              mode="contained"
+              style={[buttonStyle.submit, { marginTop: 12 }]}
+              onPress={() => FinishScanning()}
+            >
+              Понятно, спасибо!
+            </Button>
+          </>
+        )}
       </CModal>
     </View>
   );
@@ -238,7 +235,7 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
   },
   title: {
-    fontSize: 24,
+    fontSize: 18,
     fontWeight: "bold",
   },
   alertContainer: {
@@ -257,7 +254,7 @@ const styles = StyleSheet.create({
     backgroundColor: "transparent",
     height: 40,
     borderWidth: 1,
-    borderRadius: 4,
+    borderRadius: 8,
   },
   label: {
     position: "absolute",

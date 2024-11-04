@@ -9,6 +9,7 @@ export const globalColors = {
   primary30: "#8ebcee55",
   primary40: "#BBD7EC",
   primary50: "#3559C733",
+  primary60: "#e5f6fd",
   grey: "#9092a3",
   grey20: "#eceff2",
   grey30: "#f9f9f9",
@@ -20,7 +21,7 @@ export const globalColors = {
   main20: "#9b1c78",
   main50: "#a63afd55",
   orange: "#ff7f00",
-  error: "red",
+  error: "#db5757",
   success: "#0fc44c",
   yellow: "rgb(255, 168, 0)",
 } as const;

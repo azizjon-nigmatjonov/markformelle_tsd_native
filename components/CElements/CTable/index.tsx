@@ -4,6 +4,7 @@ import { AllRolls } from "../CList/AllRolls";
 import mergeList from "../../../utils/mergeList";
 import { useMobileStore } from "@/store/mobile";
 import { globalColors } from "@/components/UI/Colors";
+import { ScrollView } from "react-native";
 
 interface Props {
   list: any;
@@ -23,21 +24,21 @@ const CTable = ({ list = [], element = {} }: Props) => {
   }, [list]);
 
   return (
-    <Pressable
-      style={styles.wrapper}
-      onPress={() => {
-        setPage("scanning");
-        setPageData({ doc_number: element.id });
-      }}
-    >
-      <View style={styles.header}>
+    <ScrollView style={styles.wrapper}>
+      <Pressable
+        onPress={() => {
+          setPage("scanning");
+          setPageData({ doc_number: element.id });
+        }}
+        style={styles.header}
+      >
         <Text style={styles.headerText}>Документ {element.id}</Text>
         <Text style={styles.rollCount}>{list.length} рулон</Text>
-      </View>
+      </Pressable>
       <View style={styles.body}>
         <AllRolls list={newList} />
       </View>
-    </Pressable>
+    </ScrollView>
   );
 };
 
@@ -57,12 +58,15 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     fontWeight: "500",
+    borderRadius: 8,
   },
   headerText: {
-    fontWeight: "bold",
+    fontWeight: "500",
   },
   rollCount: {
     fontSize: 14, // Adjust size as necessary
+    fontWeight: "500",
+    color: globalColors.primary,
   },
   body: {
     padding: 10,

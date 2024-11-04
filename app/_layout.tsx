@@ -69,7 +69,10 @@ export default function RootLayout() {
   return (
     <PaperProvider theme={theme}>
       <Stack screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="(login)" options={{ headerShown: false }} />
+        <Stack.Screen
+          name={user_info?.token ? "home" : "(login)"}
+          options={{ headerShown: false }}
+        />
         <Stack.Screen name="+not-found" />
       </Stack>
     </PaperProvider>

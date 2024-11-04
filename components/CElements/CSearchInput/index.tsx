@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, TextInput, TouchableOpacity, StyleSheet } from "react-native";
+import { View, TextInput, Pressable, StyleSheet } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons"; // Use expo vector icons or react-native-vector-icons
 import useDebounce from "../../../hooks/useDebounce";
 
@@ -53,14 +53,14 @@ const CSearchInput = ({
         returnKeyType="search"
       />
       {value.length > 0 && (
-        <TouchableOpacity
+        <Pressable
           onPress={() => {
             setValue("");
             handleChange("");
           }}
         >
           <MaterialIcons name="close" size={20} />
-        </TouchableOpacity>
+        </Pressable>
       )}
     </View>
   );

@@ -1,5 +1,5 @@
 import React from "react";
-import { TouchableOpacity, Text, StyleSheet } from "react-native";
+import { Pressable, Text, StyleSheet } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { globalColors } from "./Colors";
 import { useMobileStore } from "@/store/mobile";
@@ -16,7 +16,7 @@ export const BackButton: React.FC<BackButtonProps> = ({
   const { setPage, before } = useMobileStore();
 
   return (
-    <TouchableOpacity
+    <Pressable
       style={styles.button}
       onPress={() => setPage(link || before)}
       accessibilityLabel={label} // Improves accessibility
@@ -24,7 +24,7 @@ export const BackButton: React.FC<BackButtonProps> = ({
     >
       <MaterialIcons name="arrow-back" size={18} color={globalColors.grey20} />
       <Text style={styles.text}>{label}</Text>
-    </TouchableOpacity>
+    </Pressable>
   );
 };
 

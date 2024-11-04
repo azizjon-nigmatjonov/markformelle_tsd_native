@@ -1,9 +1,15 @@
 import React from "react";
-import { View, TouchableOpacity, Text, StyleSheet } from "react-native";
-import { IconButton, Switch, Modal } from "react-native-paper";
+import {
+  View,
+  Pressable,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Dimensions,
+} from "react-native";
+import { Switch, Modal } from "react-native-paper";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import { globalColors } from "@/components/UI/Colors";
-import CCloser from "@/components/CElements/CCloser";
 
 interface Props {
   openModal: boolean;
@@ -18,18 +24,23 @@ export const ModalBtn: React.FC<Props> = ({
   setOpenModal,
   setCustomInputActions,
 }) => {
+  const { height: SCREEN_HEIGHT } = Dimensions.get("window");
   const closeModal = () => {
-    setOpenModal(false);
+    setTimeout(() => {
+      setOpenModal(false);
+    }, 0);
   };
 
   return (
     <>
-      <TouchableOpacity
-        onPress={() => setOpenModal(true)}
-        style={styles.iconButton}
-      >
-        <AntDesign name="ellipsis1" size={24} color="black" />
-      </TouchableOpacity>
+      <Pressable onPress={() => setOpenModal(true)} style={styles.iconButton}>
+        <AntDesign
+          name="ellipsis1"
+          size={24}
+          color="black"
+          style={{ transform: "rotate(90deg)" }}
+        />
+      </Pressable>
 
       {openModal && (
         <View style={styles.modal}>
@@ -37,7 +48,7 @@ export const ModalBtn: React.FC<Props> = ({
             <View style={styles.modalContent}>
               <Text style={styles.title}>Custom Actions</Text>
               <View style={styles.listContainer}>
-                <TouchableOpacity
+                <Pressable
                   onPress={() => {
                     setCustomInputActions(
                       customInputActions.includes("open")
@@ -60,8 +71,8 @@ export const ModalBtn: React.FC<Props> = ({
                     />
                     <Text style={styles.label}>Ручной вывод</Text>
                   </View>
-                </TouchableOpacity>
-                <TouchableOpacity
+                </Pressable>
+                <Pressable
                   onPress={() => {
                     setCustomInputActions(
                       customInputActions.includes("delete")
@@ -84,14 +95,26 @@ export const ModalBtn: React.FC<Props> = ({
                     />
                     <Text style={styles.labelError}>Режим удаления</Text>
                   </View>
-                </TouchableOpacity>
+                </Pressable>
               </View>
               {/* <IconButton icon="close" size={20} onPress={closeModal} /> */}
             </View>
           </View>
         </View>
       )}
-      {openModal && <CCloser handleClick={() => closeModal()} />}
+
+      {openModal && (
+        <TouchableOpacity
+          onPress={() => closeModal()}
+          style={{
+            position: "absolute",
+            width: "100%",
+            height: SCREEN_HEIGHT,
+            top: 0,
+            zIndex: 1,
+          }}
+        ></TouchableOpacity>
+      )}
     </>
   );
 };
@@ -108,6 +131,7 @@ const styles = StyleSheet.create({
   },
   iconButton: {
     position: "relative",
+    paddingLeft: 20,
   },
   modalContainer: {
     justifyContent: "center",

@@ -1,15 +1,24 @@
 import { Controller } from "react-hook-form";
-import { StyleSheet } from "react-native";
-import { TextInput } from "react-native-paper";
-import { globalColors } from "../UI/Colors";
+import { StyleSheet, TextInput } from "react-native";
+import CLabel from "../CElements/CLabel";
 
 interface Props {
   control: any;
   name: string;
   defaultValue?: any;
+  label?: string;
+  required?: boolean;
+  placeholder?: string;
 }
 
-const HFTextField = ({ control, name = "", defaultValue = "" }: Props) => {
+const HFTextField = ({
+  control,
+  label,
+  name = "",
+  defaultValue = "",
+  required,
+  placeholder = "",
+}: Props) => {
   return (
     <Controller
       control={control}
@@ -17,15 +26,13 @@ const HFTextField = ({ control, name = "", defaultValue = "" }: Props) => {
       defaultValue={defaultValue}
       render={({ field: { onChange, value } }) => (
         <>
+          {label && <CLabel title={label} required={required} />}
           <TextInput
-            label="Номер документа"
-            mode="outlined"
-            value={value}
+            placeholder={placeholder}
+            style={cls.hfinput}
             onChangeText={onChange}
-            style={{ borderColor: "red" }}
-            activeOutlineColor={globalColors.primary}
-            textColor={globalColors.black}
-            cursorColor={globalColors.main}
+            value={value}
+            defaultValue={defaultValue}
           />
         </>
       )}
@@ -35,7 +42,12 @@ const HFTextField = ({ control, name = "", defaultValue = "" }: Props) => {
 
 const cls = StyleSheet.create({
   hfinput: {
-    borderRadius: 22,
+    backgroundColor: "transparent",
+    height: 40,
+    borderWidth: 1,
+    borderRadius: 8,
+    paddingHorizontal: 8,
+    fontSize: 12,
   },
 });
 

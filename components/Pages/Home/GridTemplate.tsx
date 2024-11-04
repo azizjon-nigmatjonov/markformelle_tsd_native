@@ -1,6 +1,6 @@
 import { useRouter } from "expo-router";
 import React from "react";
-import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, Image, Pressable } from "react-native";
 interface Props {
   list: any;
   hanldeClick: (val: any) => void;
@@ -10,7 +10,7 @@ export const GridTemplate = ({ list, hanldeClick }: Props) => {
   return (
     <View style={styles.gridContainer}>
       {list.map((item: any, index: number) => (
-        <TouchableOpacity
+        <Pressable
           key={index}
           style={styles.itemContainer}
           onPress={() => {
@@ -26,7 +26,7 @@ export const GridTemplate = ({ list, hanldeClick }: Props) => {
             </View>
           )}
           <Text style={styles.title}>{item.title}</Text>
-        </TouchableOpacity>
+        </Pressable>
       ))}
     </View>
   );

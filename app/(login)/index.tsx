@@ -5,7 +5,7 @@ import {
   TextInput,
   Image,
   StyleSheet,
-  TouchableOpacity,
+  Pressable,
   Dimensions,
 } from "react-native";
 import { useForm, Controller } from "react-hook-form";
@@ -43,11 +43,14 @@ const Login: React.FC = () => {
 
   const onSubmit = async (data: LoginData) => {
     const user = authdata.find((el) => el.login === data.login);
-
+    // setPage("home");
+    // setTimeout(() => {
+    //   router.push("/home");
+    // }, 0);
     if (user?.token) {
       setUserInfo(user);
       await AsyncStorage.setItem("user_info", JSON.stringify(user));
-      localStorage.setItem("user_info", JSON.stringify(user));
+      // localStorage.setItem("user_info", JSON.stringify(user));
 
       setPage("home");
       setTimeout(() => {
@@ -87,11 +90,10 @@ const Login: React.FC = () => {
                   errors?.login && styles.errorInput,
                   isFocused && styles.focusOutline,
                 ]}
-                placeholder="Введите штрих-код"
+                placeholder="Введите ваш пароль, пожалуйста"
                 keyboardType="numeric"
                 value={value}
                 onChangeText={onChange}
-                autoFocus
                 onFocus={() => setIsFocused(true)}
                 onBlur={() => setIsFocused(false)}
               />
@@ -109,9 +111,9 @@ const Login: React.FC = () => {
         >
           Войти
         </Button>
-        <TouchableOpacity onPress={() => setOpenModal(true)}>
+        <Pressable onPress={() => setOpenModal(true)}>
           <Text style={styles.forgotPassword}>Забыл пароль</Text>
-        </TouchableOpacity>
+        </Pressable>
       </View>
 
       <CModal

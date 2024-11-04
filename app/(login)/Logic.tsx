@@ -2,7 +2,7 @@ export const support_list = [
   {
     name: "Azizilloxon",
     phone: "+998 90 384 02 67",
-    telegram: "",
+    telegram: "https://t.me/Azizillokhon",
   },
   {
     name: "Sardorbek Isroilov",

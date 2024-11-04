@@ -7,6 +7,7 @@ import { useAuthStore } from "@/store/auth";
 import HFTextField from "@/components/FormElements/TextField";
 import { useMobileStore } from "@/store/mobile";
 import { Button } from "react-native-paper";
+import { AlertUI } from "@/components/UI/Alert";
 
 const DocumentCreateForm = () => {
   const { setPage, pageData } = useMobileStore();
@@ -21,19 +22,70 @@ const DocumentCreateForm = () => {
     setPage("scanning");
     // setPageData({ ...pageData });
   };
-
-  console.log(pageData);
+  console.log("pageData", pageData);
 
   return (
     <View style={globalStyles.container}>
-      <View style={{ paddingVertical: 10 }}>
-        <Text style={{ color: "blue" }}>Заполните информацию о документе!</Text>
+      <View style={{ paddingBottom: 12, paddingTop: 20 }}>
+        <AlertUI title="Заполните информацию о документе!" type="info" />
       </View>
       <Text style={{ fontSize: 24, fontWeight: "bold", marginBottom: 10 }}>
         Форма документа {pageData.doc_number}
       </Text>
       <View>
-        <HFTextField name="number_document" control={control} />
+        <View style={cls.wrapper}>
+          <View style={cls.gridItem}>
+            <HFTextField
+              name="date_document"
+              control={control}
+              label="Дата документа"
+              placeholder="Дата документа"
+              required={true}
+              defaultValue="04.11.2024"
+            />
+          </View>
+          <View style={cls.gridItem}>
+            <HFTextField
+              name="doc_number"
+              control={control}
+              placeholder="Номер документа"
+              label="Номер документа"
+              required={true}
+              defaultValue={"" + pageData?.doc_number}
+            />
+          </View>
+          <View style={cls.gridItem}>
+            <HFTextField
+              name="type"
+              control={control}
+              label="Тип документа"
+              required={true}
+              placeholder="Выбирать"
+              defaultValue={
+                pageData?.doc_type == 1 ? "Вязания" : "Внутренний перемещение"
+              }
+            />
+          </View>
+          <View style={cls.gridItem}>
+            <HFTextField
+              name="name"
+              control={control}
+              placeholder="Выбирать"
+              required={true}
+              label="Подраздиления"
+              defaultValue={user_info?.name}
+            />
+          </View>
+        </View>
+        <View>
+          <HFTextField
+            name="description"
+            control={control}
+            placeholder="Написать..."
+            label="Примечания"
+            required={true}
+          />
+        </View>
 
         <Button
           onPress={handleSubmit(onSubmit)}
@@ -46,6 +98,16 @@ const DocumentCreateForm = () => {
   );
 };
 
-const cls = StyleSheet.create({});
+const cls = StyleSheet.create({
+  wrapper: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-between",
+  },
+  gridItem: {
+    width: "48%", // Approximately half the width to fit two items per row
+    marginBottom: 15,
+  },
+});
 
 export default DocumentCreateForm;

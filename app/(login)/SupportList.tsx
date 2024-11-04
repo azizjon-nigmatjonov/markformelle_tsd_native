@@ -4,13 +4,11 @@ import {
   Text,
   FlatList,
   StyleSheet,
-  TouchableOpacity,
+  Pressable,
   Linking,
   Alert,
 } from "react-native";
 import { support_list } from "./Logic";
-import { PhoneIcon, TelegramIcon } from "@/components/UI/Icons";
-import { globalColors } from "@/components/UI/Colors";
 
 export const SupportList = () => {
   const openPhone = (phone: string) => {
@@ -38,12 +36,12 @@ export const SupportList = () => {
         <Text style={styles.phone}>{item.phone}</Text>
       </View>
       <View style={styles.iconGroup}>
-        <TouchableOpacity onPress={() => openPhone(item.phone)}>
-          <PhoneIcon color={globalColors.primary} />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => openTelegram(item.telegram)}>
-          <TelegramIcon color={globalColors.primary} />
-        </TouchableOpacity>
+        <Pressable onPress={() => openPhone(item.phone)}>
+          <Text style={{ fontSize: 20 }}>☎️</Text>
+        </Pressable>
+        <Pressable onPress={() => openTelegram(item.telegram)}>
+          <Text style={{ fontSize: 20 }}>✉️</Text>
+        </Pressable>
       </View>
     </View>
   );

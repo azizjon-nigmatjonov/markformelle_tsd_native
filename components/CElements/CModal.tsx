@@ -73,7 +73,7 @@ const CModal: FC<Props> = ({
                 <Button
                   mode="text"
                   onPress={handleClose}
-                  style={buttonStyle.cancel}
+                  style={[buttonStyle.cancel, { width: "46%" }]}
                 >
                   <Text style={{ color: "white" }}>{textDeleteBtn}</Text>
                 </Button>
@@ -82,7 +82,7 @@ const CModal: FC<Props> = ({
                 <Button
                   mode="contained"
                   onPress={handleSave}
-                  style={[buttonStyle.submit, { marginLeft: 12 }]}
+                  style={[buttonStyle.submit, { marginLeft: 12, width: "47%" }]}
                 >
                   <Text style={{ color: "white" }}>{textSaveBtn}</Text>
                 </Button>
@@ -104,6 +104,7 @@ const styles = StyleSheet.create({
     width: "90%",
     maxWidth: 700,
     borderRadius: 8,
+    backgroundColor: "white",
   },
   header: {
     flexDirection: "row",
@@ -119,7 +120,9 @@ const styles = StyleSheet.create({
   },
   footer: {
     flexDirection: "row",
-    paddingTop: 20,
+    paddingTop: 12,
+    paddingBottom: 12,
+    paddingRight: 12,
     marginLeft: "auto",
   },
   closeButton: {

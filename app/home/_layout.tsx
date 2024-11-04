@@ -1,35 +1,64 @@
 import { Tabs } from "expo-router";
-import React from "react";
-import { Text, StyleSheet } from "react-native";
+import React, { useState } from "react";
+import { Text, StyleSheet, Pressable } from "react-native";
 import { HomeIcon, InstructionIcon, SettingIcon } from "@/components/UI/Icons";
 import { globalColors } from "@/components/UI/Colors";
+import { useMobileStore } from "@/store/mobile";
+// import { useTabContext } from "@/path/to/TabContext";
 
 export default function TabLayout() {
+  const [selectedTab, setSelectedTab] = useState("");
+  const { setPage, setPageData } = useMobileStore();
+
+  const ClearPages = () => {
+    setPage("");
+    setPageData({});
+  };
+
   return (
     <Tabs
       screenOptions={{
         headerShown: false,
+        tabBarStyle: {
+          height: 60,
+          paddingBottom: 10,
+        },
       }}
     >
       <Tabs.Screen
         name="index"
         options={{
           title: "Главная",
-          headerShown: false,
-          tabBarIcon: ({ focused }) => (
-            <HomeIcon
-              color={focused ? globalColors.black : globalColors.grey}
-            />
-          ),
-          tabBarLabel: ({ focused }) => (
-            <Text
-              style={[
-                styles.tabBarLabel,
-                { color: focused ? globalColors.black : globalColors.grey },
-              ]}
+          tabBarButton: (props) => (
+            <Pressable
+              {...props}
+              onPress={(e) => {
+                setSelectedTab("index");
+                ClearPages();
+                props.onPress && props.onPress(e);
+              }}
             >
-              Главная
-            </Text>
+              <HomeIcon
+                color={
+                  selectedTab === "index"
+                    ? globalColors.black
+                    : globalColors.grey
+                }
+              />
+              <Text
+                style={[
+                  styles.tabBarLabel,
+                  {
+                    color:
+                      selectedTab === "index"
+                        ? globalColors.black
+                        : globalColors.grey,
+                  },
+                ]}
+              >
+                Главная
+              </Text>
+            </Pressable>
           ),
         }}
       />
@@ -37,20 +66,36 @@ export default function TabLayout() {
         name="instruction"
         options={{
           title: "Инструкция",
-          tabBarIcon: ({ focused }) => (
-            <InstructionIcon
-              color={focused ? globalColors.black : globalColors.grey}
-            />
-          ),
-          tabBarLabel: ({ focused }) => (
-            <Text
-              style={[
-                styles.tabBarLabel,
-                { color: focused ? globalColors.black : globalColors.grey },
-              ]}
+          tabBarButton: (props) => (
+            <Pressable
+              {...props}
+              onPress={(e) => {
+                setSelectedTab("instruction");
+                ClearPages();
+                props.onPress && props.onPress(e);
+              }}
             >
-              Инструкция
-            </Text>
+              <InstructionIcon
+                color={
+                  selectedTab === "instruction"
+                    ? globalColors.black
+                    : globalColors.grey
+                }
+              />
+              <Text
+                style={[
+                  styles.tabBarLabel,
+                  {
+                    color:
+                      selectedTab === "instruction"
+                        ? globalColors.black
+                        : globalColors.grey,
+                  },
+                ]}
+              >
+                Инструкция
+              </Text>
+            </Pressable>
           ),
         }}
       />
@@ -58,20 +103,36 @@ export default function TabLayout() {
         name="settings"
         options={{
           title: "Настройки",
-          tabBarIcon: ({ focused }) => (
-            <SettingIcon
-              color={focused ? globalColors.black : globalColors.grey}
-            />
-          ),
-          tabBarLabel: ({ focused }) => (
-            <Text
-              style={[
-                styles.tabBarLabel,
-                { color: focused ? globalColors.black : globalColors.grey },
-              ]}
+          tabBarButton: (props) => (
+            <Pressable
+              {...props}
+              onPress={(e) => {
+                setSelectedTab("settings");
+                ClearPages();
+                props.onPress && props.onPress(e);
+              }}
             >
-              Настройки
-            </Text>
+              <SettingIcon
+                color={
+                  selectedTab === "settings"
+                    ? globalColors.black
+                    : globalColors.grey
+                }
+              />
+              <Text
+                style={[
+                  styles.tabBarLabel,
+                  {
+                    color:
+                      selectedTab === "settings"
+                        ? globalColors.black
+                        : globalColors.grey,
+                  },
+                ]}
+              >
+                Настройки
+              </Text>
+            </Pressable>
           ),
         }}
       />

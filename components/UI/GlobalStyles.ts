@@ -9,7 +9,7 @@ const FONT_SIZES = {
 
 const SPACING = {
   tiny: 4,
-  small: 8,
+  small: 12,
   medium: 16,
   large: 24,
   extraLarge: 32,
@@ -17,8 +17,8 @@ const SPACING = {
 
 const globalStyles = StyleSheet.create({
   container: {
-    paddingRight: SPACING.medium,
-    paddingLeft: SPACING.medium,
+    paddingRight: SPACING.small,
+    paddingLeft: SPACING.small,
   },
   sectionTitle: {
     fontSize: 18,

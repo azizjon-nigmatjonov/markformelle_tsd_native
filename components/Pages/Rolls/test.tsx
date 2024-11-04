@@ -5,7 +5,7 @@ import {
   TextInput,
   StyleSheet,
   Alert,
-  TouchableOpacity,
+  Pressable,
   ScrollView,
 } from "react-native";
 // import { CList } from "../../components/CElements/CList";
@@ -198,12 +198,12 @@ export const RollCreateScreen = () => {
         footerActive={false}
       >
         <CInfo title="Завершено успешно" />
-        <TouchableOpacity
+        <Pressable
           style={styles.doneButton}
           onPress={() => router.push("/")}
         >
           <Text style={styles.doneButtonText}>Понятно, спасибо!</Text>
-        </TouchableOpacity>
+        </Pressable>
       </CModal> */}
     </ScrollView>
   );

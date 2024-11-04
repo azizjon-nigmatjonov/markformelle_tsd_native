@@ -1,6 +1,6 @@
 import { useRouter } from "expo-router";
 import React from "react";
-import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, Image, Pressable } from "react-native";
 
 const menuList = [
   {
@@ -18,12 +18,12 @@ const menuList = [
 ];
 
 export const Menus = () => {
-  const router = useRouter();
+  const router: any = useRouter();
 
   return (
     <View style={styles.container}>
       {menuList.map((item) => (
-        <TouchableOpacity
+        <Pressable
           key={item.title}
           onPress={() => {
             router.push(item.link);
@@ -32,7 +32,7 @@ export const Menus = () => {
         >
           <Image source={item.icon} style={styles.icon} />
           <Text style={styles.title}>{item.title}</Text>
-        </TouchableOpacity>
+        </Pressable>
       ))}
     </View>
   );

@@ -18,6 +18,8 @@ const HomeScreenWrapper = () => {
         return <RollCreateScreen />;
       case "document_create_kniting":
         return <DocumentCreateScreen />;
+      case "document_create_transfer":
+        return <DocumentCreateScreen />;
       case "documents":
         return <DocumentList />;
       case "home":

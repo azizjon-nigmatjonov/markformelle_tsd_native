@@ -1,11 +1,10 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
-import AsyncStorage from "@react-native-async-storage/async-storage"; // Install: npm install @react-native-async-storage/async-storage
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-// Define the type of the state
 interface AuthState {
-  user_info: Record<string, any>; // Adjust this type based on the actual user_info structure
-  setUserInfo: (payload: Record<string, any>) => void;
+  user_info: any;
+  setUserInfo: (payload: any) => void;
 }
 
 export const useAuthStore = create<AuthState>()(

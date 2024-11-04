@@ -1,10 +1,11 @@
 import React, { useMemo, useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, Pressable } from "react-native";
 import CModal from "../CModal"; // Assuming CModal is also converted to React Native
 import mergeList from "../../../utils/mergeList"; // Assuming this utility works as is
 // import { EyeOpenIcon } from "../../UI/Icons"; // Assuming EyeOpenIcon is compatible
 import { AllRolls } from "./AllRolls"; // Assuming AllRolls is also converted
 import { globalColors } from "@/components/UI/Colors";
+import AntDesign from "@expo/vector-icons/AntDesign";
 
 interface Props {
   list: any;
@@ -39,41 +40,73 @@ export const CList: React.FC<Props> = ({ list = [] }) => {
     <>
       <View style={styles.list}>
         <View style={styles.header}>
-          <View style={[styles.cell, { width: "40%" }]}>
-            <Text>назания полотно</Text>
+          <View style={[styles.cell, { width: "38%" }]}>
+            <Text
+              style={{
+                textTransform: "uppercase",
+                fontSize: 12,
+                fontWeight: "500",
+              }}
+            >
+              назания полотно
+            </Text>
           </View>
           <View style={[styles.cell, { width: "17%" }]}>
-            <Text>Сорт</Text>
+            <Text
+              style={{
+                textTransform: "uppercase",
+                fontSize: 12,
+                fontWeight: "500",
+              }}
+            >
+              Сорт
+            </Text>
           </View>
-          <View style={[styles.cell, { width: "19%" }]}>
-            <Text>Количество</Text>
+          <View style={[styles.cell, { width: "27%" }]}>
+            <Text
+              style={{
+                textTransform: "uppercase",
+                fontSize: 12,
+                fontWeight: "500",
+              }}
+            >
+              Количество
+            </Text>
           </View>
-          <View style={[styles.cell, { width: "14%" }]}>
-            <Text>вэс</Text>
+          <View style={[styles.cell, { width: "12%" }]}>
+            <Text
+              style={{
+                textTransform: "uppercase",
+                fontSize: 12,
+                fontWeight: "500",
+              }}
+            >
+              вэс
+            </Text>
           </View>
           <View
-            style={[styles.cell, { width: "10%", borderRightWidth: 0 }]}
+            style={[styles.cell, { width: "6%", borderRightWidth: 0 }]}
           ></View>
         </View>
 
         <View style={styles.body}>
           {Object.entries(newList).map(([key, item]: any) => (
-            <TouchableOpacity
+            <Pressable
               key={key}
               style={styles.row}
               onPress={() => setModalOpen(item)}
             >
-              <View style={[styles.cell, { width: "40%" }]}>
-                <Text style={styles.fontBold}>{item[0].ART}</Text>
+              <View style={[styles.cell, { width: "38%" }]}>
+                <Text>{item[0].ART}</Text>
                 <Text style={styles.greyText}>{item[0].NAIM}</Text>
               </View>
               <View style={[styles.cell, { width: "17%" }]}>
                 <Text>{item[0].NSORT}</Text>
               </View>
-              <View style={[styles.cell, { width: "19%" }]}>
+              <View style={[styles.cell, { width: "27%" }]}>
                 <Text>{item.length}</Text>
               </View>
-              <View style={[styles.cell, { width: "14%" }]}>
+              <View style={[styles.cell, { width: "12%" }]}>
                 <Text>
                   {parseInt(
                     item.reduce(
@@ -84,27 +117,36 @@ export const CList: React.FC<Props> = ({ list = [] }) => {
                 </Text>
               </View>
               <View
-                style={[styles.cell, { width: "10%", borderRightWidth: 0 }]}
+                style={[
+                  styles.cell,
+                  {
+                    width: "6%",
+                    borderRightWidth: 0,
+                    paddingHorizontal: 0,
+                    paddingLeft: 1,
+                  },
+                ]}
               >
-                <View style={styles.iconContainer}>
-                  {/* <EyeOpenIcon /> */}
-                </View>
+                <AntDesign name="eyeo" size={18} color={globalColors.grey} />
               </View>
-            </TouchableOpacity>
+            </Pressable>
           ))}
           <View style={styles.row}>
-            <View style={[styles.cell, { width: "40%" }]}>
-              <Text style={[styles.fontBold, styles.uppercase]}>итого</Text>
+            <View style={[styles.cell, { width: "38%" }]}>
+              <Text style={[styles.font500, styles.uppercase]}>итого</Text>
             </View>
             <View style={[styles.cell, { width: "17%" }]} />
-            <View style={[styles.cell, { width: "19%" }]}>
-              <Text style={styles.fontBold}>{SummUp.quantity}</Text>
+            <View style={[styles.cell, { width: "27%" }]}>
+              <Text style={styles.font500}>{SummUp.quantity}</Text>
             </View>
-            <View style={[styles.cell, { width: "14%" }]}>
-              <Text style={styles.fontBold}>{SummUp.weight}</Text>
+            <View style={[styles.cell, { width: "12%" }]}>
+              <Text style={styles.font500}>{SummUp.weight}</Text>
             </View>
             <View
-              style={[styles.cell, { width: "10%", borderRightWidth: 0 }]}
+              style={[
+                styles.cell,
+                { width: "6%", borderRightWidth: 0, paddingHorizontal: 0 },
+              ]}
             ></View>
           </View>
         </View>
@@ -149,18 +191,16 @@ const styles = StyleSheet.create({
     fontSize: 12,
     // width: "30%",
   },
-  fontBold: {
-    fontWeight: "600",
+  font500: {
+    fontWeight: "500",
   },
   greyText: {
-    color: "var(--grey)",
+    color: globalColors.grey,
+    fontSize: 12,
   },
   uppercase: {
     textTransform: "uppercase",
-  },
-  iconContainer: {
-    justifyContent: "center",
-    alignItems: "center",
+    fontWeight: "500",
   },
 });
 

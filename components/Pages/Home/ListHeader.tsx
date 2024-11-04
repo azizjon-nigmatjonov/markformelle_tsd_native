@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Text, Pressable, StyleSheet } from "react-native";
 import { globalColors } from "@/components/UI/Colors";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import Foundation from "@expo/vector-icons/Foundation";
@@ -10,7 +10,7 @@ interface Props {
 
 export const ListHeader = ({ type = "list", setType = () => {} }: Props) => {
   return (
-    <TouchableOpacity
+    <Pressable
       onPress={() => setType(type === "list" ? "grid" : "list")}
       style={styles.container}
     >
@@ -40,7 +40,7 @@ export const ListHeader = ({ type = "list", setType = () => {} }: Props) => {
           ]}
         />
       </View>
-    </TouchableOpacity>
+    </Pressable>
   );
 };
 

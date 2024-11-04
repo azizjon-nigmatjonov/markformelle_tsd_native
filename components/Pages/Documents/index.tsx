@@ -13,14 +13,18 @@ const DocumentList = () => {
   return (
     <ThemedView>
       <HeaderUI place="Список документов" extra={<BackButton link="home" />} />
-      {/* <Header place="Список документов" extra={<BackButton />} /> */}
 
       <View style={[globalStyles.container, styles.wrapper]}>
-        {/* <CSearchInput handleChange={() => {}} /> */}
-        <ScrollView showsHorizontalScrollIndicator={false}>
-          {docs.map((item: any) => (
-            <View style={styles.documentItem}>
-              <CTable element={item} list={item.rolls} />{" "}
+        <ScrollView showsVerticalScrollIndicator={false}>
+          {docs.map((item: any, index: number) => (
+            <View
+              key={index}
+              style={[
+                styles.documentItem,
+                { paddingBottom: index === docs.length - 1 ? 300 : 16 },
+              ]}
+            >
+              <CTable element={item} list={item.rolls} />
             </View>
           ))}
         </ScrollView>

@@ -22,7 +22,6 @@ export const AllRolls: React.FC<Props> = ({ list = [] }) => {
   return (
     <View style={styles.wrapper}>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-        {/* Header Row */}
         <View>
           <View style={[styles.row, styles.header]}>
             {HeadColumns.map((headCol) => (
@@ -35,7 +34,6 @@ export const AllRolls: React.FC<Props> = ({ list = [] }) => {
             ))}
           </View>
 
-          {/* Data Rows */}
           {list.map((item, index) => (
             <View
               key={index}
@@ -65,6 +63,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: globalColors.border, // equivalent to var(--border)
     borderRadius: 8,
+    backgroundColor: "white",
   },
   scrollContainer: {
     paddingBottom: 18,
@@ -76,7 +75,8 @@ const styles = StyleSheet.create({
     borderColor: globalColors.border,
   },
   header: {
-    backgroundColor: globalColors.grey30, // or another suitable background for headers
+    backgroundColor: globalColors.grey30,
+    zIndex: -1,
   },
   headerText: {
     color: globalColors.grey, // equivalent to var(--grey)

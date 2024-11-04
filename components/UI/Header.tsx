@@ -45,14 +45,15 @@ const styles = StyleSheet.create({
   header: {
     backgroundColor: globalColors.main,
     width: "100%",
-    height: 80,
+    height: 100,
     justifyContent: "center",
   } as ViewStyle,
   container: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    paddingHorizontal: 16,
+    paddingHorizontal: 12,
+    marginTop: 30,
   } as ViewStyle,
   userInfo: {
     justifyContent: "center",

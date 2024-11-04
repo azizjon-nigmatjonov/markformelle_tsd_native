@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, Image, Pressable } from "react-native";
 
 interface Props {
   list: any;
@@ -10,7 +10,7 @@ export const ListTemplate = ({ list, hanldeClick = () => {} }: Props) => {
   return (
     <View style={styles.container}>
       {list.map((item: any, index: number) => (
-        <TouchableOpacity
+        <Pressable
           key={index}
           style={styles.itemContainer}
           onPress={() => {
@@ -29,7 +29,7 @@ export const ListTemplate = ({ list, hanldeClick = () => {} }: Props) => {
             <Text style={styles.title}>{item.title}</Text>
             <Text style={styles.description}>{item.description}</Text>
           </View>
-        </TouchableOpacity>
+        </Pressable>
       ))}
     </View>
   );
