@@ -1,0 +1,91 @@
+{
+  "common": {
+    "welcome": "Хуш келибсиз",
+    "login": "Кириш",
+    "logout": "Чиқиш",
+    "save": "Сақлаш",
+    "cancel": "Бекор қилиш",
+    "delete": "Ўчириш",
+    "edit": "Таҳрирлаш",
+    "create": "Яратиш",
+    "search": "Қидириш",
+    "loading": "Юкланмоқда...",
+    "error": "Хатолик",
+    "success": "Муваффақият",
+    "confirm": "Тасдиқлаш",
+    "yes": "Ҳа",
+    "no": "Йўқ",
+    "back": "Артга",
+    "name": "Ном",
+    "status": "Ҳолат",
+    "quantity": "Миқдор",
+    "enter_quantity": "Миқдорни киритинг",
+    "working": "Ишлайди",
+    "stopped": "Тўхтаган",
+    "no_connection": "Алоқа йўқ",
+    "no_plan": "Режа йўқ",
+    "no_fixing": "Созлаш йўқ"
+  },
+  "navigation": {
+    "home": "Бош саҳифа",
+    "settings": "Созламалар",
+    "documents": "Ҳужжатлар",
+    "knitting": "Тўқимачилик",
+    "rolls": "Рулонлар",
+    "instruction": "Йўриқнома"
+  },
+  "auth": {
+    "email": "Электрон почта",
+    "password": "Парол",
+    "loginButton": "Кириш",
+    "forgotPassword": "Паролни унутдингизми?",
+    "noAccount": "Аккаунт йўқми?",
+    "signUp": "Рўйхатдан ўтиш",
+    "invalidCredentials": "Нотўғри электрон почта ёки парол"
+  },
+  "settings": {
+    "title": "Созламалар",
+    "firstTitle": "Шахсий кабинет",
+    "language": "Тил",
+    "systemLanguage": "Тизим тили",
+    "theme": "Мавзу",
+    "darkMode": "Қоронғи режим",
+    "lightMode": "Ёруғ режим",
+    "account": "Аккаунт",
+    "notifications": "Билдиришномалар",
+    "privacy": "Махфийлик",
+    "about": "Дастур ҳақида"
+  },
+  "chni": {
+    "title": "ЧНИ",
+    "machines": "Машиналар",
+    "machine": "Машина",
+    "documents": "Ҳужжатлар",
+    "document": "Ҳужжат",
+    "scan": "Сканлаш",
+    "machine_name": "Машина номи",
+    "get_product": "Маҳсулот олиш"
+  },
+  "knitting": {
+    "title": "Тўқимачилик",
+    "categories": "Тоифалар",
+    "machines": "Машиналар",
+    "patterns": "Нақшлар",
+    "materials": "Материаллар"
+  },
+  "documents": {
+    "title": "Ҳужжатлар",
+    "createDocument": "Ҳужжат яратиш",
+    "editDocument": "Ҳужжатни таҳрирлаш",
+    "deleteDocument": "Ҳужжатни ўчириш",
+    "noDocuments": "Ҳужжатлар топилмади"
+  },
+  "rolls": {
+    "title": "Рулонлар",
+    "createRoll": "Рулон яратиш",
+    "allRolls": "Барча рулонлар",
+    "rollNumber": "Рулон рақами",
+    "weight": "Оғирлик",
+    "length": "Узунлик"
+  }
+}

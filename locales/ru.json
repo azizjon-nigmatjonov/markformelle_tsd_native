@@ -1,0 +1,91 @@
+{
+  "common": {
+    "welcome": "Добро пожаловать",
+    "login": "Вход",
+    "logout": "Выход",
+    "save": "Сохранить",
+    "cancel": "Отмена",
+    "delete": "Удалить",
+    "edit": "Редактировать",
+    "create": "Создать",
+    "search": "Поиск",
+    "loading": "Загрузка...",
+    "error": "Ошибка",
+    "success": "Успешно",
+    "confirm": "Подтвердить",
+    "yes": "Да",
+    "no": "Нет",
+    "back": "Назад",
+    "name": "Имя",
+    "status": "Статус",
+    "quantity": "Количество",
+    "enter_quantity": "Введите количество",
+    "working": "Работает",
+    "stopped": "Остановлено",
+    "no_connection": "Нет связи",
+    "no_plan": "Нет плана",
+    "no_fixing": "Нет настройки"
+  },
+  "navigation": {
+    "home": "Главная",
+    "settings": "Настройки",
+    "documents": "Документы",
+    "knitting": "Вязание",
+    "rolls": "Рулоны",
+    "instruction": "Инструкция"
+  },
+  "auth": {
+    "email": "Электронная почта",
+    "password": "Пароль",
+    "loginButton": "Войти",
+    "forgotPassword": "Забыли пароль?",
+    "noAccount": "Нет аккаунта?",
+    "signUp": "Зарегистрироваться",
+    "invalidCredentials": "Неверный email или пароль"
+  },
+  "settings": {
+    "title": "Настройки",
+    "firstTitle": "Личный кабинет",
+    "language": "Язык",
+    "systemLanguage": "Язык системы",
+    "theme": "Тема",
+    "darkMode": "Темная тема",
+    "lightMode": "Светлая тема",
+    "account": "Аккаунт",
+    "notifications": "Уведомления",
+    "privacy": "Конфиденциальность",
+    "about": "О приложении"
+  },
+  "chni": {
+    "title": "ЧНИ",
+    "machines": "Машины",
+    "machine": "Машина",
+    "documents": "Документы",
+    "document": "Документ",
+    "scan": "Сканирование",
+    "machine_name": "Название машины",
+    "get_product": "Выпуск продукции"
+  },
+  "knitting": {
+    "title": "Вязание",
+    "categories": "Категории",
+    "machines": "Машины",
+    "patterns": "Узоры",
+    "materials": "Материалы"
+  },
+  "documents": {
+    "title": "Документы",
+    "createDocument": "Создать документ",
+    "editDocument": "Редактировать документ",
+    "deleteDocument": "Удалить документ",
+    "noDocuments": "Документы не найдены"
+  },
+  "rolls": {
+    "title": "Рулоны",
+    "createRoll": "Создать рулон",
+    "allRolls": "Все рулоны",
+    "rollNumber": "Номер рулона",
+    "weight": "Вес",
+    "length": "Длина"
+  }
+}

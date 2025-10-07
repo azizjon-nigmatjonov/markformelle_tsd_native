@@ -1,10 +1,10 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
-import { useListStore } from "../../../store/list";
-import { useDocsStore } from "../../../store/docs";
-import { ListHeader } from "./ListHeader";
-import { ListTemplate } from "./ListTemplate";
-import { GridTemplate } from "./GridTemplate";
+import { useListStore } from "../../../../store/list";
+import { useDocsStore } from "../../../../store/docs";
+import { ListHeader } from "@/components/UI/ListHeader";
+import { ListTemplate } from "@/components/UI/ListTemplate";
+import { GridTemplate } from "@/components/UI/GridTemplate";
 import { globalStyles } from "@/components/UI/GlobalStyles";
 import HeaderUI from "@/components/UI/Header";
 import { useMobileStore } from "@/store/mobile";
@@ -21,19 +21,19 @@ export const Categories = ({ setScreen }: Props) => {
   const CategoriesList = [
     {
       title: "Список документов",
-      image: require("../../../assets/trash/list.png"),
+      image: require("../../../../assets/trash/list.png"),
       description: "Список всех документов",
       link: "documents",
     },
     {
       title: "Вязания",
-      image: require("../../../assets/trash/knitting-machine.png"),
+      image: require("../../../../assets/trash/knitting-machine.png"),
       description: "Создание документ Вязания",
       link: `document_create_kniting`,
     },
     {
       title: "Внутренний перемещение",
-      image: require("../../../assets/trash/transfer.png"),
+      image: require("../../../../assets/trash/transfer.png"),
       description: "Создать документ внутреннего перемещения",
       link: `document_create_transfer`,
     },

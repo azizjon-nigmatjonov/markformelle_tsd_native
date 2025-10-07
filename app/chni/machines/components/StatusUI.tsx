@@ -1,50 +1,45 @@
-import { NavigateButton } from "@/components/UI/NavigateButton";
-import React, { useState } from "react";
 import {
+  StyleSheet,
   View,
   Text,
-  StyleSheet,
   TouchableOpacity,
   Modal,
   ScrollView,
 } from "react-native";
-import { useTranslation } from "react-i18next";
-import {
-  changeLanguage,
-  availableLanguages,
-  getCurrentLanguage,
-} from "@/i18n/config";
 import { globalColors } from "@/components/UI/Colors";
+import { useTranslation } from "react-i18next";
+import { useState } from "react";
 
-const LanguageFlagIcon = ({ flag }: { flag: string }) => (
-  <View style={{ justifyContent: "center", alignItems: "center" }}>
-    <Text style={{ fontSize: 24 }}>{flag}</Text>
-  </View>
-);
+const statusList = [
+  { key: "working", color: globalColors.success },
+  { key: "stopped", color: "#FF6B6B" },
+  { key: "no_connection", color: "#FFA500" },
+  { key: "no_plan", color: "#9B59B6" },
+  { key: "no_fixing", color: "#E74C3C" },
+];
 
-export const ProfileLanguage: React.FC = () => {
+const StatusUI = () => {
   const { t } = useTranslation();
   const [modalVisible, setModalVisible] = useState(false);
-  const [currentLang, setCurrentLang] = useState(getCurrentLanguage());
+  const [status, setStatus] = useState("working");
 
-  const handleLanguageChange = async (languageCode: string) => {
-    await changeLanguage(languageCode);
-    setCurrentLang(languageCode);
+  const handleStatusChange = (statusKey: string) => {
+    setStatus(statusKey);
     setModalVisible(false);
   };
 
-  const currentLanguage =
-    availableLanguages.find((lang) => lang.code === currentLang) ||
-    availableLanguages[0];
+  const currentStatus =
+    statusList.find((s) => s.key === status) || statusList[0];
 
   return (
     <>
-      <NavigateButton
-        title={t("settings.systemLanguage")}
-        icon={<LanguageFlagIcon flag={currentLanguage.flag} />}
-        last={true}
-        onClickAction={() => setModalVisible(true)}
-      />
+      <TouchableOpacity
+        style={[styles.button, { backgroundColor: currentStatus.color }]}
+        onPress={() => setModalVisible(true)}
+      >
+        <Text style={styles.buttonText}>{t("common.status")}:</Text>
+        <Text style={styles.buttonText}>{t(`common.${status}`)}</Text>
+      </TouchableOpacity>
 
       <Modal
         transparent={true}
@@ -53,29 +48,33 @@ export const ProfileLanguage: React.FC = () => {
       >
         <View style={styles.modalOverlay}>
           <View style={styles.modalContent}>
-            <Text style={styles.modalTitle}>{t("settings.language")}</Text>
+            <Text style={styles.modalTitle}>{t("common.status")}</Text>
 
-            <ScrollView style={styles.languageList}>
-              {availableLanguages.map((language) => (
+            <ScrollView style={styles.statusList}>
+              {statusList.map((statusItem) => (
                 <TouchableOpacity
-                  key={language.code}
+                  key={statusItem.key}
                   style={[
-                    styles.languageItem,
-                    currentLang === language.code && styles.selectedLanguage,
+                    styles.statusItem,
+                    status === statusItem.key && styles.selectedStatus,
                   ]}
-                  onPress={() => handleLanguageChange(language.code)}
+                  onPress={() => handleStatusChange(statusItem.key)}
                 >
-                  <Text style={styles.languageFlag}>{language.flag}</Text>
+                  <View
+                    style={[
+                      styles.statusIndicator,
+                      { backgroundColor: statusItem.color },
+                    ]}
+                  />
                   <Text
                     style={[
-                      styles.languageName,
-                      currentLang === language.code &&
-                        styles.selectedLanguageText,
+                      styles.statusName,
+                      status === statusItem.key && styles.selectedStatusText,
                     ]}
                   >
-                    {language.name}
+                    {t(`common.${statusItem.key}`)}
                   </Text>
-                  {currentLang === language.code && (
+                  {status === statusItem.key && (
                     <Text style={styles.checkmark}>✓</Text>
                   )}
                 </TouchableOpacity>
@@ -96,6 +95,20 @@ export const ProfileLanguage: React.FC = () => {
 };
 
 const styles = StyleSheet.create({
+  button: {
+    gap: 12,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 8,
+    borderRadius: 12,
+    marginTop: 10,
+  },
+  buttonText: {
+    color: "white",
+    fontSize: 16,
+    fontWeight: "600",
+  },
   modalOverlay: {
     flex: 1,
     backgroundColor: "rgba(0, 0, 0, 0.5)",
@@ -123,12 +136,11 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     textAlign: "center",
     color: globalColors.primary,
-    fontFamily: "Inter_700Bold",
   },
-  languageList: {
+  statusList: {
     marginBottom: 15,
   },
-  languageItem: {
+  statusItem: {
     flexDirection: "row",
     alignItems: "center",
     padding: 15,
@@ -136,23 +148,24 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     backgroundColor: "#f5f5f5",
   },
-  selectedLanguage: {
+  selectedStatus: {
     backgroundColor: globalColors.primary + "20",
     borderWidth: 2,
     borderColor: globalColors.primary,
   },
-  languageFlag: {
-    fontSize: 32,
+  statusIndicator: {
+    width: 24,
+    height: 24,
+    borderRadius: 12,
     marginRight: 15,
   },
-  languageName: {
+  statusName: {
     fontSize: 18,
     flex: 1,
-    fontFamily: "Inter_400Regular",
     color: "#333",
   },
-  selectedLanguageText: {
-    fontFamily: "Inter_600SemiBold",
+  selectedStatusText: {
+    fontWeight: "600",
     color: globalColors.primary,
   },
   checkmark: {
@@ -170,6 +183,8 @@ const styles = StyleSheet.create({
   closeButtonText: {
     color: "white",
     fontSize: 16,
-    fontFamily: "Inter_600SemiBold",
+    fontWeight: "600",
   },
 });
+
+export default StatusUI;

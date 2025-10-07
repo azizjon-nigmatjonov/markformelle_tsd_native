@@ -1,0 +1,91 @@
+{
+  "common": {
+    "welcome": "Welcome",
+    "login": "Login",
+    "logout": "Logout",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "create": "Create",
+    "search": "Search",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "confirm": "Confirm",
+    "yes": "Yes",
+    "no": "No",
+    "back": "Back",
+    "name": "Name",
+    "status": "Status",
+    "quantity": "Quantity",
+    "enter_quantity": "Enter quantity",
+    "working": "Working",
+    "stopped": "Stopped",
+    "no_connection": "No Connection",
+    "no_plan": "No Plan",
+    "no_fixing": "No Fixing"
+  },
+  "navigation": {
+    "home": "Home",
+    "settings": "Settings",
+    "documents": "Documents",
+    "knitting": "Knitting",
+    "rolls": "Rolls",
+    "instruction": "Instruction"
+  },
+  "auth": {
+    "email": "Email",
+    "password": "Password",
+    "loginButton": "Sign In",
+    "forgotPassword": "Forgot Password?",
+    "noAccount": "Don't have an account?",
+    "signUp": "Sign Up",
+    "invalidCredentials": "Invalid email or password"
+  },
+  "settings": {
+    "title": "Settings",
+    "firstTitle": "Personal Account",
+    "language": "Language",
+    "systemLanguage": "System Language",
+    "theme": "Theme",
+    "darkMode": "Dark Mode",
+    "lightMode": "Light Mode",
+    "account": "Account",
+    "notifications": "Notifications",
+    "privacy": "Privacy",
+    "about": "About"
+  },
+  "chni": {
+    "title": "CHNI",
+    "machines": "Machines",
+    "machine": "Machine",
+    "documents": "Documents",
+    "document": "Document",
+    "scan": "Scan",
+    "machine_name": "Machine Name",
+    "get_product": "Get Product"
+  },
+  "knitting": {
+    "title": "Knitting",
+    "categories": "Categories",
+    "machines": "Machines",
+    "patterns": "Patterns",
+    "materials": "Materials"
+  },
+  "documents": {
+    "title": "Documents",
+    "createDocument": "Create Document",
+    "editDocument": "Edit Document",
+    "deleteDocument": "Delete Document",
+    "noDocuments": "No documents found"
+  },
+  "rolls": {
+    "title": "Rolls",
+    "createRoll": "Create Roll",
+    "allRolls": "All Rolls",
+    "rollNumber": "Roll Number",
+    "weight": "Weight",
+    "length": "Length"
+  }
+}

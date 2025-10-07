@@ -5,9 +5,8 @@ import { HomeIcon, InstructionIcon, SettingIcon } from "@/components/UI/Icons";
 import { globalColors } from "@/components/UI/Colors";
 import { useMobileStore } from "@/store/mobile";
 import { useTranslation } from "react-i18next";
-// import { useTabContext } from "@/path/to/TabContext";
 
-export default function TabLayout() {
+export default function CHNITabLayout() {
   const { t } = useTranslation();
   const [selectedTab, setSelectedTab] = useState("");
   const { setPage, setPageData } = useMobileStore();
@@ -136,6 +135,18 @@ export default function TabLayout() {
               </Text>
             </Pressable>
           ),
+        }}
+      />
+      <Tabs.Screen
+        name="machines"
+        options={{
+          href: null,
+        }}
+      />
+      <Tabs.Screen
+        name="documents"
+        options={{
+          href: null,
         }}
       />
     </Tabs>

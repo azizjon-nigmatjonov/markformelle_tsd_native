@@ -1,12 +1,12 @@
 import { View, StyleSheet } from "react-native";
 import Categories from "./Categories";
-import DocumentList from "../Documents";
-import DocumentCreateScreen from "../Documents/document/Create";
+import DocumentList from "../../Documents";
+import DocumentCreateScreen from "../../Documents/document/Create";
 import { useMobileStore } from "@/store/mobile";
-import { RollCreateScreen } from "../Rolls/Create";
+import { RollCreateScreen } from "../../Rolls/Create";
 import { Dimensions } from "react-native";
 
-const HomeScreenWrapper = () => {
+const KnittingHomeWrapper = () => {
   const { page, setPageData } = useMobileStore();
   const { height: SCREEN_HEIGHT } = Dimensions.get("window");
 
@@ -38,4 +38,4 @@ const cls = StyleSheet.create({
   wrapper: {},
 });
 
-export default HomeScreenWrapper;
+export default KnittingHomeWrapper;

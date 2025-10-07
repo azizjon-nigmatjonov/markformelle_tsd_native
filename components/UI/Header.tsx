@@ -5,6 +5,7 @@ import { useAuthStore } from "../../store/auth";
 import { StyleSheet, ViewStyle, TextStyle } from "react-native";
 import { globalColors } from "./Colors";
 import { LinearGradient } from "expo-linear-gradient";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   place?: string;
@@ -13,7 +14,7 @@ interface Props {
 
 const HeaderUI = ({ place = "", extra }: Props) => {
   const { user_info } = useAuthStore();
-
+  const { t } = useTranslation();
   return (
     <View style={styles.headerWrapper}>
       <LinearGradient
@@ -26,8 +27,12 @@ const HeaderUI = ({ place = "", extra }: Props) => {
           <View style={styles.userInfo}>
             <Text style={styles.userName}>{user_info.name}</Text>
             <View style={styles.locationWrapper}>
-              <Text style={styles.boldText}>Вязание</Text>
-              {place ? <Text style={styles.greyText}> / {place}</Text> : null}
+              <Text style={styles.boldText}>
+                {t(user_info.role + ".title")}
+              </Text>
+              {place ? (
+                <Text style={styles.greyText}> / {t(place)}</Text>
+              ) : null}
             </View>
           </View>
           {extra}

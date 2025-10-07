@@ -37,8 +37,27 @@ const Login: React.FC = () => {
   const router: any = useRouter();
 
   const authdata = [
-    { id: 1, login: "112233", name: "Azizjon", token: "12345" },
-    { id: 2, login: "66666", name: "Azizilloxon", token: "6565656" },
+    {
+      id: 1,
+      login: "112233",
+      name: "Azizjon",
+      token: "12345",
+      role: "knitting",
+    },
+    {
+      id: 2,
+      login: "66666",
+      name: "Azizilloxon",
+      token: "6565656",
+      role: "knitting",
+    },
+    {
+      id: 3,
+      login: "55555",
+      name: "Azizilloxon",
+      token: "55555",
+      role: "chni",
+    },
   ];
 
   const onSubmit = async (data: LoginData) => {

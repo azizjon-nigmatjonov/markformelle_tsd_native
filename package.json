@@ -9,12 +9,15 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "test": "jest --watchAll",
-    "lint": "expo lint"
+    "lint": "expo lint",
+    "build:android": "eas build --platform android --profile preview",
+    "build:ios": "eas build --platform ios --profile preview"
   },
   "jest": {
     "preset": "jest-expo"
   },
   "dependencies": {
+    "@expo-google-fonts/inter": "^0.4.2",
     "@expo/vector-icons": "^14.0.2",
     "@hookform/resolvers": "^3.9.0",
     "@react-native-async-storage/async-storage": "^2.0.0",
@@ -25,15 +28,19 @@
     "expo": "^51.0.38",
     "expo-constants": "~16.0.2",
     "expo-font": "~12.0.9",
+    "expo-linear-gradient": "~13.0.2",
     "expo-linking": "~6.3.1",
+    "expo-localization": "^17.0.7",
     "expo-router": "^3.1.0",
     "expo-splash-screen": "~0.27.5",
     "expo-status-bar": "~1.12.1",
     "expo-system-ui": "~3.0.7",
     "expo-web-browser": "~13.0.3",
+    "i18next": "^25.5.3",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.53.1",
+    "react-i18next": "^16.0.0",
     "react-native": "0.74.5",
     "react-native-gesture-handler": "~2.16.1",
     "react-native-linear-gradient": "^2.8.3",
@@ -45,8 +52,7 @@
     "react-native-web": "~0.19.10",
     "sass": "^1.80.6",
     "yup": "^1.4.0",
-    "zustand": "^5.0.0",
-    "expo-linear-gradient": "~13.0.2"
+    "zustand": "^5.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
