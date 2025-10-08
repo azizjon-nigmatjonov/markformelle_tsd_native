@@ -12,6 +12,7 @@ import { buttonStyle } from "@/components/UI/GlobalStyles";
 import { globalColors } from "@/components/UI/Colors";
 import { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
+import { useToast } from "@/components/UI/ToastProvider";
 
 interface ProductFormData {
   quantity: string;
@@ -19,6 +20,7 @@ interface ProductFormData {
 
 const GetProductUI = () => {
   const { t } = useTranslation();
+  const toast = useToast();
   const [modalVisible, setModalVisible] = useState(false);
   const { control, handleSubmit, reset } = useForm<ProductFormData>({
     defaultValues: {
@@ -27,10 +29,23 @@ const GetProductUI = () => {
   });
 
   const onSubmit = (data: ProductFormData) => {
-    console.log("Product quantity:", data.quantity);
-    // Handle the form submission here
-    setModalVisible(false);
-    reset();
+    if (!data.quantity || parseInt(data.quantity) <= 0) {
+      toast.error("Пожалуйста, введите корректное количество");
+      return;
+    }
+
+    try {
+      console.log("Product quantity:", data.quantity);
+      // Handle the form submission here
+
+      // Show success toast
+      toast.success(`Продукт успешно получен! Количество: ${data.quantity}`);
+
+      setModalVisible(false);
+      reset();
+    } catch (error) {
+      toast.error("Не удалось получить продукт. Попробуйте еще раз.");
+    }
   };
 
   return (
@@ -101,7 +116,7 @@ const GetProductUI = () => {
 
 const styles = StyleSheet.create({
   wrapper: {
-    marginTop: 20,
+    marginTop: 8,
   },
   modalOverlay: {
     flex: 1,

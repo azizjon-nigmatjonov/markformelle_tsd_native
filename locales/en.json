@@ -24,7 +24,8 @@
     "stopped": "Stopped",
     "no_connection": "No Connection",
     "no_plan": "No Plan",
-    "no_fixing": "No Fixing"
+    "no_fixing": "No Fixing",
+    "custom_actions": "Custom Actions"
   },
   "navigation": {
     "home": "Home",
@@ -64,7 +65,14 @@
     "document": "Document",
     "scan": "Scan",
     "machine_name": "Machine Name",
-    "get_product": "Get Product"
+    "get_product": "Get Product",
+    "scanning_ready": "Ready to Scan",
+    "scanning_instruction": "Point your camera at the machine barcode",
+    "barcode_hint": "Machine Barcode",
+    "scan_machine": "Scan the machine QR code",
+    "scan_document": "Scan the document Barcode",
+    "machine_not_sellected": "Machine not sellected",
+    "not_sellected_document": "Document not sellected"
   },
   "knitting": {
     "title": "Knitting",

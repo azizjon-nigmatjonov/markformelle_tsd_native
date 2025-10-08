@@ -18,6 +18,7 @@ import { PaperProvider, DefaultTheme } from "react-native-paper";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useAuthStore } from "@/store/auth";
 import { globalColors } from "@/components/UI/Colors";
+import { ToastProvider } from "@/components/UI/ToastProvider";
 import "@/i18n/config"; // Initialize i18n
 SplashScreen.preventAutoHideAsync();
 
@@ -46,6 +47,8 @@ export default function RootLayout() {
       background: "#ffffff",
       text: "#fff",
       placeholder: globalColors.grey,
+      outline: "#ab077e", // Input focus/outline color
+      onSurfaceVariant: "#ab077e", // Input border color when focused
     },
   };
 
@@ -75,14 +78,16 @@ export default function RootLayout() {
 
   return (
     <PaperProvider theme={theme}>
-      <Stack screenOptions={{ headerShown: false }}>
-        <Stack.Screen
-          name={user_info?.token ? "home" : "(login)"}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen name="chni" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
+      <ToastProvider maxToasts={3}>
+        <Stack screenOptions={{ headerShown: false }}>
+          <Stack.Screen
+            name={user_info?.token ? "home" : "(login)"}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen name="chni" options={{ headerShown: false }} />
+          <Stack.Screen name="+not-found" />
+        </Stack>
+      </ToastProvider>
     </PaperProvider>
   );
 }

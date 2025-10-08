@@ -49,6 +49,12 @@ ul {
   padding: 0;
   margin: 0;
 }
+input:focus,
+textarea:focus,
+select:focus {
+  outline-color: #ab077e !important;
+  border-color: #ab077e !important;
+}
 @media (prefers-color-scheme: dark) {
   body {
     background-color: #000; /* Support dark mode */

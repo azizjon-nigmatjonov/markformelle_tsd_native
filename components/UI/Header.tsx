@@ -3,7 +3,7 @@ import { View, Text } from "react-native";
 import { ReactNode } from "react";
 import { useAuthStore } from "../../store/auth";
 import { StyleSheet, ViewStyle, TextStyle } from "react-native";
-import { globalColors } from "./Colors";
+import { useTheme } from "@/hooks/useTheme";
 import { LinearGradient } from "expo-linear-gradient";
 import { useTranslation } from "react-i18next";
 
@@ -14,6 +14,7 @@ interface Props {
 
 const HeaderUI = ({ place = "", extra }: Props) => {
   const { user_info } = useAuthStore();
+  const { colors } = useTheme();
   const { t } = useTranslation();
   return (
     <View style={styles.headerWrapper}>
@@ -31,7 +32,9 @@ const HeaderUI = ({ place = "", extra }: Props) => {
                 {t(user_info.role + ".title")}
               </Text>
               {place ? (
-                <Text style={styles.greyText}> / {t(place)}</Text>
+                <Text style={[styles.greyText, { color: colors.grey20 }]}>
+                  / {t(place)}
+                </Text>
               ) : null}
             </View>
           </View>
@@ -48,7 +51,6 @@ const styles = StyleSheet.create({
     // paddingTop: 20,
   } as ViewStyle,
   header: {
-    backgroundColor: globalColors.main,
     width: "100%",
     height: 100,
     justifyContent: "center",
@@ -79,7 +81,7 @@ const styles = StyleSheet.create({
     color: "white",
   } as TextStyle,
   greyText: {
-    color: globalColors.grey20,
+    // color will be applied dynamically
   } as TextStyle,
 });
 

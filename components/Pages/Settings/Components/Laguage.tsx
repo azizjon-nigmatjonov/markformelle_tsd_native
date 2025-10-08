@@ -14,7 +14,7 @@ import {
   availableLanguages,
   getCurrentLanguage,
 } from "@/i18n/config";
-import { globalColors } from "@/components/UI/Colors";
+import { useTheme } from "@/hooks/useTheme";
 
 const LanguageFlagIcon = ({ flag }: { flag: string }) => (
   <View style={{ justifyContent: "center", alignItems: "center" }}>
@@ -24,6 +24,7 @@ const LanguageFlagIcon = ({ flag }: { flag: string }) => (
 
 export const ProfileLanguage: React.FC = () => {
   const { t } = useTranslation();
+  const { colors } = useTheme();
   const [modalVisible, setModalVisible] = useState(false);
   const [currentLang, setCurrentLang] = useState(getCurrentLanguage());
 
@@ -52,8 +53,15 @@ export const ProfileLanguage: React.FC = () => {
         onRequestClose={() => setModalVisible(false)}
       >
         <View style={styles.modalOverlay}>
-          <View style={styles.modalContent}>
-            <Text style={styles.modalTitle}>{t("settings.language")}</Text>
+          <View
+            style={[
+              styles.modalContent,
+              { backgroundColor: colors.cardBackground },
+            ]}
+          >
+            <Text style={[styles.modalTitle, { color: colors.primary }]}>
+              {t("settings.language")}
+            </Text>
 
             <ScrollView style={styles.languageList}>
               {availableLanguages.map((language) => (
@@ -61,7 +69,12 @@ export const ProfileLanguage: React.FC = () => {
                   key={language.code}
                   style={[
                     styles.languageItem,
-                    currentLang === language.code && styles.selectedLanguage,
+                    { backgroundColor: colors.grey30 },
+                    currentLang === language.code && {
+                      backgroundColor: colors.primary30,
+                      borderWidth: 2,
+                      borderColor: colors.primary,
+                    },
                   ]}
                   onPress={() => handleLanguageChange(language.code)}
                 >
@@ -69,21 +82,25 @@ export const ProfileLanguage: React.FC = () => {
                   <Text
                     style={[
                       styles.languageName,
-                      currentLang === language.code &&
-                        styles.selectedLanguageText,
+                      { color: colors.text },
+                      currentLang === language.code && {
+                        color: colors.primary,
+                      },
                     ]}
                   >
                     {language.name}
                   </Text>
                   {currentLang === language.code && (
-                    <Text style={styles.checkmark}>✓</Text>
+                    <Text style={[styles.checkmark, { color: colors.primary }]}>
+                      ✓
+                    </Text>
                   )}
                 </TouchableOpacity>
               ))}
             </ScrollView>
 
             <TouchableOpacity
-              style={styles.closeButton}
+              style={[styles.closeButton, { backgroundColor: colors.grey }]}
               onPress={() => setModalVisible(false)}
             >
               <Text style={styles.closeButtonText}>{t("common.cancel")}</Text>
@@ -103,7 +120,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   modalContent: {
-    backgroundColor: "white",
     borderRadius: 20,
     padding: 20,
     width: "85%",
@@ -122,7 +138,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginBottom: 20,
     textAlign: "center",
-    color: globalColors.primary,
     fontFamily: "Inter_700Bold",
   },
   languageList: {
@@ -134,12 +149,6 @@ const styles = StyleSheet.create({
     padding: 15,
     borderRadius: 10,
     marginBottom: 10,
-    backgroundColor: "#f5f5f5",
-  },
-  selectedLanguage: {
-    backgroundColor: globalColors.primary + "20",
-    borderWidth: 2,
-    borderColor: globalColors.primary,
   },
   languageFlag: {
     fontSize: 32,
@@ -149,19 +158,12 @@ const styles = StyleSheet.create({
     fontSize: 18,
     flex: 1,
     fontFamily: "Inter_400Regular",
-    color: "#333",
-  },
-  selectedLanguageText: {
-    fontFamily: "Inter_600SemiBold",
-    color: globalColors.primary,
   },
   checkmark: {
     fontSize: 24,
-    color: globalColors.primary,
     fontWeight: "bold",
   },
   closeButton: {
-    backgroundColor: globalColors.grey,
     padding: 15,
     borderRadius: 10,
     alignItems: "center",

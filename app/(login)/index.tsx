@@ -19,6 +19,7 @@ import SupportList from "./SupportList";
 import { useRouter } from "expo-router";
 import { globalColors } from "@/components/UI/Colors";
 import { useMobileStore } from "@/store/mobile";
+import { useToast } from "@/components/UI/ToastProvider";
 
 interface LoginData {
   login: string;
@@ -35,6 +36,7 @@ const Login: React.FC = () => {
   const { setUserInfo } = useAuthStore();
   const { setPage } = useMobileStore();
   const router: any = useRouter();
+  const toast = useToast();
 
   const authdata = [
     {
@@ -62,23 +64,28 @@ const Login: React.FC = () => {
 
   const onSubmit = async (data: LoginData) => {
     const user = authdata.find((el) => el.login === data.login);
-    // setPage("home");
-    // setTimeout(() => {
-    //   router.push("/home");
-    // }, 0);
-    if (user?.token) {
-      setUserInfo(user);
-      await AsyncStorage.setItem("user_info", JSON.stringify(user));
-      // localStorage.setItem("user_info", JSON.stringify(user));
 
-      setPage("home");
-      setTimeout(() => {
-        router.push("/home");
-      }, 0);
+    if (user?.token) {
+      try {
+        setUserInfo(user);
+        await AsyncStorage.setItem("user_info", JSON.stringify(user));
+
+        // Show success toast
+        toast.success("Добро пожаловать! 👋");
+
+        setPage("home");
+        setTimeout(() => {
+          router.push("/home");
+        }, 300);
+      } catch (error) {
+        toast.error("Произошла ошибка при входе. Попробуйте еще раз.");
+      }
     } else {
+      // Show error toast
+      toast.error("Этот пользователь не определен! Попробуйте еще раз");
       setErrors({
         login: {
-          message: "Этот пользователь не определен! Попробуйте еще раз",
+          message: "Неверный пароль",
         },
       });
     }
@@ -197,7 +204,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   focusOutline: {
-    borderColor: globalColors.primary,
+    borderColor: "#ab077e",
   },
   errorInput: {
     borderColor: "red",

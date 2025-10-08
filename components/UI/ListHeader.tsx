@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, Pressable, StyleSheet } from "react-native";
-import { globalColors } from "@/components/UI/Colors";
+import { useTheme } from "@/hooks/useTheme";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import Foundation from "@expo/vector-icons/Foundation";
 interface Props {
@@ -9,19 +9,21 @@ interface Props {
 }
 
 export const ListHeader = ({ type = "list", setType = () => {} }: Props) => {
+  const { colors } = useTheme();
+
   return (
     <Pressable
       onPress={() => setType(type === "list" ? "grid" : "list")}
       style={styles.container}
     >
-      <Text style={styles.title}>Главное меню</Text>
+      <Text style={[styles.title, { color: colors.text }]}>Главное меню</Text>
 
-      <View style={styles.buttonContainer}>
+      <View style={[styles.buttonContainer, { borderColor: colors.border }]}>
         <View style={styles.icon}>
           <MaterialIcons
             name="grid-view"
             size={20}
-            color={type === "grid" ? globalColors.grey : globalColors.black}
+            color={type === "grid" ? colors.grey : colors.text}
           />
         </View>
 
@@ -29,13 +31,14 @@ export const ListHeader = ({ type = "list", setType = () => {} }: Props) => {
           <Foundation
             name="list"
             size={20}
-            color={type === "list" ? globalColors.grey : globalColors.black}
+            color={type === "list" ? colors.grey : colors.text}
           />
         </View>
 
         <View
           style={[
             styles.toggleIndicator,
+            { backgroundColor: colors.grey20 },
             type === "list" ? styles.leftToggle : styles.rightToggle,
           ]}
         />
@@ -54,7 +57,6 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 18,
     fontWeight: "bold",
-    color: globalColors.black,
   },
   icon: {
     paddingHorizontal: 5,
@@ -69,7 +71,6 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     borderWidth: 1,
-    borderColor: "#d3d3d3",
     borderRadius: 8,
     overflow: "hidden",
     height: 30,
@@ -81,7 +82,6 @@ const styles = StyleSheet.create({
     top: 0,
     bottom: 0,
     width: "50%",
-    backgroundColor: globalColors.grey20,
     zIndex: -1,
     borderRadius: 4,
   },

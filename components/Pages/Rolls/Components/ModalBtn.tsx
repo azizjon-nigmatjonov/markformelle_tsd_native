@@ -10,6 +10,7 @@ import {
 import { Switch, Modal } from "react-native-paper";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import { globalColors } from "@/components/UI/Colors";
+import { useTranslate } from "@/hooks/useTranslate";
 
 interface Props {
   openModal: boolean;
@@ -24,6 +25,7 @@ export const ModalBtn: React.FC<Props> = ({
   setOpenModal,
   setCustomInputActions,
 }) => {
+  const t = useTranslate();
   const { height: SCREEN_HEIGHT } = Dimensions.get("window");
   const closeModal = () => {
     setTimeout(() => {
@@ -46,7 +48,7 @@ export const ModalBtn: React.FC<Props> = ({
         <View style={styles.modal}>
           <View style={styles.modalContainer}>
             <View style={styles.modalContent}>
-              <Text style={styles.title}>Custom Actions</Text>
+              <Text style={styles.title}>{t("common.custom_actions")}</Text>
               <View style={styles.listContainer}>
                 <Pressable
                   onPress={() => {
@@ -55,6 +57,7 @@ export const ModalBtn: React.FC<Props> = ({
                         ? customInputActions.filter((el) => el !== "open")
                         : [...customInputActions, "open"]
                     );
+                    setOpenModal(false);
                   }}
                   style={styles.listItem}
                 >
@@ -79,6 +82,7 @@ export const ModalBtn: React.FC<Props> = ({
                         ? customInputActions.filter((el) => el !== "delete")
                         : [...customInputActions, "delete"]
                     );
+                    setOpenModal(false);
                   }}
                   style={styles.listItem}
                 >
@@ -111,7 +115,7 @@ export const ModalBtn: React.FC<Props> = ({
             width: "100%",
             height: SCREEN_HEIGHT,
             top: 0,
-            zIndex: 1,
+            zIndex: 9998,
           }}
         ></TouchableOpacity>
       )}
@@ -123,15 +127,17 @@ const styles = StyleSheet.create({
   modal: {
     position: "absolute",
     right: 0,
-    top: 44,
-    zIndex: 99,
+    top: 30,
+    zIndex: 9999,
     borderWidth: 1,
     borderColor: globalColors.border,
     borderRadius: 12,
+    elevation: 10,
   },
   iconButton: {
     position: "relative",
     paddingLeft: 20,
+    zIndex: 9999,
   },
   modalContainer: {
     justifyContent: "center",

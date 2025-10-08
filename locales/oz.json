@@ -24,7 +24,8 @@
     "stopped": "Тўхтаган",
     "no_connection": "Алоқа йўқ",
     "no_plan": "Режа йўқ",
-    "no_fixing": "Созлаш йўқ"
+    "no_fixing": "Созлаш йўқ",
+    "custom_actions": "Амаллар"
   },
   "navigation": {
     "home": "Бош саҳифа",
@@ -64,7 +65,14 @@
     "document": "Ҳужжат",
     "scan": "Сканлаш",
     "machine_name": "Машина номи",
-    "get_product": "Маҳсулот олиш"
+    "get_product": "Маҳсулот олиш",
+    "scanning_ready": "Сканлашга тайёр",
+    "scanning_instruction": "Камерани машина штрих-кодига йўналтиринг",
+    "barcode_hint": "Машина штрих-коди",
+    "scan_machine": "Машинанинг QR кодни сканнерланг",
+    "scan_document": "Ҳужжатнинг штрих-кодини сканнерланг",
+    "machine_not_sellected": "Машина танланмаган",
+    "not_sellected_document": "Ҳужжат танланмаган"
   },
   "knitting": {
     "title": "Тўқимачилик",

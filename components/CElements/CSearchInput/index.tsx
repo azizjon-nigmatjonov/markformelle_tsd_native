@@ -42,7 +42,7 @@ const CSearchInput = ({
       <MaterialIcons
         name="search"
         size={20}
-        style={[styles.icon, { color: value ? "blue" : "gray" }]} // Adjust color as per your theme
+        style={[styles.icon, { color: value ? "#ab077e" : "gray" }]} // Adjust color as per your theme
       />
       <TextInput
         value={value}
@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
     left: 10,
   },
   activeBorder: {
-    borderColor: "blue", // Adjust as per your theme
+    borderColor: "#ab077e", // Focus color
     borderWidth: 1,
   },
   inactiveBorder: {

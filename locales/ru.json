@@ -24,7 +24,8 @@
     "stopped": "Остановлено",
     "no_connection": "Нет связи",
     "no_plan": "Нет плана",
-    "no_fixing": "Нет настройки"
+    "no_fixing": "Нет настройки",
+    "custom_actions": "Действия ручного"
   },
   "navigation": {
     "home": "Главная",
@@ -64,7 +65,14 @@
     "document": "Документ",
     "scan": "Сканирование",
     "machine_name": "Название машины",
-    "get_product": "Выпуск продукции"
+    "get_product": "Выпуск продукции",
+    "scanning_ready": "Готово к сканированию",
+    "scanning_instruction": "Наведите камеру на штрих-код машины",
+    "barcode_hint": "Штрих-код машины",
+    "scan_machine": "Сканируйте QR код машины",
+    "machine_not_sellected": "Машина не выбрано",
+    "scan_document": "Сканируйте штрих-код документа",
+    "not_sellected_document": "Документ не выбран"
   },
   "knitting": {
     "title": "Вязание",

@@ -1,19 +1,21 @@
-import { globalColors } from "@/components/UI/Colors";
+import { useTheme } from "@/hooks/useTheme";
 import React from "react";
 import { View, Text, StyleSheet, Pressable } from "react-native";
-// import { MaterialIcons } from "@expo/vector-icons"; // Import from @expo/vector-icons
 
-interface ProfileModeProps {
-  onPress: () => void; // Function to handle button press
-}
+export const ProfileMode: React.FC = () => {
+  const { theme, colors, toggleTheme } = useTheme();
 
-export const ProfileMode: React.FC<ProfileModeProps> = ({ onPress }) => {
   return (
-    <Pressable style={styles.navigateButton} onPress={onPress}>
+    <Pressable
+      style={[styles.navigateButton, { borderColor: colors.border }]}
+      onPress={toggleTheme}
+    >
       <View style={styles.iconContainer}>
-        <Text style={{ fontSize: 24 }}>☀️</Text>
+        <Text style={{ fontSize: 24 }}>{theme === "light" ? "☀️" : "🌙"}</Text>
       </View>
-      <Text style={styles.title}>Режим системы</Text>
+      <Text style={[styles.title, { color: colors.text }]}>
+        {theme === "light" ? "Светлая тема" : "Темная тема"}
+      </Text>
     </Pressable>
   );
 };
@@ -24,7 +26,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: 12,
     borderBottomWidth: 1,
-    borderColor: globalColors.border,
   },
   iconContainer: {
     width: 50,

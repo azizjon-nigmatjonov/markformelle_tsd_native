@@ -21,7 +21,6 @@ export const ListTemplate = ({ list, hanldeClick = () => {} }: Props) => {
         >
           {item?.image && (
             <View style={styles.imageContainer}>
-              {/* If it's an actual image URI or require statement */}
               <Image source={item.image} style={styles.image} />
             </View>
           )}
