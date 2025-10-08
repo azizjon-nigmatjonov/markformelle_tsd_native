@@ -1,12 +1,20 @@
 import { ThemedView } from "@/components/ThemedView";
 import HeaderUI from "@/components/UI/Header";
-import { Dimensions, Text, StyleSheet, View, Image } from "react-native";
+import {
+  Dimensions,
+  Text,
+  StyleSheet,
+  View,
+  Image,
+  ScrollView,
+  StatusBar,
+} from "react-native";
 import { globalStyles } from "@/components/UI/GlobalStyles";
 import { BackButtonNavigate } from "@/components/UI/BackButtonNavigate";
 import MachineInfoUI from "@/components/Pages/CHNI/Machines/MachineInfoUI";
 import DocInfoUI from "./components/DocInfoUI/DocInfoUI";
 import GetProductUI from "./components/GetProductUI";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import ScanningUI from "./components/ScanningUI";
 import { useTranslate } from "@/hooks/useTranslate";
 import ScanningDocUI from "./components/ScanningDocUI";
@@ -14,15 +22,13 @@ import ScanningDocUI from "./components/ScanningDocUI";
 export default function MachinePage() {
   const { height: SCREEN_HEIGHT } = Dimensions.get("window");
   const t = useTranslate();
+  const scrollViewRef = useRef<ScrollView>(null);
   const [machineId, setMachineId] = useState("");
   const [docId, setDocId] = useState("");
-  const [alertInfo, setAlertInfo] = useState<any>({
-    type: "info",
-    title: t("chni.scan_machine"),
-  });
+  const [alertInfo, setAlertInfo] = useState<any>({});
   const [customInputActions, setCustomInputActions] = useState<string[]>([]);
   const [openModal, setOpenModal] = useState(false);
-
+  const [flex, setFlex] = useState(100);
   useEffect(() => {
     if (machineId) {
       setAlertInfo({
@@ -31,45 +37,94 @@ export default function MachinePage() {
       });
     }
   }, [machineId]);
-  console.log("123", docId, machineId);
+
+  useEffect(() => {
+    if (openModal || customInputActions.includes("open")) {
+      setTimeout(() => {
+        setFlex(0);
+      }, 500);
+    } else {
+      setTimeout(() => {
+        setFlex(100);
+      }, 500);
+    }
+  }, [customInputActions, openModal]);
+
+  useEffect(() => {
+    if (!machineId) {
+      setAlertInfo({
+        type: "info",
+        title: t("chni.scan_machine"),
+      });
+    }
+  }, [machineId]);
+
+  const clearFn = () => {
+    setTimeout(() => {
+      setMachineId("");
+      setDocId("");
+      setAlertInfo({});
+      setCustomInputActions([]);
+      setOpenModal(false);
+    }, 500);
+  };
 
   return (
     <ThemedView style={{ height: SCREEN_HEIGHT }}>
-      <HeaderUI place={"chni.machine"} extra={<BackButtonNavigate />} />
-      {machineId ? (
-        <View style={[globalStyles.container, styles.content]}>
-          <MachineInfoUI
+      <HeaderUI
+        place={"chni.machine"}
+        extra={<BackButtonNavigate link="/chni" />}
+      />
+      <View
+        style={{
+          overflow: "scroll",
+          flex: flex ? 1 : 6,
+          paddingBottom: flex,
+          height: flex ? SCREEN_HEIGHT : 1000,
+        }}
+      >
+        {machineId ? (
+          <View style={[globalStyles.container, styles.content]}>
+            <MachineInfoUI
+              setCustomInputActions={setCustomInputActions}
+              customInputActions={customInputActions}
+              openModal={openModal}
+              setOpenModal={setOpenModal}
+              docId={docId}
+              alertInfo={alertInfo}
+              setMachineId={setMachineId}
+              machineId={machineId}
+              setDocId={setDocId}
+              setAlertInfo={setAlertInfo}
+              clearFn={clearFn}
+            />
+          </View>
+        ) : (
+          <ScanningUI
+            alertInfo={alertInfo}
             setCustomInputActions={setCustomInputActions}
             customInputActions={customInputActions}
             openModal={openModal}
             setOpenModal={setOpenModal}
+            setAlertInfo={setAlertInfo}
             docId={docId}
-            alertInfo={alertInfo}
+            setDocId={setDocId}
             setMachineId={setMachineId}
             machineId={machineId}
-            setDocId={setDocId}
-            setAlertInfo={setAlertInfo}
           />
-        </View>
-      ) : (
-        <ScanningUI
-          alertInfo={alertInfo}
-          setCustomInputActions={setCustomInputActions}
-          customInputActions={customInputActions}
-          openModal={openModal}
-          setOpenModal={setOpenModal}
-          setAlertInfo={setAlertInfo}
-          docId={docId}
-          setDocId={setDocId}
-          setMachineId={setMachineId}
-          machineId={machineId}
-        />
-      )}
+        )}
+      </View>
     </ThemedView>
   );
 }
 
 const styles = StyleSheet.create({
+  scrollView: {
+    flex: 1,
+  },
+  scrollContent: {
+    flexGrow: 1,
+  },
   content: {
     padding: 16,
   },

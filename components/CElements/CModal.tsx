@@ -69,6 +69,18 @@ const CModal: FC<Props> = ({
 
           {footerActive && (
             <View style={styles.footer}>
+              {textSaveBtn && (
+                <Button
+                  mode="contained"
+                  onPress={handleSave}
+                  style={[
+                    buttonStyle.submit,
+                    { marginRight: 12, width: "47%" },
+                  ]}
+                >
+                  <Text style={{ color: "white" }}>{textSaveBtn}</Text>
+                </Button>
+              )}
               {textDeleteBtn && (
                 <Button
                   mode="text"
@@ -76,15 +88,6 @@ const CModal: FC<Props> = ({
                   style={[buttonStyle.cancel, { width: "46%" }]}
                 >
                   <Text style={{ color: "white" }}>{textDeleteBtn}</Text>
-                </Button>
-              )}
-              {textSaveBtn && (
-                <Button
-                  mode="contained"
-                  onPress={handleSave}
-                  style={[buttonStyle.submit, { marginLeft: 12, width: "47%" }]}
-                >
-                  <Text style={{ color: "white" }}>{textSaveBtn}</Text>
                 </Button>
               )}
             </View>

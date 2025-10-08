@@ -72,7 +72,12 @@
     "scan_machine": "Сканируйте QR код машины",
     "machine_not_sellected": "Машина не выбрано",
     "scan_document": "Сканируйте штрих-код документа",
-    "not_sellected_document": "Документ не выбран"
+    "write_document": "Введите штрих-код документа",
+    "write_machine": "Введите QR код машины",
+    "not_sellected_document": "Документ не выбран",
+    "itsnot_machine_qr_code": "Это не QR код машины, пожалуйста, сканируйте QR код машины!",
+    "you_already_scanned_this_document": "Вы уже сканировали этот документ",
+    "you_already_scanned_this_machine": "Вы уже сканировали эту машину"
   },
   "knitting": {
     "title": "Вязание",

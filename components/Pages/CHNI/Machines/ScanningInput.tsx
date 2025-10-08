@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { View, Text, TextInput, StyleSheet } from "react-native";
 import { useTranslate } from "@/hooks/useTranslate";
+import { useToast } from "@/components/UI/ToastProvider";
 
 interface Props {
   customInputActions: string[];
@@ -10,6 +11,7 @@ interface Props {
   setMachineId: (val: string) => void;
   machineId: string;
   stopFocus: boolean;
+  placeholder: string;
 }
 
 export const ScanningInput = ({
@@ -20,7 +22,9 @@ export const ScanningInput = ({
   setMachineId = () => {},
   machineId,
   stopFocus = false,
+  placeholder = "Введите штрих-код",
 }: Props) => {
+  const toast = useToast();
   const t = useTranslate();
   const inputRef: any = useRef(null);
   const [textValue, setTextValue] = useState("");
@@ -29,40 +33,72 @@ export const ScanningInput = ({
     if (inputRef.current) inputRef.current.focus();
   };
 
+  const clearFn = () => {
+    setTextValue("");
+    // setMachineId("");
+    // setDocId("");
+    if (inputRef.current) inputRef.current.clear();
+  };
+
   const machineSubmit = (text: string) => {
     setMachineId(text);
     setAlertInfo({
       type: "info",
       title: t("chni.scan_document"),
     });
+    clearFn();
+    toast.success("Машина успешно скандирована");
   };
 
   const documentSubmit = (text: string) => {
-    setDocId(text);
-    setAlertInfo({
-      type: "info",
-      title: t("chni.scan_machine"),
-    });
-  };
-
-  const clearFn = () => {
-    setTextValue("");
-    if (inputRef.current) inputRef.current.clear();
+    setDocId("");
+    setAlertInfo({});
+    clearFn();
+    setTimeout(() => {
+      setDocId(text);
+    }, 500);
+    toast.success("Маршрут успешно скандировален");
   };
 
   const onSubmit = (text: string) => {
-    if (text.includes(machineRefix)) {
+    setTextValue(text);
+    if (text?.[0] === machineRefix) {
       if (text.length >= 11) {
-        machineSubmit(text);
+        if (machineId === text) {
+          setAlertInfo({
+            type: "error",
+            title: t("chni.you_already_scanned_this_machine"),
+          });
+          clearFn();
+        } else {
+          machineSubmit(text);
+        }
       }
     } else {
       if (text.length >= 13) {
-        documentSubmit(text);
+        if (docId === text) {
+          setAlertInfo({
+            type: "error",
+            title: t("chni.you_already_scanned_this_document"),
+          });
+          clearFn();
+        } else {
+          if (machineId) {
+            if (text.length >= 13) {
+              documentSubmit(text);
+            }
+          } else {
+            setAlertInfo({
+              type: "error",
+              title: t("chni.itsnot_machine_qr_code"),
+            });
+            if (text.length >= 13) {
+              clearFn();
+            }
+          }
+        }
       }
     }
-
-    setTextValue(text);
-    // clearFn();
   };
 
   useEffect(() => {
@@ -86,12 +122,15 @@ export const ScanningInput = ({
     >
       <TextInput
         ref={inputRef}
-        placeholder="Введите штрих-код"
+        placeholder={t(placeholder)}
         style={styles.input}
-        onChangeText={(text) => onSubmit(text)} // Calls `onSubmit` with the current text value as the user types
+        onChangeText={(text) => onSubmit(text)}
         autoFocus
         value={textValue}
         showSoftInputOnFocus={customInputActions.includes("open")}
+        keyboardType={
+          customInputActions.includes("open") ? "numeric" : "default"
+        }
       />
     </View>
   );

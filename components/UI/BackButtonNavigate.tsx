@@ -18,7 +18,7 @@ export const BackButtonNavigate: React.FC<BackButtonProps> = ({
   return (
     <Pressable
       style={styles.button}
-      onPress={() => (link ? router.push(link) : router.back())}
+      onPress={() => (link ? router.push(link as any) : router.back())}
       accessibilityLabel={label} // Improves accessibility
       accessible
     >

@@ -1,19 +1,25 @@
 import { ThemedView } from "@/components/ThemedView";
 import HeaderUI from "@/components/UI/Header";
-import { Dimensions, Text, StyleSheet, View } from "react-native";
+import { Dimensions, Text, StyleSheet, View, ScrollView } from "react-native";
 import { globalStyles } from "@/components/UI/GlobalStyles";
 import { BackButtonNavigate } from "@/components/UI/BackButtonNavigate";
+import MachineCard from "@/components/Pages/CHNI/Machines/MachineCard";
 
 export default function MachinesListPage() {
   const { height: SCREEN_HEIGHT } = Dimensions.get("window");
 
   return (
     <ThemedView style={{ height: SCREEN_HEIGHT }}>
-      <HeaderUI place="Список машин" extra={<BackButtonNavigate />} />
-      <View style={[globalStyles.container, styles.content]}>
-        <Text style={styles.title}>Список всех машин</Text>
-        <Text style={styles.subtitle}>Здесь будет список всех машин</Text>
-      </View>
+      <HeaderUI
+        place="Список машин"
+        extra={<BackButtonNavigate link="/chni" />}
+      />
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <View style={[globalStyles.container, styles.content]}>
+          <Text style={styles.title}>Список ваших машин</Text>
+          <MachineCard />
+        </View>
+      </ScrollView>
     </ThemedView>
   );
 }

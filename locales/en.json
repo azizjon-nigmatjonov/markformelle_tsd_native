@@ -72,7 +72,10 @@
     "scan_machine": "Scan the machine QR code",
     "scan_document": "Scan the document Barcode",
     "machine_not_sellected": "Machine not sellected",
-    "not_sellected_document": "Document not sellected"
+    "not_sellected_document": "Document not sellected",
+    "itsnot_machine_qr_code": "This is not a machine QR code, please scan the machine QR code",
+    "you_already_scanned_this_document": "You already scanned this document",
+    "you_already_scanned_this_machine": "You already scanned this machine"
   },
   "knitting": {
     "title": "Knitting",

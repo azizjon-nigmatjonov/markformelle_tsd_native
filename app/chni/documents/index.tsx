@@ -9,7 +9,10 @@ export default function DocumentsListPage() {
 
   return (
     <ThemedView style={{ height: SCREEN_HEIGHT }}>
-      <HeaderUI place="Список документов" extra={<BackButtonNavigate />} />
+      <HeaderUI
+        place="Список документов"
+        extra={<BackButtonNavigate link="/chni" />}
+      />
       <View style={[globalStyles.container, styles.content]}>
         <Text style={styles.title}>Список всех документов</Text>
         <Text style={styles.subtitle}>Здесь будет список всех документов</Text>

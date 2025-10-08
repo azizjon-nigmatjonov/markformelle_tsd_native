@@ -10,18 +10,25 @@ import { Button } from "react-native-paper";
 import { useTranslation } from "react-i18next";
 import { buttonStyle } from "@/components/UI/GlobalStyles";
 import { globalColors } from "@/components/UI/Colors";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { useToast } from "@/components/UI/ToastProvider";
+import { useTranslate } from "@/hooks/useTranslate";
 
 interface ProductFormData {
   quantity: string;
 }
 
-const GetProductUI = () => {
+interface Props {
+  modalVisible: boolean;
+  setModalVisible: (val: boolean) => void;
+  clearFn: () => void;
+}
+
+const GetProductUI = ({ modalVisible, setModalVisible, clearFn }: Props) => {
   const { t } = useTranslation();
   const toast = useToast();
-  const [modalVisible, setModalVisible] = useState(false);
+
   const { control, handleSubmit, reset } = useForm<ProductFormData>({
     defaultValues: {
       quantity: "",
@@ -40,7 +47,7 @@ const GetProductUI = () => {
 
       // Show success toast
       toast.success(`Продукт успешно получен! Количество: ${data.quantity}`);
-
+      clearFn();
       setModalVisible(false);
       reset();
     } catch (error) {
@@ -84,6 +91,7 @@ const GetProductUI = () => {
                     placeholder={t("common.enter_quantity")}
                     keyboardType="numeric"
                     value={value}
+                    autoFocus
                     onChangeText={onChange}
                   />
                 )}

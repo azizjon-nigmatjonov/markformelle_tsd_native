@@ -49,8 +49,8 @@ export const ProfileLogout = () => {
       <CModal
         open={open}
         handleClose={() => setOpen(false)}
-        textSaveBtn="Выйти"
-        textDeleteBtn="Отмена"
+        textSaveBtn="Да"
+        textDeleteBtn="Нет"
         handleSave={() => handleLogout()}
       >
         <Text style={[styles.modalTitle, { color: colors.text }]}>

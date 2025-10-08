@@ -121,6 +121,7 @@ const ScanningDocUI = ({
         setMachineId={setMachineId}
         machineId={machineId}
         stopFocus={openModal}
+        placeholder="chni.write_document"
       />
 
       <View style={styles.scanContainer}>

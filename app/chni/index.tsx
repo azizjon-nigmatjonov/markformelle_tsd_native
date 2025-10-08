@@ -9,7 +9,7 @@ export default function CHNIIndexPage() {
 
   return (
     <ThemedView style={{ height: SCREEN_HEIGHT }}>
-      <HeaderUI place="CHNI" />
+      <HeaderUI place="navigation.home" />
       <View style={globalStyles.container}>
         <CHNIHome />
       </View>

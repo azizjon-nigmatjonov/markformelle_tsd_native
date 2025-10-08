@@ -6,6 +6,8 @@ import StatusUI from "@/app/chni/machines/components/StatusUI";
 import ScanningDocUI from "@/app/chni/machines/components/ScanningDocUI";
 import DocInfoUI from "@/app/chni/machines/components/DocInfoUI/DocInfoUI";
 import GetProductUI from "@/app/chni/machines/components/GetProductUI";
+import { AlertUI } from "@/components/UI/Alert";
+import { useState } from "react";
 
 const MachineInfoUI = ({
   setCustomInputActions,
@@ -18,6 +20,7 @@ const MachineInfoUI = ({
   machineId,
   setDocId,
   setAlertInfo,
+  clearFn,
 }: {
   setCustomInputActions: (val: string[]) => void;
   customInputActions: string[];
@@ -29,7 +32,9 @@ const MachineInfoUI = ({
   setDocId: (val: string) => void;
   docId: string;
   setAlertInfo: (val: any) => void;
+  clearFn: () => void;
 }) => {
+  const [modalVisible, setModalVisible] = useState(false);
   return (
     <View>
       <View style={styles.header}>
@@ -56,6 +61,7 @@ const MachineInfoUI = ({
       {docId ? (
         <View>
           <DocInfoUI
+            alertInfo={alertInfo}
             setAlertInfo={setAlertInfo}
             docId={docId}
             setDocId={setDocId}
@@ -63,8 +69,13 @@ const MachineInfoUI = ({
             machineId={machineId}
             customInputActions={customInputActions}
             openModal={openModal}
+            modalVisible={modalVisible}
           />
-          <GetProductUI />
+          <GetProductUI
+            modalVisible={modalVisible}
+            setModalVisible={setModalVisible}
+            clearFn={() => clearFn()}
+          />
         </View>
       ) : (
         <ScanningDocUI

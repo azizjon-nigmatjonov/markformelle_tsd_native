@@ -12,13 +12,13 @@ const CHNIHome = () => {
     {
       title: "Список документов",
       image: require("../../../assets/trash/list.png"),
-      description: "Список всех документов",
+      description: "Список ваших маршрутных листов",
       link: "chni/documents",
     },
     {
       title: "Список машин",
       image: require("../../../assets/trash/knitting-machine.png"),
-      description: "Список всех машин",
+      description: "Список ваших машин",
       link: `chni/machines`,
     },
     {
