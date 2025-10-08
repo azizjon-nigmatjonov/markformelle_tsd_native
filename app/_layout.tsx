@@ -52,6 +52,11 @@ export default function RootLayout() {
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
+        // Only try to access AsyncStorage on native or in browser environment
+        if (typeof window === "undefined") {
+          // Skip during SSR
+          return;
+        }
         const storedUserInfo = await AsyncStorage.getItem("user_info");
         if (storedUserInfo) {
           setUserInfo(JSON.parse(storedUserInfo)); // Parse the stored JSON string

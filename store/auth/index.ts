@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { crossPlatformStorage } from "@/utils/storage";
 
 interface AuthState {
   user_info: any;
@@ -14,8 +14,8 @@ export const useAuthStore = create<AuthState>()(
       setUserInfo: (payload) => set({ user_info: payload }),
     }),
     {
-      name: "app-state-auth", // Name of the AsyncStorage key
-      storage: createJSONStorage(() => AsyncStorage),
+      name: "app-state-auth", // Name of the storage key
+      storage: createJSONStorage(() => crossPlatformStorage),
     }
   )
 );

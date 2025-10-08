@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { crossPlatformStorage } from "@/utils/storage";
 
 type Props = {
   docs: any;
@@ -15,7 +15,7 @@ export const useDocsStore = create<Props>()(
     }),
     {
       name: "app-state-docs", // unique name for the storage
-      storage: createJSONStorage(() => AsyncStorage), // use AsyncStorage for React Native
+      storage: createJSONStorage(() => crossPlatformStorage),
     }
   )
 );

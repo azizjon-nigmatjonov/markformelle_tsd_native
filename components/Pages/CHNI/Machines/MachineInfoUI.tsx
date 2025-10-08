@@ -1,23 +1,23 @@
 import { t } from "i18next";
-import { StyleSheet } from "react-native";
+import { StyleSheet, View, Text } from "react-native";
 import { ClockIcon } from "@/components/UI/Icons";
 
 const MachineInfoUI = () => {
   return (
-    <div>
-      <h1 style={styles.title}>{t("chni.machine")} 230</h1>
-      <ul>
-        <li style={styles.info}>
-          <div>
-            <span>Мощность машины</span>
-            {/* here create clock icon inside icons folder */}
-          </div>
-          <p style={styles.infoText}>
-            230 носков / час <ClockIcon />
-          </p>
-        </li>
-      </ul>
-    </div>
+    <View>
+      <Text style={styles.title}>{t("chni.machine")} 230</Text>
+      <View style={styles.list}>
+        <View style={styles.info}>
+          <View>
+            <Text style={styles.label}>Мощность машины</Text>
+          </View>
+          <View style={styles.infoText}>
+            <Text style={styles.infoValue}>230 носков / час</Text>
+            <ClockIcon />
+          </View>
+        </View>
+      </View>
+    </View>
   );
 };
 
@@ -25,20 +25,29 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: "bold",
-    margin: 0,
+    marginBottom: 12,
+  },
+  list: {
+    marginTop: 8,
   },
   info: {
-    display: "flex",
+    flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
+    paddingVertical: 8,
+  },
+  label: {
+    fontSize: 14,
+    color: "#666",
   },
   infoText: {
-    display: "flex",
+    flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-between",
     gap: 4,
-    marginTop: 4,
-    fontWeight: "semibold",
+  },
+  infoValue: {
+    fontSize: 14,
+    fontWeight: "600",
   },
 });
 

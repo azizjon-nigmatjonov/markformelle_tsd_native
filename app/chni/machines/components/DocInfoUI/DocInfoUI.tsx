@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
 import CTableAll from "@/components/CElements/CTableAll/CTableAll";
 import { t } from "i18next";
 import { useEffect, useState } from "react";
@@ -13,7 +13,7 @@ export default function DocInfoUI() {
     });
   }, []);
   return (
-    <div style={styles.wrapper}>
+    <View style={styles.wrapper}>
       {alertInfo?.type && (
         <AlertUI title={alertInfo.title} type={alertInfo.type}></AlertUI>
       )}
@@ -46,7 +46,7 @@ export default function DocInfoUI() {
           { title: "N авт.", id: "autoNumber" },
         ]}
       />
-    </div>
+    </View>
   );
 }
 

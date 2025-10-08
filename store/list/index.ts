@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { crossPlatformStorage } from "@/utils/storage";
 
 type ListStore = {
   type: string;
@@ -15,7 +15,7 @@ export const useListStore = create<ListStore>()(
     }),
     {
       name: "app-state-list", // Unique name for the storage
-      storage: createJSONStorage(() => AsyncStorage), // Use AsyncStorage for React Native
+      storage: createJSONStorage(() => crossPlatformStorage),
     }
   )
 );
