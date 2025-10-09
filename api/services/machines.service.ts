@@ -53,6 +53,16 @@ export const machinesService = {
   },
 
   /**
+   * Get single machine data by barcode/ID from s_oborud_podr endpoint
+   */
+  getSingle: async (machineId: string): Promise<Machine> => {
+    const response: AxiosResponse<Machine> = await api.get(
+      `/s_oborud_podr/${machineId}`
+    );
+    return response.data;
+  },
+
+  /**
    * Create new machine
    */
   create: async (data: CreateMachineData): Promise<Machine> => {

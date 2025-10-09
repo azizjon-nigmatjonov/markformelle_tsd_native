@@ -29,7 +29,9 @@ const HeaderUI = ({ place = "", extra }: Props) => {
         <View style={styles.container}>
           <View style={styles.userInfo}>
             <Text style={styles.userName}>
-              {user_info?.fio?.substring(0, 23) + ".."}
+              {user_info?.fio?.split(" ")[0] +
+                " " +
+                user_info?.fio?.split(" ")[1]}
             </Text>
             <View style={styles.locationWrapper}>
               <Text style={styles.boldText}>

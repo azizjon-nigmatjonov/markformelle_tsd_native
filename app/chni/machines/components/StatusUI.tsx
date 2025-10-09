@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     padding: 8,
     borderRadius: 12,
-    marginTop: 10,
+    marginTop: 8,
   },
   buttonText: {
     color: "white",

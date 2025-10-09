@@ -19,7 +19,6 @@ import ModalBtn from "@/components/Pages/Rolls/Components/ModalBtn";
 import { ScanningInput } from "@/components/Pages/CHNI/Machines/ScanningInput";
 
 interface Props {
-  alertInfo: any;
   setCustomInputActions: (val: string[]) => void;
   customInputActions: string[];
   openModal: boolean;
@@ -29,10 +28,10 @@ interface Props {
   setDocId: (val: string) => void;
   setMachineId: (val: string) => void;
   machineId: string;
+  setMachineData: (val: any) => void;
 }
 
 const ScanningUI = ({
-  alertInfo,
   setCustomInputActions,
   customInputActions,
   openModal,
@@ -42,6 +41,7 @@ const ScanningUI = ({
   setDocId,
   setMachineId,
   machineId,
+  setMachineData,
 }: Props) => {
   const { colors } = useTheme();
   const t = useTranslate();
@@ -122,9 +122,7 @@ const ScanningUI = ({
           setOpenModal={setOpenModal}
         />
       </View>
-      {alertInfo?.type && (
-        <AlertUI title={alertInfo.title} type={alertInfo.type}></AlertUI>
-      )}
+
       <ScanningInput
         customInputActions={customInputActions}
         setAlertInfo={setAlertInfo}
@@ -134,6 +132,7 @@ const ScanningUI = ({
         machineId={machineId}
         stopFocus={openModal}
         placeholder="chni.write_machine"
+        setMachineData={setMachineData}
       />
 
       <View style={styles.scanContainer}>
@@ -243,7 +242,6 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: "bold",
-    marginBottom: 12,
     letterSpacing: -0.5,
   },
   subtitle: {

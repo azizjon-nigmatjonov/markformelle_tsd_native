@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { View, Text, TextInput, StyleSheet } from "react-native";
 import { useTranslate } from "@/hooks/useTranslate";
 import { useToast } from "@/components/UI/ToastProvider";
+import { machinesService } from "@/api/services/machines.service";
 
 interface Props {
   customInputActions: string[];
@@ -12,6 +13,8 @@ interface Props {
   machineId: string;
   stopFocus: boolean;
   placeholder: string;
+  setMachineData: (val: any) => void;
+  setDocData?: (val: any) => void;
 }
 
 export const ScanningInput = ({
@@ -23,31 +26,46 @@ export const ScanningInput = ({
   machineId,
   stopFocus = false,
   placeholder = "Введите штрих-код",
+  setMachineData = () => {},
+  setDocData = () => {},
 }: Props) => {
   const toast = useToast();
   const t = useTranslate();
   const inputRef: any = useRef(null);
   const [textValue, setTextValue] = useState("");
-  const machineRefix = "M";
+  const machineRefix = "MACH";
   const handleFocus = () => {
     if (inputRef.current) inputRef.current.focus();
   };
 
   const clearFn = () => {
     setTextValue("");
-    // setMachineId("");
-    // setDocId("");
     if (inputRef.current) inputRef.current.clear();
   };
 
-  const machineSubmit = (text: string) => {
-    setMachineId(text);
-    setAlertInfo({
-      type: "info",
-      title: t("chni.scan_document"),
-    });
-    clearFn();
-    toast.success("Машина успешно скандирована");
+  const machineSubmit = async (text: string) => {
+    try {
+      const machineData = await machinesService.getSingle(
+        text.substring(text.indexOf("-") + 1)
+      );
+
+      setMachineData(machineData);
+      setMachineId(text);
+      setAlertInfo({
+        type: "info",
+        title: t("chni.scan_document"),
+      });
+      setDocData({});
+      clearFn();
+      toast.success("Машина успешно скандирована");
+    } catch (error) {
+      setAlertInfo({
+        type: "error",
+        title: t("chni.machine_not_found"),
+      });
+      clearFn();
+      toast.error("Ошибка при загрузке данных машины");
+    }
   };
 
   const documentSubmit = (text: string) => {
@@ -62,7 +80,7 @@ export const ScanningInput = ({
 
   const onSubmit = (text: string) => {
     setTextValue(text);
-    if (text?.[0] === machineRefix) {
+    if (text?.includes(machineRefix) || text[0] === machineRefix[0]) {
       if (text.length >= 11) {
         if (machineId === text) {
           setAlertInfo({
@@ -120,6 +138,7 @@ export const ScanningInput = ({
         { height: customInputActions.includes("open") ? 60 : 0 },
       ]}
     >
+      {/* {machineId} */}
       <TextInput
         ref={inputRef}
         placeholder={t(placeholder)}

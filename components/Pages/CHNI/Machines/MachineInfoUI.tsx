@@ -8,6 +8,7 @@ import DocInfoUI from "@/app/chni/machines/components/DocInfoUI/DocInfoUI";
 import GetProductUI from "@/app/chni/machines/components/GetProductUI";
 import { AlertUI } from "@/components/UI/Alert";
 import { useState } from "react";
+import { useTheme } from "@/hooks/useTheme";
 
 const MachineInfoUI = ({
   setCustomInputActions,
@@ -15,53 +16,60 @@ const MachineInfoUI = ({
   openModal,
   setOpenModal,
   docId,
-  alertInfo,
   setMachineId,
   machineId,
   setDocId,
   setAlertInfo,
   clearFn,
+  machineData,
+  docData = {},
+  setDocData,
+  setMachineData,
 }: {
   setCustomInputActions: (val: string[]) => void;
   customInputActions: string[];
   openModal: boolean;
   setOpenModal: (val: boolean) => void;
-  alertInfo: any;
   setMachineId: (val: string) => void;
   machineId: string;
   setDocId: (val: string) => void;
   docId: string;
   setAlertInfo: (val: any) => void;
   clearFn: () => void;
+  machineData: any;
+  docData: any;
+  setDocData: (val: any) => void;
+  setMachineData: (val: any) => void;
 }) => {
-  const [modalVisible, setModalVisible] = useState(false);
+  const { colors } = useTheme();
   return (
     <View>
-      <View style={styles.header}>
-        <Text style={styles.title}>{t("chni.machine")} 230</Text>
-        <ModalBtn
-          setCustomInputActions={setCustomInputActions}
-          customInputActions={customInputActions}
-          openModal={openModal}
-          setOpenModal={setOpenModal}
-        />
-      </View>
-      <View style={styles.infoContainer}>
-        <View style={styles.info}>
-          <View>
-            <Text style={styles.label}>Мощность машины</Text>
+      <View
+        style={[
+          styles.card,
+          {
+            backgroundColor: colors.cardBackground,
+            borderColor: colors.border,
+          },
+        ]}
+      >
+        <View style={styles.header}>
+          <View style={styles.titleContainer}>
+            <Text style={styles.title}>{machineData.NUMBER_ID}</Text>
+            <Text style={styles.infoText}>{machineData.OBORUD_NAIM}</Text>
           </View>
-          <View style={styles.infoText}>
-            <Text style={styles.infoValue}>230 носков / час</Text>
-            <ClockIcon />
-          </View>
+          <ModalBtn
+            setCustomInputActions={setCustomInputActions}
+            customInputActions={customInputActions}
+            openModal={openModal}
+            setOpenModal={setOpenModal}
+          />
         </View>
+        <StatusUI />
       </View>
-      <StatusUI />
       {docId ? (
         <View>
           <DocInfoUI
-            alertInfo={alertInfo}
             setAlertInfo={setAlertInfo}
             docId={docId}
             setDocId={setDocId}
@@ -69,17 +77,14 @@ const MachineInfoUI = ({
             machineId={machineId}
             customInputActions={customInputActions}
             openModal={openModal}
-            modalVisible={modalVisible}
-          />
-          <GetProductUI
-            modalVisible={modalVisible}
-            setModalVisible={setModalVisible}
             clearFn={() => clearFn()}
+            docData={docData}
+            setMachineData={setMachineData}
+            setDocData={setDocData}
           />
         </View>
       ) : (
         <ScanningDocUI
-          alertInfo={alertInfo}
           customInputActions={customInputActions}
           setAlertInfo={setAlertInfo}
           docId={docId}
@@ -87,6 +92,8 @@ const MachineInfoUI = ({
           setMachineId={setMachineId}
           machineId={machineId}
           openModal={openModal}
+          setDocData={setDocData}
+          setMachineData={setMachineData}
         />
       )}
     </View>
@@ -102,9 +109,29 @@ const styles = StyleSheet.create({
     zIndex: 9999,
     elevation: 10,
   },
+  card: {
+    borderRadius: 16,
+    borderWidth: 1,
+    // overflow: "hidden",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.08,
+    shadowRadius: 8,
+    elevation: 4,
+    padding: 10,
+  },
+  titleContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
+  },
   title: {
     fontSize: 24,
     fontWeight: "bold",
+    // height: 35,
   },
   infoContainer: {
     position: "relative",
@@ -116,17 +143,12 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   label: {
-    fontSize: 14,
+    fontSize: 16,
     color: "#666",
   },
   infoText: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 4,
-  },
-  infoValue: {
-    fontSize: 14,
-    fontWeight: "600",
+    fontSize: 18,
+    letterSpacing: -0.5,
   },
 });
 

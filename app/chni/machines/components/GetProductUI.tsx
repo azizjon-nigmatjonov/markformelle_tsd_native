@@ -124,7 +124,7 @@ const GetProductUI = ({ modalVisible, setModalVisible, clearFn }: Props) => {
 
 const styles = StyleSheet.create({
   wrapper: {
-    marginTop: 8,
+    // marginTop: 8,
   },
   modalOverlay: {
     flex: 1,

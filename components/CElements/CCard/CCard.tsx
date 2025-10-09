@@ -18,9 +18,15 @@ interface CCardProps {
     subtitle?: string;
     badge?: string;
   };
+  footerUI?: React.ReactNode;
 }
 
-export default function CCard({ list, headColumns, headerInfo }: CCardProps) {
+export default function CCard({
+  list,
+  headColumns,
+  headerInfo,
+  footerUI,
+}: CCardProps) {
   const { colors } = useTheme();
 
   return (
@@ -78,6 +84,7 @@ export default function CCard({ list, headColumns, headerInfo }: CCardProps) {
               }
               return null;
             })}
+            {footerUI && <View>{footerUI}</View>}
           </View>
         </View>
       ))}
@@ -106,7 +113,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    paddingHorizontal: 16,
+    paddingHorizontal: 10,
     paddingTop: 10,
   },
   headerContent: {
@@ -134,8 +141,8 @@ const styles = StyleSheet.create({
   },
 
   cardContent: {
-    padding: 16,
-    gap: 16,
+    padding: 10,
+    gap: 14,
   },
   row: {
     flexDirection: "row",

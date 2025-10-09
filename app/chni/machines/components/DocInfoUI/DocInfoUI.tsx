@@ -4,6 +4,7 @@ import { t } from "i18next";
 import { useState } from "react";
 import { ScanningInput } from "@/components/Pages/CHNI/Machines/ScanningInput";
 import { AlertUI } from "@/components/UI/Alert";
+import GetProductUI from "../GetProductUI";
 
 interface Props {
   setAlertInfo: (val: any) => void;
@@ -13,8 +14,10 @@ interface Props {
   machineId: string;
   customInputActions: string[];
   openModal: boolean;
-  alertInfo: any;
-  modalVisible: boolean;
+  clearFn: () => void;
+  docData: any;
+  setMachineData: (val: any) => void;
+  setDocData: (val: any) => void;
 }
 
 export default function DocInfoUI({
@@ -25,9 +28,12 @@ export default function DocInfoUI({
   machineId,
   customInputActions,
   openModal,
-  modalVisible,
-  alertInfo,
+  clearFn,
+  docData,
+  setMachineData,
+  setDocData,
 }: Props) {
+  const [modalVisible, setModalVisible] = useState(false);
   return (
     <View style={styles.wrapper}>
       <ScanningInput
@@ -39,11 +45,10 @@ export default function DocInfoUI({
         machineId={machineId}
         stopFocus={openModal || modalVisible}
         placeholder="Введите штрих-код документа"
+        setMachineData={setMachineData}
+        setDocData={setDocData}
       />
-      {alertInfo?.type && (
-        <AlertUI title={alertInfo.title} type={alertInfo.type}></AlertUI>
-      )}
-      <View style={styles.alert}></View>
+
       <CCard
         headerInfo={{
           title: "Маршрутный лист №13955.004 от 03.06.2025",
@@ -74,6 +79,13 @@ export default function DocInfoUI({
           { title: "N п/маст.", id: "masterNumber" },
           { title: "N авт.", id: "autoNumber" },
         ]}
+        footerUI={
+          <GetProductUI
+            modalVisible={modalVisible}
+            setModalVisible={setModalVisible}
+            clearFn={() => clearFn()}
+          />
+        }
       />
     </View>
   );
@@ -81,7 +93,4 @@ export default function DocInfoUI({
 
 const styles = StyleSheet.create({
   wrapper: {},
-  alert: {
-    marginBottom: 10,
-  },
 });

@@ -7,13 +7,15 @@ import MachineInfoUI from "@/components/Pages/CHNI/Machines/MachineInfoUI";
 import { useEffect, useState, useRef } from "react";
 import ScanningUI from "./components/ScanningUI";
 import { useTranslate } from "@/hooks/useTranslate";
+import { AlertUI } from "@/components/UI/Alert";
 
 export default function MachinePage() {
   const { height: SCREEN_HEIGHT } = Dimensions.get("window");
   const t = useTranslate();
-  const scrollViewRef = useRef<ScrollView>(null);
   const [machineId, setMachineId] = useState("");
+  const [machineData, setMachineData] = useState<any>({});
   const [docId, setDocId] = useState("");
+  const [docData, setDocData] = useState<any>({});
   const [alertInfo, setAlertInfo] = useState<any>({});
   const [customInputActions, setCustomInputActions] = useState<string[]>([]);
   const [openModal, setOpenModal] = useState(false);
@@ -40,13 +42,15 @@ export default function MachinePage() {
   }, [customInputActions, openModal]);
 
   useEffect(() => {
-    if (!machineId) {
+    if (!machineId && !docId) {
       setAlertInfo({
         type: "info",
         title: t("chni.scan_machine"),
       });
+    } else {
+      setAlertInfo({});
     }
-  }, [machineId]);
+  }, [machineId, docId]);
 
   const clearFn = () => {
     setTimeout(() => {
@@ -60,10 +64,6 @@ export default function MachinePage() {
 
   return (
     <ThemedView style={{ height: SCREEN_HEIGHT }}>
-      <HeaderUI
-        place={"chni.machine"}
-        extra={<BackButtonNavigate link="/chni" />}
-      />
       <ScrollView
         style={{
           overflow: "scroll",
@@ -73,6 +73,20 @@ export default function MachinePage() {
         }}
         showsVerticalScrollIndicator={false}
       >
+        <HeaderUI
+          place={
+            machineData.NUMBER_ID
+              ? t("chni.machine") + " / " + machineData.NUMBER_ID
+              : t("chni.machine")
+          }
+          extra={<BackButtonNavigate link="/chni" />}
+        />
+
+        {alertInfo?.type && (
+          <View style={styles.alert}>
+            <AlertUI title={alertInfo.title} type={alertInfo.type}></AlertUI>
+          </View>
+        )}
         {machineId ? (
           <View style={[globalStyles.container, styles.content]}>
             <MachineInfoUI
@@ -81,17 +95,19 @@ export default function MachinePage() {
               openModal={openModal}
               setOpenModal={setOpenModal}
               docId={docId}
-              alertInfo={alertInfo}
               setMachineId={setMachineId}
               machineId={machineId}
               setDocId={setDocId}
               setAlertInfo={setAlertInfo}
               clearFn={clearFn}
+              machineData={machineData}
+              docData={docData}
+              setDocData={setDocData}
+              setMachineData={setMachineData}
             />
           </View>
         ) : (
           <ScanningUI
-            alertInfo={alertInfo}
             setCustomInputActions={setCustomInputActions}
             customInputActions={customInputActions}
             openModal={openModal}
@@ -101,6 +117,7 @@ export default function MachinePage() {
             setDocId={setDocId}
             setMachineId={setMachineId}
             machineId={machineId}
+            setMachineData={setMachineData}
           />
         )}
       </ScrollView>
@@ -116,6 +133,10 @@ const styles = StyleSheet.create({
     flexGrow: 1,
   },
   content: {
-    padding: 16,
+    padding: 12,
+  },
+  alert: {
+    marginTop: 12,
+    paddingHorizontal: 12,
   },
 });

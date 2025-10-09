@@ -11,11 +11,9 @@ import Animated, {
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useTheme } from "@/hooks/useTheme";
 import { useTranslate } from "@/hooks/useTranslate";
-import { AlertUI } from "@/components/UI/Alert";
 import { ScanningInput } from "@/components/Pages/CHNI/Machines/ScanningInput";
 
 interface Props {
-  alertInfo: any;
   customInputActions: string[];
   setAlertInfo: (val: any) => void;
   docId: string;
@@ -23,10 +21,11 @@ interface Props {
   setMachineId: (val: string) => void;
   machineId: string;
   openModal: boolean;
+  setDocData: (val: any) => void;
+  setMachineData: (val: any) => void;
 }
 
 const ScanningDocUI = ({
-  alertInfo,
   customInputActions,
   setAlertInfo,
   docId,
@@ -34,10 +33,10 @@ const ScanningDocUI = ({
   setMachineId,
   machineId,
   openModal,
+  setDocData,
+  setMachineData,
 }: Props) => {
   const { colors } = useTheme();
-  const t = useTranslate();
-
   // Pulse animation for the outer circle
   const pulseScale = useSharedValue(1);
   const pulseOpacity = useSharedValue(0.6);
@@ -104,15 +103,12 @@ const ScanningDocUI = ({
 
   return (
     <View style={styles.wrapper}>
-      <View style={styles.headerContainer}>
+      {/* <View style={styles.headerContainer}>
         <Text style={[styles.title, { color: colors.text }]}>
           {t("chni.not_sellected_document")}
         </Text>
-      </View>
+      </View> */}
 
-      {alertInfo?.type && (
-        <AlertUI title={alertInfo.title} type={alertInfo.type}></AlertUI>
-      )}
       <ScanningInput
         customInputActions={customInputActions}
         setAlertInfo={setAlertInfo}
@@ -122,6 +118,8 @@ const ScanningDocUI = ({
         machineId={machineId}
         stopFocus={openModal}
         placeholder="chni.write_document"
+        setDocData={setDocData}
+        setMachineData={setMachineData}
       />
 
       <View style={styles.scanContainer}>
