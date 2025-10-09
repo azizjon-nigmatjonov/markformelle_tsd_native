@@ -35,6 +35,12 @@
     "rolls": "Rolls",
     "instruction": "Instruction"
   },
+  "emptyState": {
+    "instruction": {
+      "title": "No Instructions Available",
+      "description": "Instructions will appear here when they become available. Check back soon!"
+    }
+  },
   "auth": {
     "email": "Email",
     "password": "Password",

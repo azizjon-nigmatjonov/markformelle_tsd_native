@@ -26,10 +26,10 @@ const HeaderUI = ({ place = "", extra }: Props) => {
       >
         <View style={styles.container}>
           <View style={styles.userInfo}>
-            <Text style={styles.userName}>{user_info.name}</Text>
+            <Text style={styles.userName}>{user_info?.name}</Text>
             <View style={styles.locationWrapper}>
               <Text style={styles.boldText}>
-                {t(user_info.role + ".title")}
+                {t(user_info?.role + ".title")}
               </Text>
               {place ? (
                 <Text style={[styles.greyText, { color: colors.grey20 }]}>
