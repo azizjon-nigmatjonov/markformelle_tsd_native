@@ -1,0 +1,163 @@
+/**
+ * API Client
+ * Centralized axios instance with interceptors
+ */
+
+import axios, {
+  AxiosInstance,
+  AxiosRequestConfig,
+  AxiosResponse,
+  AxiosError,
+} from "axios";
+import { ENV } from "@/config/api";
+import { useAuthStore } from "@/store/auth";
+
+// Create axios instance
+const apiClient: AxiosInstance = axios.create({
+  baseURL: ENV.API_BASE_URL,
+  timeout: 30000,
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
+
+// Request interceptor - Add auth token to requests
+apiClient.interceptors.request.use(
+  (config) => {
+    const { user_info } = useAuthStore.getState();
+
+    // Add token to headers if available
+    if (user_info?.token) {
+      config.headers.Authorization = `Bearer ${user_info.token}`;
+    }
+
+    // Log request in development
+    if (__DEV__) {
+      console.log("🚀 API Request:", {
+        method: config.method?.toUpperCase(),
+        url: config.url,
+        data: config.data,
+      });
+    }
+
+    return config;
+  },
+  (error) => {
+    console.error("❌ Request Error:", error);
+    return Promise.reject(error);
+  }
+);
+
+// Response interceptor - Handle responses and errors
+apiClient.interceptors.response.use(
+  (response: AxiosResponse) => {
+    // Log response in development
+    if (__DEV__) {
+      console.log("✅ API Response:", {
+        status: response.status,
+        url: response.config.url,
+        data: response.data,
+      });
+    }
+
+    return response;
+  },
+  (error: AxiosError) => {
+    // Handle different error types
+    if (error.response) {
+      // Server responded with error status
+      const status = error.response.status;
+
+      if (__DEV__) {
+        console.error("❌ API Error:", {
+          status,
+          url: error.config?.url,
+          data: error.response.data,
+        });
+      }
+
+      // Handle specific status codes
+      switch (status) {
+        case 401:
+          // Unauthorized - clear auth and redirect to login
+          useAuthStore.getState().clearAuth();
+          break;
+        case 403:
+          console.error("Access forbidden");
+          break;
+        case 404:
+          console.error("Resource not found");
+          break;
+        case 500:
+          console.error("Server error");
+          break;
+      }
+    } else if (error.request) {
+      // Request made but no response
+      console.error("❌ Network Error:", error.message);
+    } else {
+      // Error in request setup
+      console.error("❌ Request Setup Error:", error.message);
+    }
+
+    return Promise.reject(error);
+  }
+);
+
+// Generic API methods
+export const api = {
+  /**
+   * GET request
+   */
+  get: <T = any>(
+    url: string,
+    config?: AxiosRequestConfig
+  ): Promise<AxiosResponse<T>> => {
+    return apiClient.get<T>(url, config);
+  },
+
+  /**
+   * POST request
+   */
+  post: <T = any>(
+    url: string,
+    data?: any,
+    config?: AxiosRequestConfig
+  ): Promise<AxiosResponse<T>> => {
+    return apiClient.post<T>(url, data, config);
+  },
+
+  /**
+   * PUT request
+   */
+  put: <T = any>(
+    url: string,
+    data?: any,
+    config?: AxiosRequestConfig
+  ): Promise<AxiosResponse<T>> => {
+    return apiClient.put<T>(url, data, config);
+  },
+
+  /**
+   * PATCH request
+   */
+  patch: <T = any>(
+    url: string,
+    data?: any,
+    config?: AxiosRequestConfig
+  ): Promise<AxiosResponse<T>> => {
+    return apiClient.patch<T>(url, data, config);
+  },
+
+  /**
+   * DELETE request
+   */
+  delete: <T = any>(
+    url: string,
+    config?: AxiosRequestConfig
+  ): Promise<AxiosResponse<T>> => {
+    return apiClient.delete<T>(url, config);
+  },
+};
+
+export default apiClient;

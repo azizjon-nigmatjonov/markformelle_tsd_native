@@ -27,17 +27,15 @@
       "output": "static",
       "favicon": "./assets/images/favicon.png"
     },
-    "plugins": [
-      "expo-router",
-      "expo-localization"
-    ],
+    "plugins": ["expo-router", "expo-localization"],
     "experiments": {
       "typedRoutes": true
     },
     "extra": {
       "eas": {
         "projectId": "68b72fb6-bce4-4a48-a787-c833315fd5b2"
-      }
+      },
+      "API_BASE_URL": "https://your-api-url.com/api"
     }
   }
 }

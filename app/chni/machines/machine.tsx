@@ -75,13 +75,14 @@ export default function MachinePage() {
         place={"chni.machine"}
         extra={<BackButtonNavigate link="/chni" />}
       />
-      <View
-        style={{
-          overflow: "scroll",
-          flex: flex ? 1 : 6,
-          paddingBottom: flex,
-          height: flex ? SCREEN_HEIGHT : 1000,
-        }}
+      <ScrollView
+        // style={{
+        //   overflow: "scroll",
+        //   flex: flex ? 1 : 6,
+        //   paddingBottom: flex,
+        //   height: flex ? SCREEN_HEIGHT : 1000,
+        // }}
+        showsVerticalScrollIndicator={false}
       >
         {machineId ? (
           <View style={[globalStyles.container, styles.content]}>
@@ -113,7 +114,7 @@ export default function MachinePage() {
             machineId={machineId}
           />
         )}
-      </View>
+      </ScrollView>
     </ThemedView>
   );
 }

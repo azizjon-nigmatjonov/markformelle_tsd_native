@@ -12,19 +12,18 @@ import {
 } from "@expo-google-fonts/inter";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import "react-native-reanimated";
 import { PaperProvider, DefaultTheme } from "react-native-paper";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useAuthStore } from "@/store/auth";
 import { globalColors } from "@/components/UI/Colors";
 import { ToastProvider } from "@/components/UI/ToastProvider";
+import { QueryProvider } from "@/providers/QueryProvider";
 import "@/i18n/config"; // Initialize i18n
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const [userInfo, setUserInfo]: any = useState({});
-  const { user_info } = useAuthStore();
+  const { user_info, isAuthenticated } = useAuthStore();
   const [loaded] = useFonts({
     Inter_100Thin,
     Inter_200ExtraLight,
@@ -53,41 +52,29 @@ export default function RootLayout() {
   };
 
   useEffect(() => {
-    const fetchUserInfo = async () => {
-      try {
-        // Only try to access AsyncStorage on native or in browser environment
-        if (typeof window === "undefined") {
-          // Skip during SSR
-          return;
-        }
-        const storedUserInfo = await AsyncStorage.getItem("user_info");
-        if (storedUserInfo) {
-          setUserInfo(JSON.parse(storedUserInfo)); // Parse the stored JSON string
-        }
-      } catch (error) {
-        console.error("Error fetching user info from AsyncStorage", error);
-      }
-    };
-
-    fetchUserInfo();
-
     if (loaded) {
       SplashScreen.hideAsync();
     }
   }, [loaded]);
 
+  if (!loaded) {
+    return null;
+  }
+
   return (
-    <PaperProvider theme={theme}>
-      <ToastProvider maxToasts={3}>
-        <Stack screenOptions={{ headerShown: false }}>
-          <Stack.Screen
-            name={user_info?.token ? "home" : "(login)"}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen name="chni" options={{ headerShown: false }} />
-          <Stack.Screen name="+not-found" />
-        </Stack>
-      </ToastProvider>
-    </PaperProvider>
+    <QueryProvider>
+      <PaperProvider theme={theme}>
+        <ToastProvider maxToasts={3}>
+          <Stack screenOptions={{ headerShown: false }}>
+            <Stack.Screen
+              name={isAuthenticated && user_info?.token ? "home" : "(login)"}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen name="chni" options={{ headerShown: false }} />
+            <Stack.Screen name="+not-found" />
+          </Stack>
+        </ToastProvider>
+      </PaperProvider>
+    </QueryProvider>
   );
 }

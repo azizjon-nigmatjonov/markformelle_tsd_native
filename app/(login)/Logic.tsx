@@ -1,16 +1,11 @@
 export const support_list = [
   {
-    name: "Azizilloxon",
+    name: "Азизиллохон Дадахужаев",
     phone: "+998 90 384 02 67",
     telegram: "https://t.me/Azizillokhon",
   },
   {
-    name: "Sardorbek Isroilov",
-    phone: "+998 94 627 31 07",
-    telegram: "https://t.me/Sardor_1uz",
-  },
-  {
-    name: "Azizjon Nigmatjonov",
+    name: "Азизжон Нигматжонов",
     phone: "+998 99 491 28 30",
     telegram: "https://t.me/aziz_nodirovich",
   },
