@@ -3,7 +3,7 @@ import HeaderUI from "@/components/UI/Header";
 import { Dimensions, Text, StyleSheet, View, ScrollView } from "react-native";
 import { globalStyles } from "@/components/UI/GlobalStyles";
 import { BackButtonNavigate } from "@/components/UI/BackButtonNavigate";
-import MachineCard from "@/components/Pages/CHNI/Machines/MachineCard";
+import MachineCard from "@/components/Pages/CHNI/Machines/MachineCards";
 
 export default function MachinesListPage() {
   const { height: SCREEN_HEIGHT } = Dimensions.get("window");

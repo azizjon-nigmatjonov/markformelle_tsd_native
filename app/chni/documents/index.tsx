@@ -3,6 +3,7 @@ import HeaderUI from "@/components/UI/Header";
 import { Dimensions, Text, StyleSheet, View } from "react-native";
 import { globalStyles } from "@/components/UI/GlobalStyles";
 import { BackButtonNavigate } from "@/components/UI/BackButtonNavigate";
+import DocumentCards from "@/components/Pages/CHNI/Documents/DocumentCards";
 
 export default function DocumentsListPage() {
   const { height: SCREEN_HEIGHT } = Dimensions.get("window");
@@ -15,7 +16,7 @@ export default function DocumentsListPage() {
       />
       <View style={[globalStyles.container, styles.content]}>
         <Text style={styles.title}>Список всех документов</Text>
-        <Text style={styles.subtitle}>Здесь будет список всех документов</Text>
+        <DocumentCards />
       </View>
     </ThemedView>
   );
@@ -29,9 +30,5 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "bold",
     marginBottom: 12,
-  },
-  subtitle: {
-    fontSize: 16,
-    color: "#666",
   },
 });
