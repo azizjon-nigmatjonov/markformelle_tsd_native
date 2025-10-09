@@ -1,23 +1,12 @@
 import { ThemedView } from "@/components/ThemedView";
 import HeaderUI from "@/components/UI/Header";
-import {
-  Dimensions,
-  Text,
-  StyleSheet,
-  View,
-  Image,
-  ScrollView,
-  StatusBar,
-} from "react-native";
+import { Dimensions, Text, StyleSheet, View, ScrollView } from "react-native";
 import { globalStyles } from "@/components/UI/GlobalStyles";
 import { BackButtonNavigate } from "@/components/UI/BackButtonNavigate";
 import MachineInfoUI from "@/components/Pages/CHNI/Machines/MachineInfoUI";
-import DocInfoUI from "./components/DocInfoUI/DocInfoUI";
-import GetProductUI from "./components/GetProductUI";
 import { useEffect, useState, useRef } from "react";
 import ScanningUI from "./components/ScanningUI";
 import { useTranslate } from "@/hooks/useTranslate";
-import ScanningDocUI from "./components/ScanningDocUI";
 
 export default function MachinePage() {
   const { height: SCREEN_HEIGHT } = Dimensions.get("window");
@@ -76,12 +65,12 @@ export default function MachinePage() {
         extra={<BackButtonNavigate link="/chni" />}
       />
       <ScrollView
-        // style={{
-        //   overflow: "scroll",
-        //   flex: flex ? 1 : 6,
-        //   paddingBottom: flex,
-        //   height: flex ? SCREEN_HEIGHT : 1000,
-        // }}
+        style={{
+          overflow: "scroll",
+          flex: flex ? 1 : 6,
+          paddingBottom: flex,
+          height: flex ? SCREEN_HEIGHT : 1000,
+        }}
         showsVerticalScrollIndicator={false}
       >
         {machineId ? (

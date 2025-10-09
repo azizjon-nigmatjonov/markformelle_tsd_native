@@ -17,7 +17,7 @@ interface EnvConfig {
  */
 export const ENV: EnvConfig = {
   // Try to get from expo config first, then fallback to default
-  API_BASE_URL: "https://your-api-url.com/api",
+  API_BASE_URL: "http://10.40.14.193:8070",
 };
 
 // Validate required environment variables

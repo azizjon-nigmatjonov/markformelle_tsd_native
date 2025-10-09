@@ -24,11 +24,11 @@ const apiClient: AxiosInstance = axios.create({
 // Request interceptor - Add auth token to requests
 apiClient.interceptors.request.use(
   (config) => {
-    const { user_info } = useAuthStore.getState();
+    const { tokens } = useAuthStore.getState();
 
     // Add token to headers if available
-    if (user_info?.token) {
-      config.headers.Authorization = `Bearer ${user_info.token}`;
+    if (tokens?.access_token) {
+      config.headers.Authorization = `Bearer ${tokens.access_token}`;
     }
 
     // Log request in development
@@ -51,15 +51,6 @@ apiClient.interceptors.request.use(
 // Response interceptor - Handle responses and errors
 apiClient.interceptors.response.use(
   (response: AxiosResponse) => {
-    // Log response in development
-    if (__DEV__) {
-      console.log("✅ API Response:", {
-        status: response.status,
-        url: response.config.url,
-        data: response.data,
-      });
-    }
-
     return response;
   },
   (error: AxiosError) => {
@@ -79,7 +70,11 @@ apiClient.interceptors.response.use(
       // Handle specific status codes
       switch (status) {
         case 401:
-          // Unauthorized - clear auth and redirect to login
+          // Unauthorized - invalid or expired token
+          // Clear auth state (user will be redirected to login by auth guard in _layout.tsx)
+          console.warn(
+            "⚠️ Unauthorized: Token invalid or expired. Logging out..."
+          );
           useAuthStore.getState().clearAuth();
           break;
         case 403:

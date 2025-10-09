@@ -35,7 +35,7 @@
       "eas": {
         "projectId": "68b72fb6-bce4-4a48-a787-c833315fd5b2"
       },
-      "API_BASE_URL": "https://your-api-url.com/api"
+      "API_BASE_URL": "http://10.40.14.193:8070"
     }
   }
 }

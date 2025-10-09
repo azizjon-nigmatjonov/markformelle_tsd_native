@@ -6,6 +6,7 @@ import { StyleSheet, ViewStyle, TextStyle } from "react-native";
 import { useTheme } from "@/hooks/useTheme";
 import { LinearGradient } from "expo-linear-gradient";
 import { useTranslation } from "react-i18next";
+import { useSectionsStore } from "@/store/sections";
 
 interface Props {
   place?: string;
@@ -16,20 +17,26 @@ const HeaderUI = ({ place = "", extra }: Props) => {
   const { user_info } = useAuthStore();
   const { colors } = useTheme();
   const { t } = useTranslation();
+  const sections: any = useSectionsStore.getState().sections;
   return (
     <View style={styles.headerWrapper}>
       <LinearGradient
-        colors={["rgba(171, 7, 126, 1)", "rgba(142, 188, 238, 1)"]} // Set the gradient colors
-        start={{ x: 0, y: 0 }} // Starting point
-        end={{ x: 1, y: 1 }} // Ending point
-        style={styles.header} // Apply gradient as a style
+        colors={["rgba(171, 7, 126, 1)", "rgba(142, 188, 238, 1)"]}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+        style={styles.header}
       >
         <View style={styles.container}>
           <View style={styles.userInfo}>
-            <Text style={styles.userName}>{user_info?.name}</Text>
+            <Text style={styles.userName}>
+              {user_info?.fio?.substring(0, 23) + ".."}
+            </Text>
             <View style={styles.locationWrapper}>
               <Text style={styles.boldText}>
-                {t(user_info?.role + ".title")}
+                {t(
+                  sections[user_info?.podr_id as keyof typeof sections] +
+                    ".title"
+                )}
               </Text>
               {place ? (
                 <Text style={[styles.greyText, { color: colors.grey20 }]}>

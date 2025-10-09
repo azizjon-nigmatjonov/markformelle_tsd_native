@@ -7,88 +7,41 @@ import {
   StyleSheet,
   Pressable,
   Dimensions,
+  ActivityIndicator,
 } from "react-native";
 import { useForm, Controller } from "react-hook-form";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useAuthStore } from "../../store/auth";
 import { ThemedView } from "@/components/ThemedView";
 import { Button } from "react-native-paper";
 import { buttonStyle } from "@/components/UI/GlobalStyles";
 import CModal from "@/components/CElements/CModal";
 import SupportList from "./SupportList";
-import { useRouter } from "expo-router";
 import { globalColors } from "@/components/UI/Colors";
 import { useMobileStore } from "@/store/mobile";
-import { useToast } from "@/components/UI/ToastProvider";
+import { useLogin } from "@/hooks/useAuth";
 
 interface LoginData {
-  login: string;
+  qr_code: string;
 }
 
 const Login: React.FC = () => {
   const { height: SCREEN_HEIGHT } = Dimensions.get("window");
   const [openModal, setOpenModal] = useState(false);
-  const [errors, setErrors]: any = useState({});
   const [isFocused, setIsFocused] = useState(false);
-  const { control, handleSubmit } = useForm<LoginData>({
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginData>({
     mode: "onSubmit",
   });
-  const { setUserInfo } = useAuthStore();
   const { setPage } = useMobileStore();
-  const router: any = useRouter();
-  const toast = useToast();
 
-  const authdata = [
-    {
-      id: 1,
-      login: "112233",
-      name: "Azizjon",
-      token: "12345",
-      role: "knitting",
-    },
-    {
-      id: 2,
-      login: "66666",
-      name: "Azizilloxon",
-      token: "6565656",
-      role: "knitting",
-    },
-    {
-      id: 3,
-      login: "55555",
-      name: "Azizilloxon",
-      token: "55555",
-      role: "chni",
-    },
-  ];
+  const { mutate: login, isPending } = useLogin();
 
-  const onSubmit = async (data: LoginData) => {
-    const user = authdata.find((el) => el.login === data.login);
-
-    if (user?.token) {
-      try {
-        setUserInfo(user);
-        await AsyncStorage.setItem("user_info", JSON.stringify(user));
-
-        // Show success toast
-        toast.success("Добро пожаловать! 👋");
-
-        setPage("home");
-        setTimeout(() => {
-          router.push("/home");
-        }, 300);
-      } catch (error) {
-        toast.error("Произошла ошибка при входе. Попробуйте еще раз.");
-      }
-    } else {
-      // Show error toast
-      toast.error("Этот пользователь не определен! Попробуйте еще раз");
-      setErrors({
-        login: {
-          message: "Неверный пароль",
-        },
-      });
-    }
+  const onSubmit = (data: LoginData) => {
+    login({
+      qr_code: data.qr_code,
+    });
   };
 
   return (
@@ -105,7 +58,7 @@ const Login: React.FC = () => {
         </Text>
 
         <Controller
-          name="login"
+          name="qr_code"
           control={control}
           defaultValue=""
           render={({ field: { onChange, value } }) => (
@@ -113,7 +66,7 @@ const Login: React.FC = () => {
               <TextInput
                 style={[
                   styles.input,
-                  errors?.login && styles.errorInput,
+                  errors?.qr_code && styles.errorInput,
                   isFocused && styles.focusOutline,
                 ]}
                 placeholder="Введите ваш пароль, пожалуйста"
@@ -123,8 +76,8 @@ const Login: React.FC = () => {
                 onFocus={() => setIsFocused(true)}
                 onBlur={() => setIsFocused(false)}
               />
-              {errors?.login && (
-                <Text style={styles.errorText}>{errors.login?.message}</Text>
+              {errors?.qr_code && (
+                <Text style={styles.errorText}>{errors.qr_code?.message}</Text>
               )}
             </>
           )}
@@ -134,8 +87,10 @@ const Login: React.FC = () => {
           mode="contained"
           onPress={handleSubmit(onSubmit)}
           style={[buttonStyle.submit, styles.button]}
+          disabled={isPending}
+          loading={isPending}
         >
-          Войти
+          {isPending ? "Вход..." : "Войти"}
         </Button>
         <Pressable onPress={() => setOpenModal(true)}>
           <Text style={styles.forgotPassword}>Забыл пароль</Text>

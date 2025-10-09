@@ -10,7 +10,7 @@ import {
   Inter_800ExtraBold,
   Inter_900Black,
 } from "@expo-google-fonts/inter";
-import { Stack } from "expo-router";
+import { Stack, useRouter, useSegments } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import "react-native-reanimated";
@@ -23,7 +23,9 @@ import "@/i18n/config"; // Initialize i18n
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const { user_info, isAuthenticated } = useAuthStore();
+  const { tokens, isAuthenticated, clearAuth } = useAuthStore();
+  const segments = useSegments();
+  const router = useRouter();
   const [loaded] = useFonts({
     Inter_100Thin,
     Inter_200ExtraLight,
@@ -51,6 +53,25 @@ export default function RootLayout() {
     },
   };
 
+  // Auth guard - automatically logout users without valid token
+  useEffect(() => {
+    if (!loaded) return;
+
+    const inAuthGroup = segments[0] === "(login)";
+    const hasValidToken = tokens?.access_token && isAuthenticated;
+
+    // If user doesn't have a valid token and not in login screen
+    if (!hasValidToken && !inAuthGroup) {
+      // Clear auth state and redirect to login
+      clearAuth();
+      router.replace("/(login)");
+    }
+    // If user has valid token but is in login screen, redirect to home
+    else if (hasValidToken && inAuthGroup) {
+      router.replace("/home");
+    }
+  }, [loaded, tokens, isAuthenticated, segments]);
+
   useEffect(() => {
     if (loaded) {
       SplashScreen.hideAsync();
@@ -66,10 +87,8 @@ export default function RootLayout() {
       <PaperProvider theme={theme}>
         <ToastProvider maxToasts={3}>
           <Stack screenOptions={{ headerShown: false }}>
-            <Stack.Screen
-              name={isAuthenticated && user_info?.token ? "home" : "(login)"}
-              options={{ headerShown: false }}
-            />
+            <Stack.Screen name="(login)" options={{ headerShown: false }} />
+            <Stack.Screen name="home" options={{ headerShown: false }} />
             <Stack.Screen name="chni" options={{ headerShown: false }} />
             <Stack.Screen name="+not-found" />
           </Stack>

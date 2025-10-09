@@ -4,6 +4,7 @@
  */
 
 export * from "./auth.service";
+export * from "./machines.service";
 
 // Add more services as needed:
 // export * from './user.service';

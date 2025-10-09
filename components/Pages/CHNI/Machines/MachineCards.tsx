@@ -1,68 +1,22 @@
 import { View, StyleSheet, ScrollView } from "react-native";
 import CCard from "@/components/CElements/CCard/CCard";
+import { Machine } from "@/api/services/machines.service";
 
-const MachineCard = () => {
-  const list = [
-    {
-      id: 1,
-      machine_no: "101",
-      status: "В работе",
-      power: "230 носков / час",
-      doc_id: "1234567890",
-      machine_id: "1234567890",
-      created_at: "2021-01-01",
-      updated_at: "2021-01-01",
-      articul: "102C1310.co",
-      name: "НОСКИ ЖЕНСКИЕ",
-      article: "25369KY",
-      model: "369K-1676",
-      size: "23-25",
-      color: "св.серый меланж / рис.1676",
-      quantity: "1",
-      tableNumber: "",
-      planNumber: "",
-      masterNumber: "",
-      autoNumber: "",
-    },
-    {
-      id: 1,
-      machine_no: "101",
-      status: "В работе",
-      power: "230 носков / час",
-      doc_id: "1234567890",
-      machine_id: "1234567890",
-      created_at: "2021-01-01",
-      updated_at: "2021-01-01",
-      articul: "102C1310.co",
-      name: "НОСКИ ЖЕНСКИЕ",
-      article: "25369KY",
-      model: "369K-1676",
-      size: "23-25",
-      color: "св.серый меланж / рис.1676",
-      quantity: "1",
-      tableNumber: "",
-      planNumber: "",
-      masterNumber: "",
-      autoNumber: "",
-    },
-  ];
+interface MachineCardProps {
+  machines: any[];
+}
+
+const MachineCard = ({ machines = [] }: MachineCardProps) => {
+  // Map API data to the format expected by CCard
+
+  const list = machines;
 
   const headColumns = [
     { title: "Производительность", id: "power" },
     { title: "ID документа", id: "doc_id" },
-    { title: "ID машины", id: "machine_id" },
-    { title: "Дата создания", id: "created_at" },
-    { title: "Дата обновления", id: "updated_at" },
-    { title: "Наименование", id: "name" },
-    { title: "Артикул", id: "articul" },
-    { title: "Модель", id: "model" },
-    { title: "Размер", id: "size" },
-    { title: "Цвет / рисунок", id: "color" },
-    { title: "Кол. пар.", id: "quantity" },
-    { title: "Таб. №", id: "tableNumber" },
-    { title: "N план", id: "planNumber" },
-    { title: "N п/маст.", id: "masterNumber" },
-    { title: "N авт.", id: "autoNumber" },
+    { title: "ID машины", id: "ITEM_ID" },
+    { title: "Наименование", id: "NAIM" },
+    { title: "Модель", id: "USERV" },
   ];
 
   return (
@@ -71,7 +25,7 @@ const MachineCard = () => {
         <CCard
           key={`${item.id}-${index}`}
           headerInfo={{
-            title: `Машина №${item.machine_no}`,
+            title: `Машина №${item.ITEM_ID}`,
             badge: item.status,
           }}
           list={[item]}

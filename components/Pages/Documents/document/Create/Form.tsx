@@ -73,7 +73,7 @@ const DocumentCreateForm = () => {
               placeholder="Выбирать"
               required={true}
               label="Подраздиления"
-              defaultValue={user_info?.name}
+              defaultValue={user_info?.fio}
             />
           </View>
         </View>
