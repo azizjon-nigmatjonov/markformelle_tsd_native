@@ -68,6 +68,7 @@ const ProgressBar = ({
   );
 };
 
+
 const DocumentCard = ({ data = [] }: DocumentCardProps) => {
   const list = data;
 
@@ -87,7 +88,7 @@ const DocumentCard = ({ data = [] }: DocumentCardProps) => {
         <CCard
           key={`${item.id}-${index}`}
           headerInfo={{
-            title: `Документ №${item.order_info?.order_name}`,
+            title: `Документ ${item?.barcode}`,
           }}
           list={[
             {

@@ -4,6 +4,7 @@ import StatusUI from "@/app/chni/machines/components/StatusUI";
 import ScanningDocUI from "@/app/chni/machines/components/ScanningDocUI";
 import DocInfoUI from "@/app/chni/machines/components/DocInfoUI/DocInfoUI";
 import { useTheme } from "@/hooks/useTheme";
+import { useState } from "react";
 
 const MachineInfoUI = ({
   setCustomInputActions,
@@ -37,7 +38,7 @@ const MachineInfoUI = ({
   setMachineData: (val: any) => void;
 }) => {
   const { colors } = useTheme();
-
+  const [modalVisible, setModalVisible] = useState(false);
   return (
     <View>
       <View
@@ -62,7 +63,10 @@ const MachineInfoUI = ({
             setCustomInputActions={setCustomInputActions}
             customInputActions={customInputActions}
             openModal={openModal}
-            setOpenModal={setOpenModal}
+            setOpenModal={(v) => {
+              setOpenModal(v)
+              setModalVisible(v)
+            }}
           />
         </View>
         <StatusUI
@@ -86,6 +90,8 @@ const MachineInfoUI = ({
             setMachineData={setMachineData}
             setDocData={setDocData}
             machineData={machineData}
+            modalVisible={modalVisible}
+            setModalVisible={setModalVisible}
           />
         </View>
       ) : (

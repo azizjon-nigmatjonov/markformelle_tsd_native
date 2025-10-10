@@ -163,15 +163,15 @@ export const ScanningInput = ({
           clearFn();
         } else {
           if (machineId) {
-            if (text.length >= 7) {
-              documentSubmit(text);
+            if (newVal.length >= 7) {
+              documentSubmit(newVal);
             }
           } else {
             setAlertInfo({
               type: "error",
               title: t("chni.itsnot_machine_qr_code"),
             });
-            if (text.length >= 7) {
+            if (newVal.length >= 7) {
               clearFn();
             }
           }

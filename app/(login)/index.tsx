@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import {
   View,
   Text,
@@ -25,6 +25,9 @@ const Login: React.FC = () => {
   const { height: SCREEN_HEIGHT } = Dimensions.get("window");
   const [openModal, setOpenModal] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
+  const [isManualFocus, setIsManualFocus] = useState(false);
+  const inputRef = useRef<TextInput>(null);
+  const previousValueRef = useRef<string>("");
   const {
     control,
     handleSubmit,
@@ -36,11 +39,22 @@ const Login: React.FC = () => {
 
   const { mutate: login, isPending } = useLogin();
 
+  // Auto-focus every 1.5 seconds without opening keyboard
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (!isManualFocus && inputRef.current) {
+        inputRef.current.focus();
+      }
+    }, 1500);
+
+    return () => clearInterval(interval);
+  }, [isManualFocus]);
+
   const onSubmit = (data: LoginData) => {
     if (!data?.qr_code?.length) {
       return;
     }
-    console.log("Login attempt started");
+    
     const qr_code = data.qr_code.includes("USR")
       ? data.qr_code.substring(3)
       : data.qr_code;
@@ -59,35 +73,64 @@ const Login: React.FC = () => {
       />
       <View style={styles.form}>
         <Text style={styles.title}>
-          Добро пожаловать на{"\n"}
-          <Text style={styles.highlight}>универсальную платформу</Text>
+          Добро пожаловать в{"\n"}
+          <Text style={styles.highlight}> ТСД</Text>
         </Text>
 
         <Controller
           name="qr_code"
           control={control}
           defaultValue=""
-          render={({ field: { onChange, value } }) => (
-            <>
-              <TextInput
-                style={[
-                  styles.input,
-                  errors?.qr_code && styles.errorInput,
-                  isFocused && styles.focusOutline,
-                ]}
-                placeholder="Введите ваш пароль, пожалуйста"
-                keyboardType="numeric"
-                value={value}
-                onChangeText={onChange}
-                onFocus={() => setIsFocused(true)}
-                onBlur={() => setIsFocused(false)}
-                secureTextEntry={true}
-              />
-              {errors?.qr_code && (
-                <Text style={styles.errorText}>{errors.qr_code?.message}</Text>
-              )}
-            </>
-          )}
+          render={({ field: { onChange, value } }) => {
+            const handleTextChange = (newValue: string) => {
+              const previousValue = previousValueRef.current;
+              onChange(newValue);
+              
+              // Detect paste/scan: if more than 3 characters added at once, auto-submit
+              if (newValue.length > 0 && newValue.length - previousValue.length > 3) {
+                // This looks like a paste or scan, auto-submit
+                setTimeout(() => {
+                  handleSubmit(onSubmit)();
+                }, 100);
+              }
+              
+              previousValueRef.current = newValue;
+            };
+
+            return (
+              <>
+                <Pressable
+                  onPress={() => {
+                    setIsManualFocus(true);
+                    inputRef.current?.focus();
+                  }}
+                  style={{ width: "100%" }}
+                >
+                  <TextInput
+                    ref={inputRef}
+                    style={[
+                      styles.input,
+                      errors?.qr_code && styles.errorInput,
+                      isFocused && styles.focusOutline,
+                    ]}
+                    placeholder="Введите ваш пароль, пожалуйста"
+                    value={value}
+                    onChangeText={handleTextChange}
+                    onFocus={() => setIsFocused(true)}
+                    onBlur={() => {
+                      setIsFocused(false);
+                      setIsManualFocus(false);
+                    }}
+                    secureTextEntry={true}
+                    showSoftInputOnFocus={isManualFocus}
+                  />
+                </Pressable>
+                {errors?.qr_code && (
+                  <Text style={styles.errorText}>{errors.qr_code?.message}</Text>
+                )}
+              </>
+            );
+          }}
         />
 
         <Button
@@ -145,7 +188,6 @@ const styles = StyleSheet.create({
   },
   highlight: {
     color: "#4A90E2",
-    textTransform: "capitalize",
   },
   button: {
     marginTop: 10,

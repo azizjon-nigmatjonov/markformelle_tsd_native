@@ -16,7 +16,6 @@ const MachineCard = ({ machines = [] }: MachineCardProps) => {
     { title: "ID документа", id: "doc_id" },
     { title: "ID машины", id: "ITEM_ID" },
     { title: "Наименование", id: "NAIM" },
-    { title: "Модель", id: "USERV" },
   ];
 
   return (

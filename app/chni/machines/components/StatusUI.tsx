@@ -11,7 +11,6 @@ import { useTranslation } from "react-i18next";
 import { useMemo, useState } from "react";
 import { machinesService } from "@/api/services/machines.service";
 import { useAuthStore } from "@/store/auth";
-import { useToast } from "@/components/UI/ToastProvider";
 
 const statusList = [
   { key: "PRODUCING", color: globalColors.success },
@@ -33,7 +32,7 @@ const StatusUI = ({
   const { t } = useTranslation();
   const [modalVisible, setModalVisible] = useState(false);
   const { user_info } = useAuthStore();
-  const toast = useToast();
+
 
   const handleStatusChange = async (statusKey: string) => {
     setModalVisible(false);
@@ -45,7 +44,7 @@ const StatusUI = ({
       status: statusKey,
       start_time: new Date().toISOString(),
     });
-    toast.success("Статус успешно измененен!");
+    // toast.success("Статус успешно измененен!");
     setMachineData(res);
   };
 
@@ -83,7 +82,7 @@ const StatusUI = ({
                   key={statusItem.key}
                   style={[
                     styles.statusItem,
-                    status === statusItem.key && styles.selectedStatus,
+                    currentStatus.key === statusItem.key && styles.selectedStatus,
                   ]}
                   onPress={() => handleStatusChange(statusItem.key)}
                 >
@@ -96,12 +95,12 @@ const StatusUI = ({
                   <Text
                     style={[
                       styles.statusName,
-                      status === statusItem.key && styles.selectedStatusText,
+                      currentStatus.key === statusItem.key && styles.selectedStatusText,
                     ]}
                   >
                     {t(`common.${statusItem.key}`)}
                   </Text>
-                  {status === statusItem.key && (
+                  {currentStatus.key === statusItem.key && (
                     <Text style={styles.checkmark}>✓</Text>
                   )}
                 </TouchableOpacity>
