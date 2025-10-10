@@ -68,21 +68,21 @@ apiClient.interceptors.response.use(
 
         // Handle specific status codes
         switch (status) {
-          case 401:
-            // Unauthorized - invalid or expired token
-            // Clear auth state (user will be redirected to login by auth guard in _layout.tsx)
-            console.warn(
-              "⚠️ Unauthorized: Token invalid or expired. Logging out..."
-            );
-            try {
-              // Don't clear auth on login endpoint (avoid clearing during login attempt)
-              if (!error.config?.url?.includes("/auth/login")) {
-                useAuthStore.getState().clearAuth();
-              }
-            } catch (authError) {
-              console.error("Error clearing auth:", authError);
-            }
-            break;
+          // case 401:
+          //   // Unauthorized - invalid or expired token
+          //   // Clear auth state (user will be redirected to login by auth guard in _layout.tsx)
+          //   console.warn(
+          //     "⚠️ Unauthorized: Token invalid or expired. Logging out..."
+          //   );
+          //   try {
+          //     // Don't clear auth on login endpoint (avoid clearing during login attempt)
+          //     if (!error.config?.url?.includes("/auth/login")) {
+          //       useAuthStore.getState().clearAuth();
+          //     }
+          //   } catch (authError) {
+          //     console.error("Error clearing auth:", authError);
+          //   }
+          //   break;
           case 403:
             console.error("Access forbidden");
             break;

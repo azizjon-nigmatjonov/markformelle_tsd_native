@@ -13,7 +13,7 @@ export default function CHNIInstructionScreen() {
   return (
     <ThemedView style={{ height: SCREEN_HEIGHT }}>
       <HeaderUI place={t("navigation.instruction")} />
-      <View style={globalStyles.container}>
+      <View style={[globalStyles.container, { paddingTop: 50 }]}>
         <EmptyState
           icon={<InstructionEmptyIcon size={180} />}
           title={t("emptyState.instruction.title")}

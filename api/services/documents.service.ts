@@ -41,7 +41,7 @@ export const documentsService = {
    */
   getByDocId: async (docId: string): Promise<Document> => {
     const response: AxiosResponse<Document> = await api.get(
-      `/s_order_marsh_paper/barcode/${docId}`
+      `/s_order_marsh_paper/ean13/${docId}`
     );
     return response.data;
   },

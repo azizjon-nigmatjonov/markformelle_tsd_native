@@ -194,10 +194,14 @@ export const Toast: React.FC<ToastProps> = ({
           style={[
             styles.progressBar,
             {
-              width: opacityAnim.interpolate({
-                inputRange: [0, 1],
-                outputRange: ["0%", "100%"],
-              }),
+              transform: [
+                {
+                  scaleX: opacityAnim.interpolate({
+                    inputRange: [0, 1],
+                    outputRange: [0, 1],
+                  }),
+                },
+              ],
             },
           ]}
         />
@@ -222,8 +226,8 @@ const styles = StyleSheet.create({
     bottom: Platform.OS === "web" ? 20 : 50,
   },
   toast: {
-    width: width - 32,
-    maxWidth: 500,
+    maxWidth: width - 32,
+    minWidth: 280,
     minHeight: 70,
     borderRadius: 16,
     flexDirection: "row",
@@ -284,7 +288,9 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 0,
     left: 0,
+    right: 0,
     height: 3,
     backgroundColor: "rgba(255, 255, 255, 0.4)",
+    transformOrigin: "left",
   },
 });

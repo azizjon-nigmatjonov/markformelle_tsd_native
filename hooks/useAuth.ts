@@ -7,7 +7,6 @@ import { useMutation } from "@tanstack/react-query";
 import { useAuthStore } from "@/store/auth";
 import { authService, LoginCredentials, LoginResponse } from "@/api/services";
 import { useRouter } from "expo-router";
-import { useToast } from "@/components/UI/ToastProvider";
 import { useSectionsStore } from "@/store/sections";
 
 /**
@@ -16,16 +15,25 @@ import { useSectionsStore } from "@/store/sections";
 export const useLogin = () => {
   const { setAuth } = useAuthStore();
   const router = useRouter();
-  const toast = useToast();
+  // const toast = useToast();
 
   return useMutation<LoginResponse, Error, LoginCredentials>({
     mutationFn: async (credentials: LoginCredentials) => {
-      console.log("Login mutation started");
-      return await authService.login(credentials);
+      console.log("🔵 [DEBUG] Login mutation started");
+      console.log("🔵 [DEBUG] Credentials:", credentials);
+      try {
+        const result = await authService.login(credentials);
+        console.log("🔵 [DEBUG] Auth service returned:", result);
+        return result;
+      } catch (error) {
+        console.log("🔴 [DEBUG] Auth service error:", error);
+        throw error;
+      }
     },
     onSuccess: async (data) => {
       try {
-        console.log("Login successful, processing response");
+        console.log("🟢 [DEBUG] Login successful, processing response");
+        console.log("🟢 [DEBUG] Data received:", data);
 
         // Extract tokens
         const tokens = {
@@ -35,22 +43,41 @@ export const useLogin = () => {
           expires_in: data.expires_in,
         };
 
-        console.log("Saving auth to store");
         // Save to store (will auto-save to AsyncStorage via persist middleware)
+        try {
+          setAuth(data.user_info, tokens);
+          console.log("🟢 [DEBUG] Auth saved successfully to store");
+        } catch (storeError) {
+          console.log("🔴 [DEBUG] Error saving to store:", storeError);
+          throw storeError;
+        }
 
-        setAuth(data.user_info, tokens);
-        console.log("Auth saved successfully");
-
-        console.log("Showing success toast");
+        console.log("🟢 [DEBUG] Showing success toast");
         // Show success message (removed emoji for Android compatibility)
-
-        toast.success(`Добро пожаловать, ${data.user_info.fio}!`);
+        try {
+          // toast.success(`Добро пожаловать, ${data.user_info.fio}!`);
+          console.log("🟢 [DEBUG] Toast shown successfully");
+        } catch (toastError) {
+          console.log("🔴 [DEBUG] Error showing toast:", toastError);
+          throw toastError;
+        }
 
         // Navigate to home (you can add role-based navigation later)
         // get sections
-        const sections: any = useSectionsStore.getState().sections;
-        const podrId = data.user_info.podr_id;
-        console.log(`User podr_id: ${podrId}, Available sections:`, sections);
+        console.log("🟢 [DEBUG] Getting sections from store");
+        let sections: any;
+        let podrId: string;
+        try {
+          sections = useSectionsStore.getState().sections;
+          podrId = data.user_info.podr_id;
+          console.log(
+            `🟢 [DEBUG] User podr_id: ${podrId}, Available sections:`,
+            sections
+          );
+        } catch (sectionsError) {
+          console.log("🔴 [DEBUG] Error getting sections:", sectionsError);
+          throw sectionsError;
+        }
 
         // Use setTimeout to ensure navigation happens after state updates
         setTimeout(() => {
@@ -93,6 +120,47 @@ export const useLogin = () => {
         }, 150);
       }
     },
+    onError: (error: any) => {
+      try {
+        console.error("Login error:", error);
+
+        // Extract user-friendly error message
+        const errorMessage =
+          error?.response?.data?.message ||
+          error?.response?.data?.detail ||
+          error?.message ||
+          "Произошла ошибка при входе";
+
+        console.log("Showing error toast:", errorMessage);
+
+        // Try to show toast
+        try {
+          // toast.error(errorMessage);
+        } catch (toastError) {
+          console.error("Failed to show error toast:", toastError);
+          // Fallback to alert if toast fails
+          try {
+            alert(errorMessage);
+          } catch (alertError) {
+            console.error("Failed to show alert:", alertError);
+            // Ultimate fallback - just log to console
+            console.log("🔴 LOGIN ERROR:", errorMessage);
+          }
+        }
+      } catch (handlerError) {
+        console.error("Error in login error handler:", handlerError);
+        // Ultimate fallback
+        try {
+          // toast.error("Произошла ошибка при входе");
+        } catch {
+          try {
+            alert("Произошла ошибка при входе");
+          } catch {
+            console.error("All error notification methods failed");
+          }
+        }
+      }
+    },
   });
 };
 
@@ -102,7 +170,7 @@ export const useLogin = () => {
 export const useLogout = () => {
   const { clearAuth } = useAuthStore();
   const router = useRouter();
-  const toast = useToast();
+  // const toast = useToast();
 
   return useMutation({
     mutationFn: async () => {
@@ -121,7 +189,7 @@ export const useLogout = () => {
 
         // Show success message
         try {
-          toast.success("Вы вышли из системы");
+          // toast.success("Вы вышли из системы");
         } catch (toastError) {
           console.error("Failed to show logout toast:", toastError);
         }
@@ -157,9 +225,9 @@ export const useLogout = () => {
 
         // Show error toast
         try {
-          toast.error(
-            "Не удалось выйти из системы на сервере, но вы вышли локально"
-          );
+          // toast.error(
+          //   "Не удалось выйти из системы на сервере, но вы вышли локально"
+          // );
         } catch (toastError) {
           console.error("Failed to show error toast:", toastError);
         }

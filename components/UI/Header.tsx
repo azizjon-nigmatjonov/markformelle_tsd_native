@@ -28,6 +28,7 @@ const HeaderUI = ({ place = "", extra }: Props) => {
       >
         <View style={styles.container}>
           <View style={styles.userInfo}>
+            <Text style={styles.userName}>{user_info?.spec_naim}</Text>
             <Text style={styles.userName}>
               {user_info?.fio?.split(" ")[0] +
                 " " +
@@ -76,7 +77,7 @@ const styles = StyleSheet.create({
   } as ViewStyle,
   userName: {
     color: "white",
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: "500",
     letterSpacing: 0.5,
   } as TextStyle,

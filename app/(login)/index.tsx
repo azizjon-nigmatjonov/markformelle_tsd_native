@@ -15,7 +15,6 @@ import { buttonStyle } from "@/components/UI/GlobalStyles";
 import CModal from "@/components/CElements/CModal";
 import SupportList from "./SupportList";
 import { globalColors } from "@/components/UI/Colors";
-// import { useMobileStore } from "@/store/mobile";
 import { useLogin } from "@/hooks/useAuth";
 
 interface LoginData {
@@ -38,9 +37,12 @@ const Login: React.FC = () => {
   const { mutate: login, isPending } = useLogin();
 
   const onSubmit = (data: LoginData) => {
+    if (!data?.qr_code?.length) {
+      return;
+    }
     console.log("Login attempt started");
     const qr_code = data.qr_code.includes("USR")
-      ? data.qr_code.substring(4)
+      ? data.qr_code.substring(3)
       : data.qr_code;
 
     login({
@@ -79,6 +81,7 @@ const Login: React.FC = () => {
                 onChangeText={onChange}
                 onFocus={() => setIsFocused(true)}
                 onBlur={() => setIsFocused(false)}
+                secureTextEntry={true}
               />
               {errors?.qr_code && (
                 <Text style={styles.errorText}>{errors.qr_code?.message}</Text>
@@ -91,8 +94,6 @@ const Login: React.FC = () => {
           mode="contained"
           onPress={handleSubmit(onSubmit)}
           style={[buttonStyle.submit, styles.button]}
-          disabled={isPending}
-          loading={isPending}
         >
           {isPending ? "Вход..." : "Войти"}
         </Button>

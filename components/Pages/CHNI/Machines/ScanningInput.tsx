@@ -153,7 +153,7 @@ export const ScanningInput = ({
         }
       }
     } else {
-      if (text.length >= 7) {
+      if (text.length >= 13) {
         if (docId === text) {
           setAlertInfo({
             type: "info",
@@ -162,7 +162,7 @@ export const ScanningInput = ({
           clearFn();
         } else {
           if (machineId) {
-            if (text.length >= 7) {
+            if (text.length >= 13) {
               documentSubmit(text);
             }
           } else {
@@ -170,7 +170,7 @@ export const ScanningInput = ({
               type: "error",
               title: t("chni.itsnot_machine_qr_code"),
             });
-            if (text.length >= 7) {
+            if (text.length >= 13) {
               clearFn();
             }
           }
