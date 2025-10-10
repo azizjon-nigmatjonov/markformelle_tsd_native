@@ -24,14 +24,19 @@ const apiClient: AxiosInstance = axios.create({
 // Request interceptor - Add auth token to requests
 apiClient.interceptors.request.use(
   (config) => {
-    const { tokens } = useAuthStore.getState();
+    try {
+      const { tokens } = useAuthStore.getState();
 
-    // Add token to headers if available
-    if (tokens?.access_token) {
-      config.headers.Authorization = `Bearer ${tokens.access_token}`;
+      // Add token to headers if available
+      if (tokens?.access_token) {
+        config.headers.Authorization = `Bearer ${tokens.access_token}`;
+      }
+
+      return config;
+    } catch (error) {
+      console.error("❌ Request Interceptor Error:", error);
+      return config; // Continue with request even if token retrieval fails
     }
-
-    return config;
   },
   (error) => {
     console.error("❌ Request Error:", error);
@@ -44,46 +49,59 @@ apiClient.interceptors.response.use(
   (response: AxiosResponse) => {
     return response;
   },
-  (error: AxiosError) => {
-    // Handle different error types
-    if (error.response) {
-      // Server responded with error status
-      const status = error.response.status;
+  async (error: AxiosError) => {
+    try {
+      // Handle different error types
+      if (error.response) {
+        // Server responded with error status
+        const status = error.response.status;
 
-      if (__DEV__) {
-        console.error("❌ API Error:", {
-          status,
-          url: error.config?.url,
-          data: error.response.data,
-        });
-      }
+        // Only log detailed errors in development
+        const isDev = typeof __DEV__ !== "undefined" && __DEV__;
+        if (isDev) {
+          console.error("❌ API Error:", {
+            status,
+            url: error.config?.url,
+            data: error.response.data,
+          });
+        }
 
-      // Handle specific status codes
-      switch (status) {
-        case 401:
-          // Unauthorized - invalid or expired token
-          // Clear auth state (user will be redirected to login by auth guard in _layout.tsx)
-          console.warn(
-            "⚠️ Unauthorized: Token invalid or expired. Logging out..."
-          );
-          useAuthStore.getState().clearAuth();
-          break;
-        case 403:
-          console.error("Access forbidden");
-          break;
-        case 404:
-          console.error("Resource not found");
-          break;
-        case 500:
-          console.error("Server error");
-          break;
+        // Handle specific status codes
+        switch (status) {
+          case 401:
+            // Unauthorized - invalid or expired token
+            // Clear auth state (user will be redirected to login by auth guard in _layout.tsx)
+            console.warn(
+              "⚠️ Unauthorized: Token invalid or expired. Logging out..."
+            );
+            try {
+              // Don't clear auth on login endpoint (avoid clearing during login attempt)
+              if (!error.config?.url?.includes("/auth/login")) {
+                useAuthStore.getState().clearAuth();
+              }
+            } catch (authError) {
+              console.error("Error clearing auth:", authError);
+            }
+            break;
+          case 403:
+            console.error("Access forbidden");
+            break;
+          case 404:
+            console.error("Resource not found");
+            break;
+          case 500:
+            console.error("Server error");
+            break;
+        }
+      } else if (error.request) {
+        // Request made but no response
+        console.error("❌ Network Error:", error.message);
+      } else {
+        // Error in request setup
+        console.error("❌ Request Setup Error:", error.message);
       }
-    } else if (error.request) {
-      // Request made but no response
-      console.error("❌ Network Error:", error.message);
-    } else {
-      // Error in request setup
-      console.error("❌ Request Setup Error:", error.message);
+    } catch (handlerError) {
+      console.error("❌ Error in response interceptor:", handlerError);
     }
 
     return Promise.reject(error);

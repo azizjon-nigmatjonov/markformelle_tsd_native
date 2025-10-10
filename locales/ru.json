@@ -81,7 +81,7 @@
     "scan_document": "Документ не выбран, сканируйте штрих-код документа",
     "write_document": "Введите штрих-код документа",
     "write_machine": "Введите QR код машины",
-    "not_sellected_document": "Документ не выбран",
+    "not_sellected_document": "Документ не выбра  н",
     "itsnot_machine_qr_code": "Это не QR код машины, пожалуйста, сканируйте QR код машины!",
     "you_already_scanned_this_document": "Этот документ выбран",
     "you_already_scanned_this_machine": "Эта машина выбрана",

@@ -21,6 +21,7 @@ import { ToastProvider } from "@/components/UI/ToastProvider";
 import { QueryProvider } from "@/providers/QueryProvider";
 import "@/i18n/config"; // Initialize i18n
 import { useSectionsStore } from "@/store/sections";
+import ErrorBoundary from "@/components/ErrorBoundary";
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
@@ -81,17 +82,19 @@ export default function RootLayout() {
   }
 
   return (
-    <QueryProvider>
-      <PaperProvider theme={theme}>
-        <ToastProvider maxToasts={3}>
-          <Stack screenOptions={{ headerShown: false }}>
-            <Stack.Screen name="(login)" options={{ headerShown: false }} />
-            <Stack.Screen name="home" options={{ headerShown: false }} />
-            <Stack.Screen name="chni" options={{ headerShown: false }} />
-            <Stack.Screen name="+not-found" />
-          </Stack>
-        </ToastProvider>
-      </PaperProvider>
-    </QueryProvider>
+    <ErrorBoundary>
+      <QueryProvider>
+        <PaperProvider theme={theme}>
+          <ToastProvider maxToasts={3}>
+            <Stack screenOptions={{ headerShown: false }}>
+              <Stack.Screen name="(login)" options={{ headerShown: false }} />
+              <Stack.Screen name="home" options={{ headerShown: false }} />
+              <Stack.Screen name="chni" options={{ headerShown: false }} />
+              <Stack.Screen name="+not-found" />
+            </Stack>
+          </ToastProvider>
+        </PaperProvider>
+      </QueryProvider>
+    </ErrorBoundary>
   );
 }

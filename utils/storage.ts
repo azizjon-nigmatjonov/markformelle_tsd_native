@@ -18,9 +18,11 @@ export const crossPlatformStorage: StateStorage = {
         }
         return null; // SSR - no storage available
       }
-      return await AsyncStorage.getItem(name);
+      const value = await AsyncStorage.getItem(name);
+      console.log(`Storage getItem: ${name} = ${value ? "found" : "null"}`);
+      return value;
     } catch (error) {
-      console.error("Error getting item from storage:", error);
+      console.error(`Error getting item "${name}" from storage:`, error);
       return null;
     }
   },
@@ -33,9 +35,13 @@ export const crossPlatformStorage: StateStorage = {
         }
         return; // SSR - skip storage
       }
+      console.log(`Storage setItem: ${name}`);
       await AsyncStorage.setItem(name, value);
+      console.log(`Storage setItem successful: ${name}`);
     } catch (error) {
-      console.error("Error setting item in storage:", error);
+      console.error(`Error setting item "${name}" in storage:`, error);
+      // DON'T re-throw - let the app continue even if storage fails
+      // The auth state will still be in memory for the current session
     }
   },
   removeItem: async (name: string): Promise<void> => {
@@ -47,9 +53,10 @@ export const crossPlatformStorage: StateStorage = {
         }
         return; // SSR - skip storage
       }
+      console.log(`Storage removeItem: ${name}`);
       await AsyncStorage.removeItem(name);
     } catch (error) {
-      console.error("Error removing item from storage:", error);
+      console.error(`Error removing item "${name}" from storage:`, error);
     }
   },
 };

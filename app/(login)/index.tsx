@@ -38,9 +38,11 @@ const Login: React.FC = () => {
   const { mutate: login, isPending } = useLogin();
 
   const onSubmit = (data: LoginData) => {
-    const qr_code = data.qr_code.includes("user")
+    console.log("Login attempt started");
+    const qr_code = data.qr_code.includes("USR")
       ? data.qr_code.substring(4)
       : data.qr_code;
+
     login({
       qr_code: qr_code,
     });

@@ -13,19 +13,19 @@ const CHNIHome = () => {
       title: "Список документов",
       image: require("../../../assets/trash/list.png"),
       description: "Список ваших маршрутных листов",
-      link: "chni/documents",
+      link: "/chni/documents",
     },
     {
       title: "Список машин",
       image: require("../../../assets/trash/knitting-machine.png"),
       description: "Список ваших машин",
-      link: `chni/machines`,
+      link: `/chni/machines`,
     },
     {
       title: "Сканирование машины",
       image: require("../../../assets/icons/scan.png"),
       description: "Сканирование машины по штрих-коду",
-      link: `chni/machines/machine`,
+      link: `/chni/machines/machine`,
     },
   ];
 
