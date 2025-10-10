@@ -17,7 +17,7 @@ import "react-native-reanimated";
 import { PaperProvider, DefaultTheme } from "react-native-paper";
 import { useAuthStore } from "@/store/auth";
 import { globalColors } from "@/components/UI/Colors";
-import { ToastProvider } from "@/components/UI/ToastProvider";
+// import { ToastProvider } from "@/components/UI/ToastProvider";
 import { QueryProvider } from "@/providers/QueryProvider";
 import "@/i18n/config"; // Initialize i18n
 import { useSectionsStore } from "@/store/sections";
@@ -26,7 +26,6 @@ SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const { tokens, clearAuth } = useAuthStore();
-  console.log(tokens);
 
   const segments = useSegments();
   const router = useRouter();
@@ -85,14 +84,12 @@ export default function RootLayout() {
     <ErrorBoundary>
       <QueryProvider>
         <PaperProvider theme={theme}>
-          <ToastProvider maxToasts={3}>
-            <Stack screenOptions={{ headerShown: false }}>
-              <Stack.Screen name="(login)" options={{ headerShown: false }} />
-              <Stack.Screen name="home" options={{ headerShown: false }} />
-              <Stack.Screen name="chni" options={{ headerShown: false }} />
-              <Stack.Screen name="+not-found" />
-            </Stack>
-          </ToastProvider>
+          <Stack screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="(login)" options={{ headerShown: false }} />
+            <Stack.Screen name="home" options={{ headerShown: false }} />
+            <Stack.Screen name="chni" options={{ headerShown: false }} />
+            <Stack.Screen name="+not-found" />
+          </Stack>
         </PaperProvider>
       </QueryProvider>
     </ErrorBoundary>

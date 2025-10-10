@@ -48,6 +48,7 @@ export default function DocInfoUI({
         placeholder="Введите штрих-код"
         setMachineData={setMachineData}
         setDocData={setDocData}
+        machineData={machineData}
       />
 
       <CCard

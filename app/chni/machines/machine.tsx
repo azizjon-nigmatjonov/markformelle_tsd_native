@@ -110,6 +110,7 @@ export default function MachinePage() {
             machineId={machineId}
             setMachineData={setMachineData}
             setDocData={setDocData}
+            machineData={machineData}
           />
         )}
       </ScrollView>

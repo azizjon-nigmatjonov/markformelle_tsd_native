@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { View, TextInput, StyleSheet } from "react-native";
 import { useTranslate } from "@/hooks/useTranslate";
-import { useToast } from "@/components/UI/ToastProvider";
+// import { useToast } from "@/components/UI/ToastProvider";
 import { machinesService } from "@/api/services/machines.service";
 import { documentsService } from "@/api/services/documents.service";
 import { useAuthStore } from "@/store/auth";
@@ -17,7 +17,7 @@ interface Props {
   placeholder: string;
   setMachineData: (val: any) => void;
   setDocData: (val: unknown) => void;
-  machineData?: any;
+  machineData: any;
 }
 
 export const ScanningInput = ({
@@ -33,7 +33,7 @@ export const ScanningInput = ({
   setDocData = () => {},
   machineData = {},
 }: Props) => {
-  const toast = useToast();
+  // const toast = useToast();
   const t = useTranslate();
   const { user_info } = useAuthStore();
   const inputRef: any = useRef(null);
@@ -69,20 +69,20 @@ export const ScanningInput = ({
             title: t("chni.scan_document"),
           });
           setDocData({});
-          toast.success("Машина успешно скандирована");
+          // toast.success("Машина успешно скандирована");
         } catch (statusError) {
           setAlertInfo({
             type: "error",
             title: t("chni.machine_not_found"),
           });
           clearFn();
-          toast.error("Ошибка при загрузке данных машины");
+          // toast.error("Ошибка при загрузке данных машины");
         }
       } else {
         setMachineData(responseData);
         setMachineId(text);
         setAlertInfo({});
-        toast.success("Машина успешно скандирована");
+        // toast.success("Машина успешно скандирована");
         const responseDocData = await documentsService.getByMarshId(
           responseData.marsh_id
         );
@@ -95,8 +95,6 @@ export const ScanningInput = ({
         type: "error",
         title: t("chni.machine_not_found"),
       });
-      clearFn();
-      toast.error("Ошибка при загрузке данных машины");
     }
   };
 
@@ -118,14 +116,14 @@ export const ScanningInput = ({
           setAlertInfo({});
           setDocId(text);
           setDocData(docData);
-          toast.success("Маршрут успешно скандировален");
+          // toast.success("Маршрут успешно скандировален");
         } catch (statusError) {
           setAlertInfo({
             type: "error",
             title: t("chni.document_not_found"),
           });
           clearFn();
-          toast.error("Ошибка при загрузке данных документа");
+          // toast.error("Ошибка при загрузке данных документа");
         }
       }
     } catch (error) {
@@ -134,7 +132,7 @@ export const ScanningInput = ({
         title: t("chni.document_not_found"),
       });
       clearFn();
-      toast.error("Ошибка при загрузке данных документа");
+      // toast.error("Ошибка при загрузке данных документа");
     }
   };
 
@@ -153,8 +151,11 @@ export const ScanningInput = ({
         }
       }
     } else {
-      if (text.length >= 13) {
-        if (docId === text) {
+      if (text.length === 13) {
+        const newVal = text.substring(5, text.length - 1);
+        console.log("newVal", newVal);
+
+        if (docId === newVal) {
           setAlertInfo({
             type: "info",
             title: t("chni.you_already_scanned_this_document"),
@@ -162,7 +163,7 @@ export const ScanningInput = ({
           clearFn();
         } else {
           if (machineId) {
-            if (text.length >= 13) {
+            if (text.length >= 7) {
               documentSubmit(text);
             }
           } else {
@@ -170,7 +171,7 @@ export const ScanningInput = ({
               type: "error",
               title: t("chni.itsnot_machine_qr_code"),
             });
-            if (text.length >= 13) {
+            if (text.length >= 7) {
               clearFn();
             }
           }

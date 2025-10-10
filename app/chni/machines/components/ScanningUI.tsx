@@ -30,6 +30,7 @@ interface Props {
   machineId: string;
   setMachineData: (val: any) => void;
   setDocData: (val: unknown) => void;
+  machineData: any;
 }
 
 const ScanningUI = ({
@@ -44,6 +45,7 @@ const ScanningUI = ({
   machineId,
   setMachineData,
   setDocData,
+  machineData,
 }: Props) => {
   const { colors } = useTheme();
   const t = useTranslate();
@@ -136,6 +138,7 @@ const ScanningUI = ({
         placeholder="chni.write_machine"
         setMachineData={setMachineData}
         setDocData={setDocData}
+        machineData={machineData}
       />
 
       <View style={styles.scanContainer}>

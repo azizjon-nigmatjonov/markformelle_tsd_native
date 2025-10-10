@@ -10,10 +10,10 @@ import { Button } from "react-native-paper";
 import { useTranslation } from "react-i18next";
 import { buttonStyle } from "@/components/UI/GlobalStyles";
 import { globalColors } from "@/components/UI/Colors";
-import { useState, useRef, useEffect } from "react";
+// import { useState, useRef, useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
-import { useToast } from "@/components/UI/ToastProvider";
-import { useTranslate } from "@/hooks/useTranslate";
+// import { useToast } from "@/components/UI/ToastProvider";
+// import { useTranslate } from "@/hooks/useTranslate";
 import { documentsService } from "@/api/services/documents.service";
 import { machinesService } from "@/api/services/machines.service";
 import { useAuthStore } from "@/store/auth";
@@ -42,18 +42,17 @@ const GetProductUI = ({
   setMachineData,
 }: Props) => {
   const { t } = useTranslation();
-  const toast = useToast();
+  // const toast = useToast();
   const { user_info } = useAuthStore();
   const { control, handleSubmit, reset } = useForm<ProductFormData>({
     defaultValues: {
       quantity: "",
     },
   });
-  console.log("docData", docData);
 
   const onSubmit = async (data: ProductFormData) => {
     if (!data.quantity || parseInt(data.quantity) <= 0) {
-      toast.error("Пожалуйста, введите корректное количество");
+      // toast.error("Пожалуйста, введите корректное количество");
       return;
     }
 
@@ -70,12 +69,12 @@ const GetProductUI = ({
       });
       setMachineData(res);
       setDocData({});
-      toast.success(`Продукт успешно получен! Количество: ${data.quantity}`);
+      // toast.success(`Продукт успешно получен! Количество: ${data.quantity}`);
       clearFn();
       setModalVisible(false);
       reset();
     } catch (error) {
-      toast.error("Не удалось получить продукт. Попробуйте еще раз.");
+      // toast.error("Не удалось получить продукт. Попробуйте еще раз.");
     }
   };
 
