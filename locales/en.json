@@ -20,11 +20,11 @@
     "status": "Status",
     "quantity": "Quantity",
     "enter_quantity": "Enter quantity",
-    "working": "Working",
-    "stopped": "Stopped",
-    "no_connection": "No Connection",
-    "no_plan": "No Plan",
-    "no_fixing": "No Fixing",
+    "PRODUCING": "Working",
+    "MAINTENANCE": "Stopped",
+    "ERROR": "No Connection",
+    "BREAK": "No Plan",
+    "EMPTY": "No Fixing",
     "custom_actions": "Custom Actions"
   },
   "navigation": {
@@ -75,14 +75,15 @@
     "scanning_ready": "Ready to Scan",
     "scanning_instruction": "Point your camera at the machine barcode",
     "barcode_hint": "Machine Barcode",
-    "scan_machine": "Scan the machine QR code",
-    "scan_document": "Scan the document Barcode",
+    "scan_machine": "Machine not sellected, scan the machine QR code",
+    "scan_document": "Document not sellected, scan the document Barcode",
     "machine_not_sellected": "Machine not sellected",
     "machine_not_found": "Machine not found",
     "not_sellected_document": "Document not sellected",
     "itsnot_machine_qr_code": "This is not a machine QR code, please scan the machine QR code",
-    "you_already_scanned_this_document": "You already scanned this document",
-    "you_already_scanned_this_machine": "You already scanned this machine"
+    "you_already_scanned_this_document": "This document sellected",
+    "you_already_scanned_this_machine": "This machine sellected",
+    "document_not_found": "Document not found, please scan the document Barcode"
   },
   "knitting": {
     "title": "Knitting",

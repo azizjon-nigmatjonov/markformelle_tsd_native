@@ -20,14 +20,6 @@ export default function MachinePage() {
   const [customInputActions, setCustomInputActions] = useState<string[]>([]);
   const [openModal, setOpenModal] = useState(false);
   const [flex, setFlex] = useState(100);
-  useEffect(() => {
-    if (machineId) {
-      setAlertInfo({
-        type: "info",
-        title: t("chni.scan_document"),
-      });
-    }
-  }, [machineId]);
 
   useEffect(() => {
     if (openModal || customInputActions.includes("open")) {
@@ -47,8 +39,6 @@ export default function MachinePage() {
         type: "info",
         title: t("chni.scan_machine"),
       });
-    } else {
-      setAlertInfo({});
     }
   }, [machineId, docId]);
 
@@ -87,6 +77,7 @@ export default function MachinePage() {
             <AlertUI title={alertInfo.title} type={alertInfo.type}></AlertUI>
           </View>
         )}
+
         {machineId ? (
           <View style={[globalStyles.container, styles.content]}>
             <MachineInfoUI
@@ -118,6 +109,7 @@ export default function MachinePage() {
             setMachineId={setMachineId}
             machineId={machineId}
             setMachineData={setMachineData}
+            setDocData={setDocData}
           />
         )}
       </ScrollView>

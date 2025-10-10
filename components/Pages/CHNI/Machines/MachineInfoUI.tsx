@@ -1,13 +1,8 @@
-import { t } from "i18next";
 import { StyleSheet, View, Text } from "react-native";
-import { ClockIcon } from "@/components/UI/Icons";
 import { ModalBtn } from "../../Rolls/Components/ModalBtn";
 import StatusUI from "@/app/chni/machines/components/StatusUI";
 import ScanningDocUI from "@/app/chni/machines/components/ScanningDocUI";
 import DocInfoUI from "@/app/chni/machines/components/DocInfoUI/DocInfoUI";
-import GetProductUI from "@/app/chni/machines/components/GetProductUI";
-import { AlertUI } from "@/components/UI/Alert";
-import { useState } from "react";
 import { useTheme } from "@/hooks/useTheme";
 
 const MachineInfoUI = ({
@@ -42,6 +37,7 @@ const MachineInfoUI = ({
   setMachineData: (val: any) => void;
 }) => {
   const { colors } = useTheme();
+
   return (
     <View>
       <View
@@ -55,8 +51,12 @@ const MachineInfoUI = ({
       >
         <View style={styles.header}>
           <View style={styles.titleContainer}>
-            <Text style={styles.title}>{machineData.NUMBER_ID}</Text>
-            <Text style={styles.infoText}>{machineData.OBORUD_NAIM}</Text>
+            <Text style={styles.title}>
+              {machineData?.machine_info?.NUMBER_ID}
+            </Text>
+            <Text style={styles.infoText}>
+              {machineData?.machine_info?.OBORUD_NAIM}
+            </Text>
           </View>
           <ModalBtn
             setCustomInputActions={setCustomInputActions}
@@ -65,7 +65,11 @@ const MachineInfoUI = ({
             setOpenModal={setOpenModal}
           />
         </View>
-        <StatusUI />
+        <StatusUI
+          machineData={machineData}
+          docData={docData}
+          setMachineData={setMachineData}
+        />
       </View>
       {docId ? (
         <View>
@@ -81,6 +85,7 @@ const MachineInfoUI = ({
             docData={docData}
             setMachineData={setMachineData}
             setDocData={setDocData}
+            machineData={machineData}
           />
         </View>
       ) : (
@@ -94,6 +99,7 @@ const MachineInfoUI = ({
           openModal={openModal}
           setDocData={setDocData}
           setMachineData={setMachineData}
+          machineData={machineData}
         />
       )}
     </View>

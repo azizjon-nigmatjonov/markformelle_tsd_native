@@ -107,6 +107,15 @@ npm run ios
 npm run web
 ```
 
+# 1. Check TypeScript errors
+npx tsc --noEmit
+
+# 2. Run linter
+npm run lint
+
+# 3. Check project health
+npx expo-doctor
+
 ### Available Scripts
 
 - `npm start` - Start the Expo development server

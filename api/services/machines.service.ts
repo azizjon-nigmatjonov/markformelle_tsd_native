@@ -30,6 +30,17 @@ export interface CreateMachineData {
   location?: string;
 }
 
+export interface MachineStatusData {
+  machine_id?: number;
+  user_id?: string;
+  marsh_id?: number;
+  status: string;
+  start_time?: string;
+  end_time?: string;
+  notes?: string;
+  shift_id?: number;
+}
+
 /**
  * Machines Service
  */
@@ -57,7 +68,7 @@ export const machinesService = {
    */
   getSingle: async (machineId: string): Promise<Machine> => {
     const response: AxiosResponse<Machine> = await api.get(
-      `/s_oborud_podr/${machineId}`
+      `/s_machine_status/machine/${machineId}`
     );
     return response.data;
   },
@@ -89,6 +100,17 @@ export const machinesService = {
    */
   delete: async (id: number): Promise<void> => {
     await api.delete(`/s_oborud/${id}`);
+  },
+
+  /**
+   * Update machine status
+   */
+  updateMachineStatus: async (data: MachineStatusData): Promise<any> => {
+    const response: AxiosResponse<any> = await api.post(
+      "/s_machine_status/",
+      data
+    );
+    return response.data;
   },
 };
 

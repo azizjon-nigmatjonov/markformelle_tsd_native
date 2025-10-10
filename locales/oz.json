@@ -20,12 +20,12 @@
     "status": "Ҳолат",
     "quantity": "Миқдор",
     "enter_quantity": "Миқдорни киритинг",
-    "working": "Ишлайди",
-    "stopped": "Тўхтаган",
-    "no_connection": "Алоқа йўқ",
-    "no_plan": "Режа йўқ",
-    "no_fixing": "Созлаш йўқ",
-    "custom_actions": "Амаллар"
+    "PRODUCING": "Ишлайди",
+    "MAINTENANCE": "Тўхтаган",
+    "ERROR": "Алоқа йўқ",
+    "BREAK": "Режа йўқ",
+    "custom_actions": "Амаллар",
+    "EMPTY": "Созлаш йўқ"
   },
   "navigation": {
     "home": "Бош саҳифа",
@@ -75,13 +75,15 @@
     "scanning_ready": "Сканлашга тайёр",
     "scanning_instruction": "Камерани машина штрих-кодига йўналтиринг",
     "barcode_hint": "Машина штрих-коди",
-    "scan_machine": "Машинанинг QR кодни сканнерланг",
-    "scan_document": "Ҳужжатнинг штрих-кодини сканнерланг",
+    "scan_machine": "Машина танланмаган, машинанинг QR кодни сканнерланг",
+    "scan_document": "Ҳужжат танланмаган, ҳужжатнинг штрих-кодини сканнерланг",
     "machine_not_sellected": "Машина танланмаган",
     "machine_not_found": "Машина топилмаган",
     "not_sellected_document": "Ҳужжат танланмаган",
     "itsnot_machine_qr_code": "Буни машинанинг QR коди эмас, машинанинг QR кодини сканнерланг",
-    "you_already_scanned_this_document": "Сиз бу ҳужжатни олдиндан сканлагансиз"
+    "you_already_scanned_this_document": "Бу ҳужжат танланган",
+    "document_not_found": "Ҳужжат топилмаган, ҳужжатнинг штрих-кодини сканнерланг",
+    "you_already_scanned_this_machine": "Бу машина танланган"
   },
   "knitting": {
     "title": "Тўқимачилик",

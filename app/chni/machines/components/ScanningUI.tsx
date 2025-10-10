@@ -29,6 +29,7 @@ interface Props {
   setMachineId: (val: string) => void;
   machineId: string;
   setMachineData: (val: any) => void;
+  setDocData: (val: unknown) => void;
 }
 
 const ScanningUI = ({
@@ -42,6 +43,7 @@ const ScanningUI = ({
   setMachineId,
   machineId,
   setMachineData,
+  setDocData,
 }: Props) => {
   const { colors } = useTheme();
   const t = useTranslate();
@@ -113,7 +115,7 @@ const ScanningUI = ({
     <View style={[globalStyles.container, styles.content]}>
       <View style={styles.headerContainer}>
         <Text style={[styles.title, { color: colors.text }]}>
-          {t("chni.machine_not_sellected")}
+          {t("chni.machine")}
         </Text>
         <ModalBtn
           setCustomInputActions={setCustomInputActions}
@@ -133,6 +135,7 @@ const ScanningUI = ({
         stopFocus={openModal}
         placeholder="chni.write_machine"
         setMachineData={setMachineData}
+        setDocData={setDocData}
       />
 
       <View style={styles.scanContainer}>

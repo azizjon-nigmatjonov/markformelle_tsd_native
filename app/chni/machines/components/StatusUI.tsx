@@ -8,28 +8,53 @@ import {
 } from "react-native";
 import { globalColors } from "@/components/UI/Colors";
 import { useTranslation } from "react-i18next";
-import { useState } from "react";
+import { useMemo, useState } from "react";
+import { machinesService } from "@/api/services/machines.service";
+import { useAuthStore } from "@/store/auth";
+import { useToast } from "@/components/UI/ToastProvider";
 
 const statusList = [
-  { key: "working", color: globalColors.success },
-  { key: "stopped", color: "#FF6B6B" },
-  { key: "no_connection", color: "#FFA500" },
-  { key: "no_plan", color: "#9B59B6" },
-  { key: "no_fixing", color: "#E74C3C" },
+  { key: "PRODUCING", color: globalColors.success },
+  { key: "MAINTENANCE", color: "#FF6B6B" },
+  { key: "ERROR", color: "#FFA500" },
+  { key: "BREAK", color: "#9B59B6" },
+  { key: "EMPTY", color: "#E74C3C" },
 ];
 
-const StatusUI = () => {
+const StatusUI = ({
+  machineData = {},
+  docData = {},
+  setMachineData,
+}: {
+  machineData: any;
+  docData: any;
+  setMachineData: (val: any) => void;
+}) => {
   const { t } = useTranslation();
   const [modalVisible, setModalVisible] = useState(false);
-  const [status, setStatus] = useState("working");
+  const { user_info } = useAuthStore();
+  const toast = useToast();
 
-  const handleStatusChange = (statusKey: string) => {
-    setStatus(statusKey);
+  const handleStatusChange = async (statusKey: string) => {
     setModalVisible(false);
+
+    const res = await machinesService.updateMachineStatus({
+      machine_id: machineData.machine_id,
+      user_id: user_info?.item_id,
+      marsh_id: docData.marsh_id || null,
+      status: statusKey,
+      start_time: new Date().toISOString(),
+    });
+    toast.success("Статус успешно измененен!");
+    setMachineData(res);
   };
 
-  const currentStatus =
-    statusList.find((s) => s.key === status) || statusList[0];
+  const currentStatus = useMemo(() => {
+    return (
+      statusList.find((s) => s.key === machineData.status.replace(/\s/g, "")) ||
+      statusList[0]
+    );
+  }, [machineData.status]);
 
   return (
     <>
@@ -38,7 +63,9 @@ const StatusUI = () => {
         onPress={() => setModalVisible(true)}
       >
         <Text style={styles.buttonText}>{t("common.status")}:</Text>
-        <Text style={styles.buttonText}>{t(`common.${status}`)}</Text>
+        <Text style={styles.buttonText}>
+          {t(`common.${currentStatus.key}`)}
+        </Text>
       </TouchableOpacity>
 
       <Modal

@@ -31,15 +31,6 @@ apiClient.interceptors.request.use(
       config.headers.Authorization = `Bearer ${tokens.access_token}`;
     }
 
-    // Log request in development
-    if (__DEV__) {
-      console.log("🚀 API Request:", {
-        method: config.method?.toUpperCase(),
-        url: config.url,
-        data: config.data,
-      });
-    }
-
     return config;
   },
   (error) => {

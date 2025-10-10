@@ -20,11 +20,11 @@
     "status": "Статус",
     "quantity": "Количество",
     "enter_quantity": "Введите количество",
-    "working": "Работает",
-    "stopped": "Остановлено",
-    "no_connection": "Нет связи",
-    "no_plan": "Нет плана",
-    "no_fixing": "Нет настройки",
+    "PRODUCING": "Работает",
+    "MAINTENANCE": "Остановлено",
+    "ERROR": "Нет связи",
+    "BREAK": "Нет плана",
+    "EMPTY": "Нет настройки",
     "custom_actions": "Действия ручного"
   },
   "navigation": {
@@ -75,16 +75,17 @@
     "scanning_ready": "Готово к сканированию",
     "scanning_instruction": "Наведите камеру на штрих-код машины",
     "barcode_hint": "Штрих-код машины",
-    "scan_machine": "Сканируйте QR код машины",
+    "scan_machine": "Машина не выбрана, сканируйте QR код машины",
     "machine_not_sellected": "Машина не выбрано",
     "machine_not_found": "Машина не найдена",
-    "scan_document": "Сканируйте штрих-код документа",
+    "scan_document": "Документ не выбран, сканируйте штрих-код документа",
     "write_document": "Введите штрих-код документа",
     "write_machine": "Введите QR код машины",
     "not_sellected_document": "Документ не выбран",
     "itsnot_machine_qr_code": "Это не QR код машины, пожалуйста, сканируйте QR код машины!",
-    "you_already_scanned_this_document": "Вы уже сканировали этот документ",
-    "you_already_scanned_this_machine": "Вы уже сканировали эту машину"
+    "you_already_scanned_this_document": "Этот документ выбран",
+    "you_already_scanned_this_machine": "Эта машина выбрана",
+    "document_not_found": "Документ не найден, пожалуйста, сканируйте штрих-код документа"
   },
   "knitting": {
     "title": "Вязание",

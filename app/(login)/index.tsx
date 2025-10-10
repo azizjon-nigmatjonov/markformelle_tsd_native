@@ -7,7 +7,6 @@ import {
   StyleSheet,
   Pressable,
   Dimensions,
-  ActivityIndicator,
 } from "react-native";
 import { useForm, Controller } from "react-hook-form";
 import { ThemedView } from "@/components/ThemedView";
@@ -16,7 +15,7 @@ import { buttonStyle } from "@/components/UI/GlobalStyles";
 import CModal from "@/components/CElements/CModal";
 import SupportList from "./SupportList";
 import { globalColors } from "@/components/UI/Colors";
-import { useMobileStore } from "@/store/mobile";
+// import { useMobileStore } from "@/store/mobile";
 import { useLogin } from "@/hooks/useAuth";
 
 interface LoginData {
@@ -34,13 +33,16 @@ const Login: React.FC = () => {
   } = useForm<LoginData>({
     mode: "onSubmit",
   });
-  const { setPage } = useMobileStore();
+  // const { setPage } = useMobileStore();
 
   const { mutate: login, isPending } = useLogin();
 
   const onSubmit = (data: LoginData) => {
+    const qr_code = data.qr_code.includes("user")
+      ? data.qr_code.substring(4)
+      : data.qr_code;
     login({
-      qr_code: data.qr_code,
+      qr_code: qr_code,
     });
   };
 

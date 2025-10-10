@@ -23,6 +23,7 @@ interface Props {
   openModal: boolean;
   setDocData: (val: any) => void;
   setMachineData: (val: any) => void;
+  machineData: any;
 }
 
 const ScanningDocUI = ({
@@ -35,6 +36,7 @@ const ScanningDocUI = ({
   openModal,
   setDocData,
   setMachineData,
+  machineData,
 }: Props) => {
   const { colors } = useTheme();
   // Pulse animation for the outer circle
@@ -120,6 +122,7 @@ const ScanningDocUI = ({
         placeholder="chni.write_document"
         setDocData={setDocData}
         setMachineData={setMachineData}
+        machineData={machineData}
       />
 
       <View style={styles.scanContainer}>
@@ -177,7 +180,7 @@ const ScanningDocUI = ({
 
 const styles = StyleSheet.create({
   wrapper: {
-    marginTop: 20,
+    marginTop: 12,
     position: "relative",
     zIndex: 1,
   },

@@ -14,6 +14,9 @@ import { useState, useRef, useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { useToast } from "@/components/UI/ToastProvider";
 import { useTranslate } from "@/hooks/useTranslate";
+import { documentsService } from "@/api/services/documents.service";
+import { machinesService } from "@/api/services/machines.service";
+import { useAuthStore } from "@/store/auth";
 
 interface ProductFormData {
   quantity: string;
@@ -23,29 +26,50 @@ interface Props {
   modalVisible: boolean;
   setModalVisible: (val: boolean) => void;
   clearFn: () => void;
+  docData: any;
+  setDocData: (val: any) => void;
+  setMachineData: (val: any) => void;
+  machineData: any;
 }
 
-const GetProductUI = ({ modalVisible, setModalVisible, clearFn }: Props) => {
+const GetProductUI = ({
+  modalVisible,
+  setModalVisible,
+  clearFn,
+  docData,
+  setDocData,
+  machineData,
+  setMachineData,
+}: Props) => {
   const { t } = useTranslation();
   const toast = useToast();
-
+  const { user_info } = useAuthStore();
   const { control, handleSubmit, reset } = useForm<ProductFormData>({
     defaultValues: {
       quantity: "",
     },
   });
+  console.log("docData", docData);
 
-  const onSubmit = (data: ProductFormData) => {
+  const onSubmit = async (data: ProductFormData) => {
     if (!data.quantity || parseInt(data.quantity) <= 0) {
       toast.error("Пожалуйста, введите корректное количество");
       return;
     }
 
     try {
-      console.log("Product quantity:", data.quantity);
-      // Handle the form submission here
-
-      // Show success toast
+      await documentsService.submitOrderMarshPaper({
+        fact_qty: Number(data.quantity),
+        barcode: docData.barcode,
+      });
+      const res = await machinesService.updateMachineStatus({
+        machine_id: machineData.machine_id,
+        user_id: user_info?.item_id,
+        status: "EMPTY",
+        start_time: new Date().toISOString(),
+      });
+      setMachineData(res);
+      setDocData({});
       toast.success(`Продукт успешно получен! Количество: ${data.quantity}`);
       clearFn();
       setModalVisible(false);

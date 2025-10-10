@@ -20,10 +20,13 @@ import { globalColors } from "@/components/UI/Colors";
 import { ToastProvider } from "@/components/UI/ToastProvider";
 import { QueryProvider } from "@/providers/QueryProvider";
 import "@/i18n/config"; // Initialize i18n
+import { useSectionsStore } from "@/store/sections";
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const { tokens, isAuthenticated, clearAuth } = useAuthStore();
+  const { tokens, clearAuth } = useAuthStore();
+  console.log(tokens);
+
   const segments = useSegments();
   const router = useRouter();
   const [loaded] = useFonts({
@@ -58,19 +61,14 @@ export default function RootLayout() {
     if (!loaded) return;
 
     const inAuthGroup = segments[0] === "(login)";
-    const hasValidToken = tokens?.access_token && isAuthenticated;
-
+    const hasValidToken = tokens?.access_token;
     // If user doesn't have a valid token and not in login screen
     if (!hasValidToken && !inAuthGroup) {
       // Clear auth state and redirect to login
       clearAuth();
       router.replace("/(login)");
     }
-    // If user has valid token but is in login screen, redirect to home
-    else if (hasValidToken && inAuthGroup) {
-      router.replace("/home");
-    }
-  }, [loaded, tokens, isAuthenticated, segments]);
+  }, [loaded, tokens, segments]);
 
   useEffect(() => {
     if (loaded) {

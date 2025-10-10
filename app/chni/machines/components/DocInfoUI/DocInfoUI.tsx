@@ -1,9 +1,7 @@
 import { StyleSheet, View } from "react-native";
 import CCard from "@/components/CElements/CCard/CCard";
-import { t } from "i18next";
 import { useState } from "react";
 import { ScanningInput } from "@/components/Pages/CHNI/Machines/ScanningInput";
-import { AlertUI } from "@/components/UI/Alert";
 import GetProductUI from "../GetProductUI";
 
 interface Props {
@@ -18,6 +16,7 @@ interface Props {
   docData: any;
   setMachineData: (val: any) => void;
   setDocData: (val: any) => void;
+  machineData: any;
 }
 
 export default function DocInfoUI({
@@ -32,8 +31,10 @@ export default function DocInfoUI({
   docData,
   setMachineData,
   setDocData,
+  machineData,
 }: Props) {
   const [modalVisible, setModalVisible] = useState(false);
+
   return (
     <View style={styles.wrapper}>
       <ScanningInput
@@ -44,27 +45,25 @@ export default function DocInfoUI({
         setMachineId={setMachineId}
         machineId={machineId}
         stopFocus={openModal || modalVisible}
-        placeholder="Введите штрих-код документа"
+        placeholder="Введите штрих-код"
         setMachineData={setMachineData}
         setDocData={setDocData}
       />
 
       <CCard
         headerInfo={{
-          title: "Маршрутный лист №13955.004 от 03.06.2025",
+          title: `№${docData.order_info?.order_name} от ${
+            docData.order_info?.plan_start_time?.split("T")[0]
+          }`,
         }}
         list={[
           {
-            name: "НОСКИ ЖЕНСКИЕ",
-            article: "25369KY",
-            model: "369K-1676",
-            size: "23-25",
-            color: "св.серый меланж / рис.1676",
-            quantity: "1",
-            tableNumber: "",
-            planNumber: "",
-            masterNumber: "",
-            autoNumber: "",
+            name: docData.order_info?.product_name,
+            article: docData.order_info?.artikul,
+            model: docData.order_info?.model,
+            size: docData.order_info?.size,
+            color: docData.order_info?.color,
+            plan_qty: docData.order_info?.plan_qty,
           },
         ]}
         headColumns={[
@@ -73,17 +72,17 @@ export default function DocInfoUI({
           { title: "Модель", id: "model" },
           { title: "Размер", id: "size" },
           { title: "Цвет / рисунок", id: "color" },
-          { title: "Кол. пар.", id: "quantity" },
-          { title: "Таб. №", id: "tableNumber" },
-          { title: "N план", id: "planNumber" },
-          { title: "N п/маст.", id: "masterNumber" },
-          { title: "N авт.", id: "autoNumber" },
+          { title: "Пл. кол-во", id: "plan_qty" },
         ]}
         footerUI={
           <GetProductUI
             modalVisible={modalVisible}
             setModalVisible={setModalVisible}
             clearFn={() => clearFn()}
+            docData={docData}
+            setDocData={setDocData}
+            setMachineData={setMachineData}
+            machineData={machineData}
           />
         }
       />
