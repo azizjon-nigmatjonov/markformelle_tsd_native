@@ -13,8 +13,6 @@ const CHNIHome = () => {
   const router: any = useRouter();
   const queryClient = useQueryClient();
 
-  // Opportunistically prefetch data when home page loads
-  // This ensures data is ready before user even clicks
   useEffect(() => {
     // Prefetch documents
     queryClient.prefetchQuery({
@@ -23,7 +21,6 @@ const CHNIHome = () => {
       staleTime: 5 * 60 * 1000,
     });
 
-    // Prefetch machines
     queryClient.prefetchQuery({
       queryKey: machinesKeys.all,
       queryFn: () => machinesService.getAll(),
