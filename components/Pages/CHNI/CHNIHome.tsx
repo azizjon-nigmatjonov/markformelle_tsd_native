@@ -1,13 +1,36 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { View, StyleSheet } from "react-native";
 import { ListHeader } from "@/components/UI/ListHeader";
 import { ListTemplate } from "@/components/UI/ListTemplate";
 import { GridTemplate } from "@/components/UI/GridTemplate";
 import { useRouter } from "expo-router";
+import { useQueryClient } from "@tanstack/react-query";
+import { documentsService, machinesService } from "@/api/services";
+import { machinesKeys } from "@/hooks/useMachines";
 
 const CHNIHome = () => {
   const [gridType, setGridType] = useState("list");
   const router: any = useRouter();
+  const queryClient = useQueryClient();
+
+  // Opportunistically prefetch data when home page loads
+  // This ensures data is ready before user even clicks
+  useEffect(() => {
+    // Prefetch documents
+    queryClient.prefetchQuery({
+      queryKey: ["documents"],
+      queryFn: () => documentsService.getAll(),
+      staleTime: 5 * 60 * 1000,
+    });
+
+    // Prefetch machines
+    queryClient.prefetchQuery({
+      queryKey: machinesKeys.all,
+      queryFn: () => machinesService.getAll(),
+      staleTime: 5 * 60 * 1000,
+    });
+  }, [queryClient]);
+
   const CategoriesList = [
     {
       title: "Список документов",
@@ -29,7 +52,22 @@ const CHNIHome = () => {
     },
   ];
 
-  const handleNavigate = (link: string) => {
+  const handleNavigate = async (link: string) => {
+    // Prefetch data before navigation to prevent UI freeze
+    if (link === "/chni/documents") {
+      await queryClient.prefetchQuery({
+        queryKey: ["documents"],
+        queryFn: () => documentsService.getAll(),
+        staleTime: 5 * 60 * 1000,
+      });
+    } else if (link === "/chni/machines") {
+      await queryClient.prefetchQuery({
+        queryKey: machinesKeys.all,
+        queryFn: () => machinesService.getAll(),
+        staleTime: 5 * 60 * 1000,
+      });
+    }
+
     router.push(link);
   };
 

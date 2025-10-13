@@ -12,9 +12,9 @@
     "lint": "expo lint",
     "build:android": "eas build --platform android --profile preview",
     "build:ios": "eas build --platform ios --profile preview",
-    "build:apk:debug": "cd android && ./gradlew assembleDebug",
-    "build:apk:release": "cd android && ./gradlew assembleRelease",
-    "build:bundle:release": "cd android && ./gradlew bundleRelease"
+    "build:apk:debug": "cd android && gradlew assembleDebug",
+    "build:apk:release": "cd android && gradlew assembleRelease",
+    "build:bundle:release": "cd android && gradlew bundleRelease"
   },
   "jest": {
     "preset": "jest-expo"

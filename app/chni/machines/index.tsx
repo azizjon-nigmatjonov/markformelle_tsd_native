@@ -17,8 +17,7 @@ import { EmptyState } from "@/components/UI/EmptyState";
 export default function MachinesListPage() {
   const { height: SCREEN_HEIGHT } = Dimensions.get("window");
   const { data: machines, isLoading, error } = useMachines();
-  console.log('machines', machines);
-  
+
   return (
     <ThemedView style={{ height: SCREEN_HEIGHT }}>
       <HeaderUI

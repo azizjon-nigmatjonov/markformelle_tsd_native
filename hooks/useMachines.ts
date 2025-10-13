@@ -24,6 +24,8 @@ export const useMachines = () => {
   return useQuery({
     queryKey: machinesKeys.all,
     queryFn: () => machinesService.getAll(),
+    staleTime: 5 * 60 * 1000, // Data stays fresh for 5 minutes
+    gcTime: 10 * 60 * 1000, // Cache data for 10 minutes (formerly cacheTime)
   });
 };
 

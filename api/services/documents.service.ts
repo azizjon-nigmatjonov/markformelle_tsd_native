@@ -31,7 +31,7 @@ export const documentsService = {
    */
   getAll: async (): Promise<DocumentsResponse> => {
     const response: AxiosResponse<DocumentsResponse> = await api.get(
-      `/s_order_marsh_paper/`
+      `/s_order_marsh_paper/?limit=30&offset=0`
     );
     return response.data;
   },
