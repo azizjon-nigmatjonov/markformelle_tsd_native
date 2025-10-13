@@ -1,100 +1,100 @@
 # Markformelle TSD Native
 
-A cross-platform mobile application built with React Native and Expo for managing knitting machine operations, documents, and inventory tracking.
+Кроссплатформенное мобильное приложение, созданное с помощью React Native и Expo для управления операциями вязальных машин, документами и отслеживания инвентаря.
 
-## 📋 Overview
+## 📋 Обзор
 
-Markformelle TSD Native is a comprehensive production management application designed for textile manufacturing operations. The app provides features for managing knitting machines, creating and tracking production documents, handling material rolls, and maintaining inventory control systems.
+Markformelle TSD Native — это комплексное приложение для управления производством, предназначенное для текстильного производства. Приложение предоставляет функции для управления вязальными машинами, создания и отслеживания производственных документов, обработки рулонов материала и поддержания систем контроля инвентаря.
 
-## ✨ Key Features
+## ✨ Основные возможности
 
-- **Authentication System** - Secure login and user management
-- **Knitting Machine Management** - Monitor and control knitting operations
-- **Document Management** - Create, view, and manage production documents
-- **Roll Tracking** - Track material rolls through the production process
-- **Inventory Control (CHNI)** - Comprehensive inventory management system
-- **Multi-language Support** - Available in English, Russian, and Uzbek
-- **Dark/Light Mode** - Automatic theme switching based on system preferences
-- **Offline Support** - Data persistence with AsyncStorage
+- **Система аутентификации** - Безопасный вход и управление пользователями
+- **Управление вязальными машинами** - Мониторинг и контроль вязальных операций
+- **Управление документами** - Создание, просмотр и управление производственными документами
+- **Отслеживание рулонов** - Отслеживание рулонов материала в процессе производства
+- **Контроль инвентаря (CHNI)** - Комплексная система управления инвентарем
+- **Многоязычная поддержка** - Доступно на английском, русском и узбекском языках
+- **Темная/Светлая тема** - Автоматическое переключение темы в зависимости от системных настроек
+- **Оффлайн поддержка** - Сохранение данных с помощью AsyncStorage
 
-## 🛠️ Tech Stack
+## 🛠️ Технологический стек
 
-### Core Technologies
-- **React Native** (0.74.5) - Mobile app framework
-- **Expo** (^51.0.38) - Development and build platform
-- **TypeScript** (~5.3.3) - Type-safe development
-- **Expo Router** (^3.1.0) - File-based routing system
+### Основные технологии
+- **React Native** (0.74.5) - Фреймворк для мобильных приложений
+- **Expo** (^51.0.38) - Платформа разработки и сборки
+- **TypeScript** (~5.3.3) - Типобезопасная разработка
+- **Expo Router** (^3.1.0) - Система маршрутизации на основе файлов
 
-### UI & Styling
-- **React Native Paper** (^5.12.5) - Material Design components
-- **Expo Linear Gradient** (~13.0.2) - Gradient components
-- **React Native SVG** (^15.8.0) - SVG support
-- **React Native Reanimated** (~3.10.1) - Smooth animations
-- **Sass** (^1.80.6) - CSS preprocessing
+### UI и стилизация
+- **React Native Paper** (^5.12.5) - Компоненты Material Design
+- **Expo Linear Gradient** (~13.0.2) - Компоненты градиента
+- **React Native SVG** (^15.8.0) - Поддержка SVG
+- **React Native Reanimated** (~3.10.1) - Плавные анимации
+- **Sass** (^1.80.6) - Препроцессор CSS
 
-### State Management & Forms
-- **Zustand** (^5.0.0) - Lightweight state management
-- **React Hook Form** (^7.53.1) - Performant form handling
-- **Yup** (^1.4.0) - Schema validation
-- **@hookform/resolvers** (^3.9.0) - Form validation resolvers
+### Управление состоянием и формы
+- **Zustand** (^5.0.0) - Легковесное управление состоянием
+- **React Hook Form** (^7.53.1) - Производительная обработка форм
+- **Yup** (^1.4.0) - Валидация схем
+- **@hookform/resolvers** (^3.9.0) - Резолверы валидации форм
 
-### Navigation & Routing
-- **React Navigation** (^6.1.18) - Navigation infrastructure
-- **React Native Screens** (^3.31.1) - Native screen optimization
-- **React Native Safe Area Context** (^4.10.5) - Safe area handling
+### Навигация и маршрутизация
+- **React Navigation** (^6.1.18) - Инфраструктура навигации
+- **React Native Screens** (^3.31.1) - Оптимизация нативных экранов
+- **React Native Safe Area Context** (^4.10.5) - Обработка безопасной области
 
-### Data & Network
-- **Axios** (^1.7.7) - HTTP client
-- **AsyncStorage** (^2.0.0) - Local data persistence
+### Данные и сеть
+- **Axios** (^1.7.7) - HTTP клиент
+- **AsyncStorage** (^2.0.0) - Локальное хранение данных
 
-### Internationalization
-- **i18next** (^25.5.3) - Internationalization framework
-- **react-i18next** (^16.0.0) - React bindings for i18next
-- **expo-localization** (^17.0.7) - Device locale detection
+### Интернационализация
+- **i18next** (^25.5.3) - Фреймворк интернационализации
+- **react-i18next** (^16.0.0) - React привязки для i18next
+- **expo-localization** (^17.0.7) - Определение локали устройства
 
-### Development Tools
-- **Jest** (^29.2.1) - Testing framework
-- **TypeScript** - Static type checking
-- **Metro** (^0.81.0) - JavaScript bundler
-- **EAS CLI** - Expo Application Services for builds
+### Инструменты разработки
+- **Jest** (^29.2.1) - Фреймворк тестирования
+- **TypeScript** - Статическая проверка типов
+- **Metro** (^0.81.0) - JavaScript бандлер
+- **EAS CLI** - Expo Application Services для сборки
 
-## 📦 Prerequisites
+## 📦 Предварительные требования
 
-Before you begin, ensure you have the following installed:
+Перед началом работы убедитесь, что у вас установлено:
 
-- **Node.js** (v18 or higher)
-- **npm** or **yarn**
+- **Node.js** (v18 или выше)
+- **npm** или **yarn**
 - **Expo CLI** (`npm install -g expo-cli`)
-- **EAS CLI** (for building) (`npm install -g eas-cli`)
-- For iOS development: **Xcode** (macOS only)
-- For Android development: **Android Studio** and **Android SDK**
+- **EAS CLI** (для сборки) (`npm install -g eas-cli`)
+- Для разработки под iOS: **Xcode** (только macOS)
+- Для разработки под Android: **Android Studio** и **Android SDK**
 
-## 🚀 Getting Started
+## 🚀 Начало работы
 
-### Installation
+### Установка
 
-1. Clone the repository:
+1. Клонируйте репозиторий:
    ```bash
    git clone <repository-url>
    cd markformelle_tsd_native
    ```
 
-2. Install dependencies:
+2. Установите зависимости:
    ```bash
    npm install
    ```
 
-### Development
+### Разработка
 
-Start the development server:
+Запустите сервер разработки:
 
 ```bash
 npm start
-# or
+# или
 npx expo start
 ```
 
-Run on specific platforms:
+Запуск на конкретных платформах:
 
 ```bash
 # Android
@@ -107,118 +107,160 @@ npm run ios
 npm run web
 ```
 
-# 1. Check TypeScript errors
+# 1. Проверка ошибок TypeScript
 npx tsc --noEmit
 
-# 2. Run linter
+# 2. Запуск линтера
 npm run lint
 
-# 3. Check project health
+# 3. Проверка состояния проекта
 npx expo-doctor
 
-### Available Scripts
+### Доступные скрипты
 
-- `npm start` - Start the Expo development server
-- `npm run android` - Run on Android emulator/device
-- `npm run ios` - Run on iOS simulator/device
-- `npm run web` - Run in web browser
-- `npm test` - Run Jest tests
-- `npm run lint` - Run ESLint
-- `npm run build:android` - Build Android app with EAS
-- `npm run build:ios` - Build iOS app with EAS
+#### Разработка
+- `npm start` - Запуск сервера разработки Expo
+- `npm run android` - Запуск на Android эмуляторе/устройстве
+- `npm run ios` - Запуск на iOS симуляторе/устройстве
+- `npm run web` - Запуск в веб-браузере
 
-## 📁 Project Structure
+#### Тестирование и линтинг
+- `npm test` - Запуск тестов Jest
+- `npm run lint` - Запуск ESLint
+
+#### Сборка с EAS
+- `npm run build:android` - Сборка Android приложения с EAS
+- `npm run build:ios` - Сборка iOS приложения с EAS
+
+#### Локальная сборка APK
+- `npm run build:apk:debug` - Сборка debug APK (для тестирования)
+- `npm run build:apk:release` - Сборка release APK (для продакшена)
+- `npm run build:bundle:release` - Сборка release Bundle (AAB для Google Play)
+
+## 📁 Структура проекта
 
 ```
 markformelle_tsd_native/
-├── app/                          # Application screens (file-based routing)
-│   ├── (login)/                  # Authentication screens
-│   ├── home/                     # Main app screens
-│   └── _layout.tsx               # Root layout
-├── assets/                       # Static assets
-│   ├── fonts/                    # Custom fonts (Inter)
-│   └── images/                   # Images and icons
-├── components/                   # Reusable components
-│   ├── Pages/                    # Page-specific components
-│   │   ├── CHNI/                 # Inventory management
-│   │   ├── Documents/            # Document handling
-│   │   ├── Knitting/             # Knitting operations
-│   │   ├── Rolls/                # Roll tracking
-│   │   └── Settings/             # App settings
-│   ├── CElements/                # Custom UI elements
-│   ├── FormElements/             # Form components
-│   └── UI/                       # Common UI components
-├── store/                        # Zustand state management
-│   ├── auth/                     # Authentication state
-│   ├── docs/                     # Document state
-│   ├── list/                     # List state
-│   └── mobile/                   # Mobile-specific state
-├── hooks/                        # Custom React hooks
-├── i18n/                         # Internationalization config
-├── locales/                      # Translation files
-│   ├── en.json                   # English
-│   ├── ru.json                   # Russian
-│   └── oz.json                   # Uzbek
-├── utils/                        # Utility functions
-└── constants/                    # App constants
+├── app/                          # Экраны приложения (маршрутизация на основе файлов)
+│   ├── (login)/                  # Экраны аутентификации
+│   ├── home/                     # Основные экраны приложения
+│   └── _layout.tsx               # Корневой layout
+├── assets/                       # Статические ресурсы
+│   ├── fonts/                    # Пользовательские шрифты (Inter)
+│   └── images/                   # Изображения и иконки
+├── components/                   # Переиспользуемые компоненты
+│   ├── Pages/                    # Компоненты для конкретных страниц
+│   │   ├── CHNI/                 # Управление инвентарем
+│   │   ├── Documents/            # Обработка документов
+│   │   ├── Knitting/             # Операции вязания
+│   │   ├── Rolls/                # Отслеживание рулонов
+│   │   └── Settings/             # Настройки приложения
+│   ├── CElements/                # Пользовательские UI элементы
+│   ├── FormElements/             # Компоненты форм
+│   └── UI/                       # Общие UI компоненты
+├── store/                        # Управление состоянием Zustand
+│   ├── auth/                     # Состояние аутентификации
+│   ├── docs/                     # Состояние документов
+│   ├── list/                     # Состояние списков
+│   └── mobile/                   # Специфичное для мобильных состояние
+├── hooks/                        # Пользовательские React хуки
+├── i18n/                         # Конфигурация интернационализации
+├── locales/                      # Файлы переводов
+│   ├── en.json                   # Английский
+│   ├── ru.json                   # Русский
+│   └── oz.json                   # Узбекский
+├── utils/                        # Утилиты
+└── constants/                    # Константы приложения
 ```
 
-## 🌍 Internationalization
+## 🌍 Интернационализация
 
-The app supports three languages:
-- English (en)
-- Russian (ru)
-- Uzbek (oz)
+Приложение поддерживает три языка:
+- Английский (en)
+- Русский (ru)
+- Узбекский (oz)
 
-Translation files are located in the `locales/` directory. The app automatically detects the device locale and switches languages accordingly.
+Файлы переводов находятся в директории `locales/`. Приложение автоматически определяет локаль устройства и переключает языки соответственно.
 
-## 🎨 Theming
+## 🎨 Темизация
 
-The app supports both light and dark themes, which automatically switch based on system preferences. Theme configuration can be found in:
+Приложение поддерживает светлую и темную темы, которые автоматически переключаются в зависимости от системных настроек. Конфигурация темы находится в:
 - `constants/Colors.ts`
 - `components/UI/Colors.ts`
 
-## 📱 Building for Production
+## 📱 Сборка для производства
 
-### Android
+### Сборка через EAS (рекомендуется)
+
+#### Android
 
 ```bash
 npm run build:android
 ```
 
-### iOS
+#### iOS
 
 ```bash
 npm run build:ios
 ```
 
-Builds are configured in `eas.json` and managed through Expo Application Services (EAS).
+Сборки настроены в `eas.json` и управляются через Expo Application Services (EAS).
 
-## 🧪 Testing
+### Локальная сборка APK (Android)
 
-Run the test suite:
+Для локальной сборки APK без использования EAS:
+
+#### Debug APK (для тестирования)
+
+```bash
+npm run build:apk:debug
+```
+
+Готовый APK будет находиться в: `android/app/build/outputs/apk/debug/app-debug.apk`
+
+#### Release APK (для продакшена)
+
+```bash
+npm run build:apk:release
+```
+
+Готовый APK будет находиться в: `android/app/build/outputs/apk/release/app-release.apk`
+
+**Примечание:** Для release сборки необходимо настроить подписывание приложения в `android/app/build.gradle`
+
+#### Android App Bundle (для Google Play)
+
+```bash
+npm run build:bundle:release
+```
+
+Готовый AAB будет находиться в: `android/app/build/outputs/bundle/release/app-release.aab`
+
+## 🧪 Тестирование
+
+Запуск набора тестов:
 
 ```bash
 npm test
 ```
 
-The project uses Jest and React Test Renderer for unit and component testing.
+Проект использует Jest и React Test Renderer для модульного и компонентного тестирования.
 
-## 🔧 Configuration
+## 🔧 Конфигурация
 
-- **app.json** - Expo configuration
-- **eas.json** - EAS Build configuration
-- **babel.config.js** - Babel configuration
-- **metro.config.js** - Metro bundler configuration
-- **tsconfig.json** - TypeScript configuration
+- **app.json** - Конфигурация Expo
+- **eas.json** - Конфигурация EAS Build
+- **babel.config.js** - Конфигурация Babel
+- **metro.config.js** - Конфигурация бандлера Metro
+- **tsconfig.json** - Конфигурация TypeScript
 
-## 📄 License
+## 📄 Лицензия
 
-Private Project
+Частный проект
 
-## 👥 Contributing
+## 👥 Участие в разработке
 
-This is a private project. Contact the development team for contribution guidelines.
+Это частный проект. Свяжитесь с командой разработки для получения руководства по участию.
 
 ---
 
