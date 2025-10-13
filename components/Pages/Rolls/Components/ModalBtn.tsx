@@ -172,6 +172,8 @@ const styles = StyleSheet.create({
   switchContainer: {
     flexDirection: "row",
     alignItems: "center",
+    width: "100%",
+    height: "100%",
   },
   label: {
     paddingLeft: 10,
